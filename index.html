@@ -13,27 +13,178 @@
 
     <link rel="manifest" href="site.webmanifest" />
     <link rel="apple-touch-icon" href="icon.png" />
-    <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <meta name="theme-color" content="#0094cc" />
 
-    <meta name="theme-color" content="#fafafa" />
+    <style>
+      :root {
+        --white: #fff;
+        --black: #000;
+        --blue: #0094cc;
+        --mq: radial-gradient(
+            50% 50% at 100% 0%,
+            #724c52 0%,
+            rgba(114, 76, 82, 0) 100%
+          ),
+          radial-gradient(
+            50% 50% at 0% 0%,
+            #2e2018 0%,
+            rgba(46, 32, 24, 0) 100%
+          ),
+          radial-gradient(
+            41.12% 41.12% at 37.28% 31.69%,
+            #4c440e 0%,
+            rgba(76, 68, 14, 0) 100%
+          ),
+          radial-gradient(
+            42.98% 42.98% at 7.02% 92.98%,
+            #6f4c28 0%,
+            rgba(111, 76, 40, 0) 100%
+          ),
+          radial-gradient(
+            53.95% 53.95% at 86.51% 86.51%,
+            #6f3a29 0%,
+            rgba(111, 58, 41, 0) 100%
+          ),
+          #2d2017;
+        --wd: #fbc02d;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        font-size: 24px;
+        color: var(--black);
+        line-height: 1.2;
+      }
+
+      p + p {
+        margin-top: 1rem;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+
+      .block {
+        width: 50vw;
+        height: 50vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      .block-content {
+        padding: 4rem;
+      }
+
+      .logo,
+      .headshot {
+        height: 20vw;
+        width: 20vw;
+        border-radius: 20vw;
+        background-color: var(--white);
+        overflow: hidden;
+      }
+
+      .video {
+        height: calc(50vw / (560 / 315));
+        width: 50vw;
+      }
+
+      .link {
+        display: block;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: var(--white);
+        padding: 0.75rem;
+        border-radius: 0.75rem;
+        text-align: center;
+        margin-top: 1rem;
+      }
+    </style>
   </head>
 
   <body>
     <div class="container">
-      <div class="block">Block</div>
-      <div class="block">Block</div>
-      <div class="block">Block</div>
-      <div class="block">Block</div>
-      <div class="block">Block</div>
-      <div class="block">Block</div>
+      <div class="block block-content">
+        <div class="logo" style="background-color: var(--blue)"></div>
+        <h1>Experienced, no-nonsense freelance product designer for hire.</h1>
+      </div>
+      <div
+        class="block block-content"
+        style="background: var(--blue); color: var(--white)"
+      >
+        <div class="headshot">
+          <img src="img/headshot.png" width="100%" />
+        </div>
+        <div>
+          <p>
+            I got my start with startups, then spent six years at Meta designing
+            everything from internal HR products used by thousands of Meta
+            employees to millions of people with the Meta Quest app.
+          </p>
+          <p>
+            I love solving hard problems with good people. I am pragmatic, with
+            an open heart and mind. I sweat the small stuff so you don&amp;t
+            have to.
+          </p>
+        </div>
+      </div>
+      <div class="block" style="background: var(--mq); color: var(--white)">
+        <iframe
+          class="video"
+          src="https://www.youtube.com/embed/W3MjL7-RHSw?controls=0&modestbranding=1&rel=0"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          height="100%"
+          width="100%"
+        ></iframe>
+        <div class="block-content">
+          <p>
+            I worked within a large, complex organization to redesign the
+            companion app to Meta Quest VR headsets with a focus on core “people
+            problems.”
+          </p>
+          <a class="link">View case study</a>
+        </div>
+      </div>
+      <div class="block" style="background: var(--wd)">
+        <iframe
+          class="video"
+          src="https://www.youtube.com/embed/GoAHRfv6ToY?controls=0&modestbranding=1&rel=0"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          height="100%"
+          width="100%"
+        ></iframe>
+        <div class="block-content">
+          <p>
+            I helped jumpstart this volunteer-led community wildfire app by
+            designing branding and the UI as the organization’s first product
+            designer.
+          </p>
+          <a class="link">View case study</a>
+        </div>
+      </div>
+      <div class="block"><p>Got something interesting in mind?</p></div>
+      <div class="block"><p>andrewliebchen@gmail.com</p></div>
     </div>
-
-    <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
     <script>
