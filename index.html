@@ -52,11 +52,11 @@
 
       @keyframes rotate {
         from {
-          transform: translateX(-50vw);
+          transform: translateX(0);
         }
 
         to {
-          transform: translateX(0);
+          transform: translateX(-50vw);
         }
       }
 
@@ -74,6 +74,10 @@
         font-size: 24px;
         color: var(--black);
         line-height: 1.2;
+      }
+
+      a {
+        color: var(--blue);
       }
 
       p + p {
@@ -95,8 +99,22 @@
         position: relative;
       }
 
+      .block-half {
+        height: 25vw;
+      }
+
       .block-content {
         padding: 4rem;
+      }
+
+      .block-content-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .big {
+        font-size: 1.5rem;
       }
 
       .logo,
@@ -110,7 +128,7 @@
       }
 
       .logo-bg {
-        animation: rotate 6s linear infinite;
+        animation: rotate 10s linear reverse infinite;
       }
 
       .logo-wordmark {
@@ -134,6 +152,11 @@
         border-radius: 0.75rem;
         text-align: center;
         margin-top: 1rem;
+        text-decoration: none;
+      }
+
+      .link:hover {
+        background-color: rgba(0, 0, 0, 0.8);
       }
     </style>
   </head>
@@ -181,10 +204,15 @@
         <div class="block-content">
           <p>
             I worked within a large, complex organization to redesign the
-            companion app to Meta Quest VR headsets with a focus on core “people
-            problems.”
+            companion app to Meta Quest VR headsets with a focus on core people
+            problems.
           </p>
-          <a class="link">View case study</a>
+          <a
+            class="link"
+            href="https://www.notion.so/liebcorp/Meta-Quest-mobile-app-b813dd46b2764dad8ee8ee0c9a842e8a?pvs=4"
+            target="_blank"
+            >View case study</a
+          >
         </div>
       </div>
       <div class="block" style="background: var(--wd)">
@@ -204,11 +232,25 @@
             designing branding and the UI as the organization’s first product
             designer.
           </p>
-          <a class="link">View case study</a>
+          <a
+            class="link"
+            href="https://www.notion.so/liebcorp/Watch-Duty-8c32fef8f2d347988019d973bbacfa62?pvs=4"
+            target="_blank"
+            >View case study</a
+          >
         </div>
       </div>
-      <div class="block"><p>Got something interesting in mind?</p></div>
-      <div class="block"><p>andrewliebchen@gmail.com</p></div>
+      <div
+        class="block block-half block-content block-content-center"
+        style="background-color: var(--blue); color: var(--white)"
+      >
+        <p class="big">Got something interesting in mind?</p>
+      </div>
+      <div class="block block-half block-content block-content-center">
+        <a class="big" href="mailto:andrewliebchen@gmail.com&subject=Yo"
+          >andrewliebchen@gmail.com</a
+        >
+      </div>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
