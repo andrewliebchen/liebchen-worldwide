@@ -1,12 +1,11 @@
 {
-  "short_name": "",
-  "name": "",
-  "icons": [{
-    "src": "icon.png",
-    "type": "image/png",
-    "sizes": "192x192"
-  }],
+  "short_name": "Liebchen Worldwide",
+  "name": "Liebchen Worldwide: Experienced, no-nonsense freelance product designer for hire.",
+  "icons": [
+    { "src": "icon/icon@192w.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "icon/icon@512w.png", "type": "image/png", "sizes": "512x512" }
+  ],
   "start_url": "/?utm_source=homescreen",
-  "background_color": "#fafafa",
-  "theme_color": "#fafafa"
+  "background_color": "#ffffff",
+  "theme_color": "#0094cc"
 }
