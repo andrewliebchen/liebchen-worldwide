@@ -17,10 +17,10 @@ const theme = {
   },
   colors: {
     text: "#3C3FFF",
-    background: "#F5FBFF",
+    background: "#F5F5FF",
     primary: "#3C3FFF",
-    secondary: "#3C3FFF",
-    muted: "#f6f6f6",
+    secondary: "#F5FBFF",
+    muted: "#CCCDFF",
   },
   styles: {
     root: {

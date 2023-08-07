@@ -28,16 +28,28 @@ function IdeasSection() {
   };
 
   return (
-    <Flex p={6} sx={{ gap: 3, flexDirection: "column" }}>
-      <Heading as="h2">I bring ideas to life</Heading>
-      <Text>
-        As your fractional product designer, I plug seamlessly into your team to
-        drive the product development journey.
-      </Text>
+    <Flex
+      p={6}
+      sx={{
+        gap: 4,
+        flexDirection: "column",
+        bg: "primary",
+        color: "secondary",
+      }}
+    >
+      <Box>
+        <Heading as="h2" mb={4} sx={{ textTransform: "uppercase" }}>
+          I bring ideas to life
+        </Heading>
+        <Text>
+          As your fractional product designer, I plug seamlessly into your team
+          to drive the product development journey.
+        </Text>
+      </Box>
       <Grid columns="1fr 1fr" gap={3}>
-        <Box p={3}>
+        <Box p={5} sx={{ bg: "muted", color: "primary" }}>
           <Heading as="h4">{slides[counter].heading}</Heading>
-          <Text>{slides[counter].text}</Text>
+          <Text sx={{ fontSize: 4 }}>{slides[counter].text}</Text>
         </Box>
       </Grid>
       <a onClick={() => handleNextClick()}>Next</a>
