@@ -1,5 +1,6 @@
 import theme from "./theme";
 import { ThemeUIProvider, Box, Text, Heading } from "theme-ui";
+import IdeasSection from "./IdeasSection";
 
 function App() {
   return (
@@ -20,22 +21,7 @@ function App() {
         </Text>
       </Box>
 
-      <Box p={6}>
-        <Heading as="h2">I bring ideas to life</Heading>
-        <Text>
-          As your fractional product designer, I plug seamlessly into your team
-          to drive the product development journey.
-        </Text>
-        <Box>
-          <Box>
-            <Heading as="h4">Concept development</Heading>
-            <Text>
-              I'll work closely with your product team to crystallize your ideas
-              into achievable visions and actionable plans.
-            </Text>
-          </Box>
-        </Box>
-      </Box>
+      <IdeasSection />
 
       <Box p={6}>
         <Text>
