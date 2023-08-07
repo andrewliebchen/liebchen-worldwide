@@ -16,10 +16,10 @@ export default {
     heading: 1.125,
   },
   colors: {
-    text: "#000",
-    background: "#fff",
-    primary: "#07c",
-    secondary: "#30c",
+    text: "#3C3FFF",
+    background: "#F5FBFF",
+    primary: "#3C3FFF",
+    secondary: "#3C3FFF",
     muted: "#f6f6f6",
   },
   styles: {
@@ -27,6 +27,8 @@ export default {
       fontFamily: "body",
       lineHeight: "body",
       fontWeight: "body",
+      bg: "background",
+      fontSize: 5,
     },
     h1: {
       color: "text",
@@ -78,6 +80,7 @@ export default {
     },
     a: {
       color: "primary",
+      textDecoration: "underline",
     },
     pre: {
       fontFamily: "monospace",

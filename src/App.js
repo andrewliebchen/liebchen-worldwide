@@ -4,12 +4,13 @@ import { ThemeUIProvider, Box, Text, Heading } from "theme-ui";
 function App() {
   return (
     <ThemeUIProvider theme={theme}>
-      <Box>
+      <Box p={6}>
         <Heading as="h1">
           Full-scale Impact, For A Fraction of the Time.
         </Heading>
       </Box>
-      <Box>
+
+      <Box p={6}>
         <Heading as="h2">Say hello to your first designer</Heading>
         <Text>
           The early stages of a start-up are exciting and challenging. With an
@@ -17,15 +18,14 @@ function App() {
           who can wear multiple hats, deliver high-quality results, and add
           value beyond their immediate role.
         </Text>
-        >
       </Box>
-      <Box>
+
+      <Box p={6}>
         <Heading as="h2">I bring ideas to life</Heading>
         <Text>
           As your fractional product designer, I plug seamlessly into your team
           to drive the product development journey.
         </Text>
-        >
         <Box>
           <Box>
             <Heading as="h4">Concept development</Heading>
@@ -36,7 +36,8 @@ function App() {
           </Box>
         </Box>
       </Box>
-      <Box>
+
+      <Box p={6}>
         <Text>
           With over a decade of experience in crafting consumer, enterprise, and
           data-driven product experiences, from pre-money start-ups to giants
@@ -58,7 +59,8 @@ function App() {
           everything I do.
         </Text>
       </Box>
-      <Box>
+
+      <Box p={6}>
         <Heading as="h2">Case studies</Heading>
         <Text>
           Ready to make your start-up's product vision a reality? Reach out and
@@ -84,7 +86,8 @@ function App() {
           </Box>
         </Box>
       </Box>
-      <Box>
+
+      <Box p={6}>
         <Heading as="h2">Ready to get started?</Heading>
         <Text>
           Hit me up on email:
