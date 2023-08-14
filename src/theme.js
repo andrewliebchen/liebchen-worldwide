@@ -19,7 +19,7 @@ const theme = {
     text: "#3C3FFF",
     background: "#F5F5FF",
     primary: "#3C3FFF",
-    secondary: "#F5FBFF",
+    secondary: "#F5F5FF",
     muted: "#CCCDFF",
   },
   styles: {

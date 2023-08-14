@@ -60,7 +60,7 @@ function App() {
         </Grid>
       </Flex>
 
-      <Box p={6}>
+      <Box p={6} sx={{ bg: "primary", color: "secondary" }}>
         <Box pb={5}>
           <Heading as="h2" mb={4} sx={{ textTransform: "uppercase" }}>
             Case studies
