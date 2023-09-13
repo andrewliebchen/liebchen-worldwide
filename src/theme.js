@@ -16,11 +16,11 @@ const theme = {
     heading: 1.125,
   },
   colors: {
-    text: "#3C3FFF",
-    background: "#F5F5FF",
+    text: "#000",
+    background: "#FFF",
     primary: "#3C3FFF",
     secondary: "#F5F5FF",
-    muted: "#CCCDFF",
+    muted: "#F2F2F2",
   },
   styles: {
     root: {

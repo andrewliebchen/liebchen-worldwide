@@ -1,44 +1,61 @@
 import { Heading, Box, Flex, Text, Image } from "theme-ui";
 import Topper from "./images/BadgeTopper.svg";
 import { useEffect, useState } from "react";
+import Headshot from "./images/Headshot.png";
+import LogoMask from "./images/LogoMask.svg";
 
-const photoSize = "6.5rem";
+const settings = {
+  height: "15rem",
+  width: "10rem",
+  photoSize: "7rem",
+  top: "4rem",
+  right: "4rem",
+  hologramSize: "2.5rem",
+  transition: "500ms",
+};
+
+const checkScrollSpeed = (function (settings) {
+  settings = settings || {};
+
+  let lastPos,
+    newPos,
+    timer,
+    delta,
+    delay = 200; // in "ms" (higher means lower fidelity )
+
+  function clear() {
+    lastPos = null;
+    delta = 0;
+  }
+
+  clear();
+
+  return function () {
+    newPos = window.scrollY;
+    if (lastPos != null) {
+      delta = newPos - lastPos;
+    }
+    lastPos = newPos;
+    clearTimeout(timer);
+    timer = setTimeout(clear, delay);
+    return { delta: delta, newPos: newPos };
+  };
+})();
 
 function Badge() {
-  const [speed, setSpeed] = useState(0);
+  const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
-    var checkScrollSpeed = (function (settings) {
-      settings = settings || {};
-
-      var lastPos,
-        newPos,
-        timer,
-        delta,
-        delay = settings.delay || 50; // in "ms" (higher means lower fidelity )
-
-      function clear() {
-        lastPos = null;
-        delta = 0;
-      }
-
-      clear();
-
-      return function () {
-        newPos = window.scrollY;
-        if (lastPos != null) {
-          delta = newPos - lastPos;
-        }
-        lastPos = newPos;
-        clearTimeout(timer);
-        timer = setTimeout(clear, delay);
-        return delta;
-      };
-    })();
-
     // listen to "scroll" event
     window.onscroll = function () {
-      setSpeed(checkScrollSpeed());
+      // Calcuate rotate and store
+      const scrollSpeed = checkScrollSpeed();
+
+      if (scrollSpeed.newPos < 1) {
+        setRotation(-5);
+      } else {
+        setRotation(scrollSpeed.delta * -1);
+      }
     };
   }, []);
 
@@ -46,11 +63,11 @@ function Badge() {
     <Box
       sx={{
         position: "fixed",
-        right: "4rem",
-        top: "4rem",
-        transform: `rotate(${speed * 0.5 + 5}deg)`,
-        transition: "250ms",
-        transformOrigin: "top center",
+        right: settings.right,
+        top: settings.top,
+        transform: `rotate(${rotation}deg)`,
+        transition: settings.transition,
+        transformOrigin: "50% -20%",
         zIndex: 999,
       }}
     >
@@ -58,14 +75,21 @@ function Badge() {
         py={5}
         px={3}
         sx={{
-          width: "10rem",
-          height: "15rem",
+          width: settings.width,
+          height: settings.height,
           bg: "background",
           borderRadius: 20,
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "space-between",
-          border: "10px solid #CCCDFF",
+          border: "10px solid rgba(0, 0, 0, 0.1)",
+          boxShadow: `0px 8px 19px 0px rgba(0, 0, 0, 0.20), 
+                      0px 34px 34px 0px rgba(0, 0, 0, 0.17), 
+                      0px 76px 46px 0px rgba(0, 0, 0, 0.10), 
+                      0px 135px 54px 0px rgba(0, 0, 0, 0.03), 
+                      0px 211px 59px 0px rgba(0, 0, 0, 0.00), 
+                      0px 1px 4px 0px rgba(0, 0, 0, 0.1),
+                      0px -10px 20px 0px rgba(255, 255, 255, 1) inset`,
         }}
       >
         <Heading
@@ -78,18 +102,39 @@ function Badge() {
         <Text align="center" mt={1} sx={{ fontSize: 2 }}>
           Fractional Product Designer
         </Text>
-        <Box
+        <Image
+          src={Headshot}
           sx={{
             mt: 3,
-            width: photoSize,
-            height: photoSize,
-            bg: "primary",
-            borderRadius: photoSize,
+            size: settings.photoSize,
+            borderRadius: settings.photoSize,
             flex: "0 0 auto",
           }}
-        ></Box>
+        />
+        <Box
+          sx={{
+            mask: `url(${LogoMask})`,
+            position: "absolute",
+            bottom: "1rem",
+            right: "1rem",
+            size: settings.hologramSize,
+            borderRadius: settings.hologramSize,
+            transform: "rotate(5deg)",
+          }}
+        >
+          <Box
+            sx={{
+              background:
+                "conic-gradient(from 180deg at 50% 50%, rgba(255, 255, 255, 0.72) 16.875deg, #000 88.12500178813934deg, rgba(255, 255, 255, 0.72) 151.875deg, #000 225deg, rgba(255, 255, 255, 0.72) 288.7499928474426deg, #000 360deg), conic-gradient(from 180deg at 50% 50%, #FFF 30.00000089406967deg, #000 95.625deg, #FFF 168.75deg, #000 228.75000715255737deg, #FFF 285.0000071525574deg, #000 360deg), radial-gradient(92.48% 91.85% at 10.11% 28.24%, #FB876E 7.61%, #42FFD2 35.14%, #42D2FF 63.45%, #42A4FF 100%), url(https://grainy-gradients.vercel.app/noise.svg)",
+              backgroundBlendMode: "screen, difference, normal",
+              transform: `rotate(${rotation * -3}deg)`,
+              transition: settings.transition,
+              size: settings.hologramSize,
+            }}
+          />
+        </Box>
       </Flex>
-      <Image
+      {/* <Image
         src={Topper}
         sx={{
           position: "absolute",
@@ -97,7 +142,7 @@ function Badge() {
           left: "50%",
           transform: "translate3d(-50%, -100%, 0)",
         }}
-      />
+      /> */}
     </Box>
   );
 }
