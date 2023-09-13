@@ -1,16 +1,57 @@
 import { Heading, Box, Flex, Text, Image } from "theme-ui";
 import Topper from "./images/BadgeTopper.svg";
+import { useEffect, useState } from "react";
 
 const photoSize = "6.5rem";
 
 function Badge() {
+  const [speed, setSpeed] = useState(0);
+
+  useEffect(() => {
+    var checkScrollSpeed = (function (settings) {
+      settings = settings || {};
+
+      var lastPos,
+        newPos,
+        timer,
+        delta,
+        delay = settings.delay || 50; // in "ms" (higher means lower fidelity )
+
+      function clear() {
+        lastPos = null;
+        delta = 0;
+      }
+
+      clear();
+
+      return function () {
+        newPos = window.scrollY;
+        if (lastPos != null) {
+          delta = newPos - lastPos;
+        }
+        lastPos = newPos;
+        clearTimeout(timer);
+        timer = setTimeout(clear, delay);
+        return delta;
+      };
+    })();
+
+    // listen to "scroll" event
+    window.onscroll = function () {
+      setSpeed(checkScrollSpeed());
+    };
+  }, []);
+
   return (
     <Box
       sx={{
         position: "fixed",
         right: "4rem",
         top: "4rem",
-        transform: "rotate(15deg)",
+        transform: `rotate(${speed * 0.5 + 5}deg)`,
+        transition: "250ms",
+        transformOrigin: "top center",
+        zIndex: 999,
       }}
     >
       <Flex
