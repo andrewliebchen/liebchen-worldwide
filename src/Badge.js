@@ -6,8 +6,8 @@ import LogoMask from "./images/LogoMask.svg";
 
 const settings = {
   height: "15rem",
-  width: "10rem",
-  photoSize: "7rem",
+  width: "10.5rem",
+  photoSize: "7.5rem",
   top: "4rem",
   right: "4rem",
   hologramSize: "2.5rem",
@@ -72,11 +72,12 @@ function Badge() {
       }}
     >
       <Flex
-        py={5}
-        px={3}
         sx={{
           width: settings.width,
           height: settings.height,
+          p: 3,
+          pt: 5,
+          pb: 5,
           bg: "background",
           borderRadius: 20,
           flexDirection: "column",
@@ -92,20 +93,17 @@ function Badge() {
                       0px -10px 20px 0px rgba(255, 255, 255, 1) inset`,
         }}
       >
-        <Heading
-          as="h2"
-          align="center"
-          sx={{ fontSize: 5, textTransform: "uppercase", fontWeight: 500 }}
-        >
-          Andrew Liebchen
-        </Heading>
-        <Text align="center" mt={1} sx={{ fontSize: 2 }}>
-          Fractional Product Designer
-        </Text>
+        <Flex sx={{ flexDirection: "column", gap: 2 }}>
+          <Heading as="h2" align="center" sx={{ fontSize: 5, fontWeight: 500 }}>
+            Andrew Liebchen
+          </Heading>
+          <Text align="center" sx={{ fontSize: 2 }}>
+            Fractional Product Designer
+          </Text>
+        </Flex>
         <Image
           src={Headshot}
           sx={{
-            mt: 3,
             size: settings.photoSize,
             borderRadius: settings.photoSize,
             flex: "0 0 auto",
@@ -115,8 +113,8 @@ function Badge() {
           sx={{
             mask: `url(${LogoMask})`,
             position: "absolute",
-            bottom: "1rem",
-            right: "1rem",
+            bottom: "1.25rem",
+            right: "1.25rem",
             size: settings.hologramSize,
             borderRadius: settings.hologramSize,
             transform: "rotate(5deg)",
@@ -134,7 +132,7 @@ function Badge() {
           />
         </Box>
       </Flex>
-      {/* <Image
+      <Image
         src={Topper}
         sx={{
           position: "absolute",
@@ -142,7 +140,7 @@ function Badge() {
           left: "50%",
           transform: "translate3d(-50%, -100%, 0)",
         }}
-      /> */}
+      />
     </Box>
   );
 }
