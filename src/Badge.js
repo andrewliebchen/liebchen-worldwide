@@ -8,7 +8,7 @@ function Badge() {
     <Box
       sx={{
         position: "fixed",
-        right: "2rem",
+        right: "4rem",
         top: "4rem",
         transform: "rotate(15deg)",
       }}
