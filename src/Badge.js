@@ -54,7 +54,7 @@ function Badge() {
       if (scrollSpeed.newPos < 1) {
         setRotation(-5);
       } else {
-        setRotation(scrollSpeed.delta * -1);
+        setRotation(scrollSpeed.delta);
       }
     };
   }, []);
