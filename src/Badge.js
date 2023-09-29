@@ -9,7 +9,7 @@ const settings = {
   width: "10.5rem",
   photoSize: "7.5rem",
   top: "4rem",
-  right: "4rem",
+  right: "2rem",
   hologramSize: "2.5rem",
   transition: "500ms",
 };
