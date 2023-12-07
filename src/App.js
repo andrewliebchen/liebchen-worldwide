@@ -1,5 +1,5 @@
 import theme from "./theme";
-import { ThemeUIProvider, Box, Text, Heading, Grid, Flex } from "theme-ui";
+import { ThemeUIProvider, Box, Text, Heading, Flex } from "theme-ui";
 import YouTube from "react-youtube";
 import Badge from "./Badge";
 

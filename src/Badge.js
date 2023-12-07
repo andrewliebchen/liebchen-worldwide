@@ -1,4 +1,4 @@
-import { Heading, Box, Flex, Text, Image } from "theme-ui";
+import { Box, Flex, Text, Image } from "theme-ui";
 import Topper from "./images/BadgeTopper.svg";
 import { useEffect, useState } from "react";
 import Headshot from "./images/Headshot.png";
@@ -42,12 +42,12 @@ const checkScrollSpeed = (function (settings) {
   };
 })();
 
-const rotatePoint = (x, y, angle) => {
+const rotatePoints = (x, y, angle) => {
   // Thanks ChatGPT! https://chat.openai.com/share/09aceffc-18c2-4ea2-ab2b-4c337a093a6d
-  var radians = (angle * Math.PI) / 180;
+  var radians = (-angle * Math.PI) / 180;
   var xPrime = x * Math.cos(radians) - y * Math.sin(radians);
   var yPrime = x * Math.sin(radians) + y * Math.cos(radians);
-  return { x: xPrime, y: yPrime };
+  return `${xPrime}px ${yPrime}px`;
 };
 
 function Badge() {
@@ -74,9 +74,6 @@ function Badge() {
       }
     };
   }, []);
-
-  console.log(rotation);
-  console.log(rotatePoint(0, 8, rotation));
 
   return (
     <Box
@@ -105,13 +102,11 @@ function Badge() {
           alignItems: "center",
           justifyContent: "space-between",
           border: "10px solid rgba(51, 54, 255, 0.8)",
-          boxShadow: `0px 8px 19px 0px rgba(0, 0, 0, 0.20), 
-                      0px 34px 34px 0px rgba(0, 0, 0, 0.17), 
-                      0px 76px 46px 0px rgba(0, 0, 0, 0.10), 
-                      0px 135px 54px 0px rgba(0, 0, 0, 0.03), 
-                      0px 211px 59px 0px rgba(0, 0, 0, 0.00), 
-                      0px 1px 4px 0px rgba(0, 0, 0, 0.1),
-                      0px -10px 20px 0px rgba(255, 255, 255, 1) inset`,
+          boxShadow: `${rotatePoints(
+            0,
+            20,
+            rotation
+          )} 19px 0px rgba(0, 0, 0, 0.2), 0px -10px 20px 0px rgba(255, 255, 255, 1) inset`,
         }}
       >
         <Flex sx={{ flexDirection: "column" }}>
