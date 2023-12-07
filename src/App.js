@@ -1,6 +1,5 @@
 import theme from "./theme";
 import { ThemeUIProvider, Box, Text, Heading, Grid, Flex } from "theme-ui";
-import IdeasSection from "./IdeasSection";
 import YouTube from "react-youtube";
 import Badge from "./Badge";
 
@@ -9,7 +8,7 @@ function App() {
     <ThemeUIProvider theme={theme}>
       <Flex sx={{ maxWidth: "50vw", m: 6, flexDirection: "column", gap: 5 }}>
         <Box>
-          <Heading as="h1" mb={3}>
+          <Heading as="h1" sx={{ mb: 3, fontSize: 8 }}>
             Hi there, startup founder!
           </Heading>
           <Text>
@@ -20,7 +19,9 @@ function App() {
           </Text>
         </Box>
         <Box>
-          <Heading as="h2">That’s where I come in!</Heading>
+          <Heading as="h2" mb={3}>
+            That’s where I come in!
+          </Heading>
           <Text>
             I've spent more than a decade designing stellar products for
             companies ranging from bootstrapped startups to giants like Meta.
@@ -32,10 +33,12 @@ function App() {
             of equity makes us partners—your success is my success.
           </Text>
         </Box>
-        <Flex sx={{ flexDirection: "column", gap: 3 }}>
+        <Flex sx={{ flexDirection: "column", gap: 4 }}>
           <Heading as="h2">What I bring to the table</Heading>
           <Box>
-            <Heading as="h3">Full-stack product design</Heading>
+            <Text as="h3" sx={{ fontWeight: "bold" }}>
+              I'm a full-stack product designer
+            </Text>
             <Text>
               With a background in architecture and front-end development, I
               don't just design; I bring ideas to life. From concept to code,
@@ -43,26 +46,33 @@ function App() {
             </Text>
           </Box>
           <Box>
-            <Heading as="h3">Collaboration at its finest</Heading>
+            <Text as="h3" sx={{ fontWeight: "bold" }}>
+              Collaboration is core to how I work
+            </Text>
             <Text>
-              I don't work in a silo. I team up with your product managers,
-              engineers, and stakeholders. I love solving hard problems with
-              good people, and I bring an open heart and open mind to everything
-              I do.
+              I don't work in a silo. I team up with your engineers, product
+              managers, and stakeholders. Solving hard problems is hard, so I
+              bring an open heart and open mind to every meeting and mockup.
             </Text>
           </Box>
           <Box>
-            <Heading as="h3">Attention to detail</Heading>
+            <Text as="h3" sx={{ fontWeight: "bold" }}>
+              I care about people
+            </Text>
             <Text>
-              I sweat the small stuff so you don’t have to. With me, your
-              product won't just work; it will delight.
+              I'm motivated by great people on great teams doing great work. I
+              love to solve product problems that will have real impact on real
+              people's lives.
             </Text>
           </Box>
         </Flex>
-        <Box>
+        <Flex sx={{ flexDirection: "column", gap: 4 }}>
           <Heading as="h2">Case studies</Heading>
           <Box>
-            <Heading as="h3">Meta Quest: Your bridge to the Metaverse</Heading>
+            <Heading as="h3" sx={{ mb: 2, fontSize: 5 }}>
+              Meta Quest: Your bridge to the Metaverse
+            </Heading>
+            <YouTube videoId="W3MjL7-RHSw" />
             <Text>
               I led the design for the Meta Quest app during Facebook's
               metamorphosis into Meta. The challenge? Make this app a must-have
@@ -74,9 +84,10 @@ function App() {
             </Text>
           </Box>
           <Box>
-            <Heading as="h3">
-              Watch Duty The trusted companion for wildfire awareness
+            <Heading as="h3" sx={{ mb: 2, fontSize: 5 }}>
+              Watch Duty: The trusted companion for wildfire awareness
             </Heading>
+            <YouTube videoId="GoAHRfv6ToY" />
             <Text>
               When wildfires blaze through California, having accurate, timely
               information can be a lifesaver—literally. That's where Watch Duty
@@ -89,7 +100,7 @@ function App() {
               navigating an app.
             </Text>
           </Box>
-        </Box>
+        </Flex>
         <Badge />
       </Flex>
     </ThemeUIProvider>

@@ -1,26 +1,33 @@
 const theme = {
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   fonts: {
-    body: '"Libre Franklin", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
-    heading: "inherit",
+    body: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    heading:
+      '"Titan One",system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
     monospace: "Menlo, monospace",
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
   fontWeights: {
-    body: 400,
+    body: 300,
     heading: 500,
     bold: 500,
   },
   lineHeights: {
-    body: 1.5,
-    heading: 1.125,
+    body: 1.4,
+    heading: 1.15,
   },
   colors: {
-    text: "#000",
-    background: "#FFF",
+    text: "#FFF",
+    accent: "#FBC02D",
+    background: "#3336FF",
     primary: "#3C3FFF",
     secondary: "#F5F5FF",
     muted: "#F2F2F2",
+  },
+  text: {
+    heading: {
+      color: "accent",
+    },
   },
   styles: {
     root: {
@@ -31,46 +38,34 @@ const theme = {
       fontSize: 5,
     },
     h1: {
-      color: "text",
       fontFamily: "heading",
       lineHeight: "heading",
       fontWeight: "heading",
-      fontSize: 5,
     },
     h2: {
-      color: "text",
       fontFamily: "heading",
       lineHeight: "heading",
       fontWeight: "heading",
-      fontSize: 4,
     },
     h3: {
-      color: "text",
       fontFamily: "heading",
       lineHeight: "heading",
       fontWeight: "heading",
-      fontSize: 3,
     },
     h4: {
-      color: "text",
       fontFamily: "heading",
       lineHeight: "heading",
       fontWeight: "heading",
-      fontSize: 2,
     },
     h5: {
-      color: "text",
       fontFamily: "heading",
       lineHeight: "heading",
       fontWeight: "heading",
-      fontSize: 1,
     },
     h6: {
-      color: "text",
       fontFamily: "heading",
       lineHeight: "heading",
       fontWeight: "heading",
-      fontSize: 0,
     },
     p: {
       color: "text",

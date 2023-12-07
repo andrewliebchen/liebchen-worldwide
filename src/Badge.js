@@ -9,7 +9,7 @@ const settings = {
   width: "10.5rem",
   photoSize: "7.5rem",
   top: "4rem",
-  right: "2rem",
+  left: "68vw",
   hologramSize: "2.5rem",
   transition: "500ms",
 };
@@ -42,6 +42,14 @@ const checkScrollSpeed = (function (settings) {
   };
 })();
 
+const rotatePoint = (x, y, angle) => {
+  // Thanks ChatGPT! https://chat.openai.com/share/09aceffc-18c2-4ea2-ab2b-4c337a093a6d
+  var radians = (angle * Math.PI) / 180;
+  var xPrime = x * Math.cos(radians) - y * Math.sin(radians);
+  var yPrime = x * Math.sin(radians) + y * Math.cos(radians);
+  return { x: xPrime, y: yPrime };
+};
+
 function Badge() {
   const [rotation, setRotation] = useState(0);
 
@@ -52,18 +60,29 @@ function Badge() {
       const scrollSpeed = checkScrollSpeed();
 
       if (scrollSpeed.newPos < 1) {
+        // At the top of the doc?
         setRotation(-5);
+      } else if (
+        document.documentElement.scrollHeight ===
+        scrollSpeed.newPos + window.innerHeight
+      ) {
+        // At the bottom of the doc?
+        setRotation(5);
       } else {
+        // Otherwise, set the rotation based on the speed
         setRotation(scrollSpeed.delta);
       }
     };
   }, []);
 
+  console.log(rotation);
+  console.log(rotatePoint(0, 8, rotation));
+
   return (
     <Box
       sx={{
         position: "fixed",
-        right: settings.right,
+        left: settings.left,
         top: settings.top,
         transform: `rotate(${rotation}deg)`,
         transition: settings.transition,
@@ -78,12 +97,14 @@ function Badge() {
           p: 3,
           pt: 5,
           pb: 5,
-          bg: "background",
-          borderRadius: 20,
+          gap: 4,
+          bg: "#FFF",
+          color: "#000",
+          borderRadius: 30,
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "space-between",
-          border: "10px solid rgba(0, 0, 0, 0.1)",
+          border: "10px solid rgba(51, 54, 255, 0.8)",
           boxShadow: `0px 8px 19px 0px rgba(0, 0, 0, 0.20), 
                       0px 34px 34px 0px rgba(0, 0, 0, 0.17), 
                       0px 76px 46px 0px rgba(0, 0, 0, 0.10), 
@@ -93,10 +114,10 @@ function Badge() {
                       0px -10px 20px 0px rgba(255, 255, 255, 1) inset`,
         }}
       >
-        <Flex sx={{ flexDirection: "column", gap: 2 }}>
-          <Heading as="h2" align="center" sx={{ fontSize: 5, fontWeight: 500 }}>
+        <Flex sx={{ flexDirection: "column" }}>
+          <Text align="center" sx={{ fontSize: 5, fontWeight: 500 }}>
             Andrew Liebchen
-          </Heading>
+          </Text>
           <Text align="center" sx={{ fontSize: 2 }}>
             Fractional Product Designer
           </Text>
