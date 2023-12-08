@@ -6,39 +6,48 @@ import Badge from "./Badge";
 function App() {
   return (
     <ThemeUIProvider theme={theme}>
-      <Flex sx={{ maxWidth: "50vw", m: 6, flexDirection: "column", gap: 5 }}>
+      <Flex sx={{ maxWidth: "50vw", m: 6, flexDirection: "column", gap: 6 }}>
         <Box>
           <Heading as="h1" sx={{ mb: 3, fontSize: 120 }}>
             Hi there, startup founder!
           </Heading>
-          <Text>
+          <Text sx={{ fontSize: 6 }}>
             I get it, running a startup is exhilarating but tough. You've got a
-            world-changing idea, a core team of believers, but you're still
-            missing one thing: a reliable, experienced product designer who can
-            get stuff done without draining your limited resources.
+            world-changing idea and a core team of believers. You're still
+            missing one thing &#8212; a reliable, experienced product designer
+            who can get stuff done without draining your limited resources.
           </Text>
         </Box>
         <Box>
-          <Heading as="h2" mb={3}>
-            That’s where I come in...
-          </Heading>
-          <Text>
-            I've spent more than a decade designing stellar products for
-            companies ranging from bootstrapped startups to giants like Meta.
-            I'm here to offer you all that expertise on a fractional basis.
-          </Text>
-          <Text>
-            What does that mean? I give you the full spectrum of product design
-            services you need, without the full-time commitment. Plus, a slice
-            of equity makes us partners—your success is my success.
-          </Text>
+          <Box mb={5}>
+            <Heading as="h2" sx={{ fontSize: 7, mb: 3 }}>
+              That’s where I come in...
+            </Heading>
+            <Text>
+              I've spent more than a decade designing stellar products for
+              companies ranging from bootstrapped startups to giants like Meta.
+              I'm here to offer you all that expertise on a fractional basis.
+            </Text>
+          </Box>
+          <Box>
+            <Heading as="h3" mb={3}>
+              What does that mean?
+            </Heading>
+            <Text>
+              I give you the full spectrum of product design services you need,
+              without the full-time commitment. Plus, a slice of equity makes us
+              partners—your success is my success.
+            </Text>
+          </Box>
         </Box>
         <Flex sx={{ flexDirection: "column", gap: 4 }}>
-          <Heading as="h2">What I bring to the table</Heading>
+          <Heading as="h2" sx={{ fontSize: 7, mb: 3 }}>
+            What I bring to the table?
+          </Heading>
           <Box>
-            <Text as="h3" sx={{ fontWeight: "bold" }}>
+            <Heading as="h3" mb={3}>
               I'm a full-stack product designer
-            </Text>
+            </Heading>
             <Text>
               With a background in architecture and front-end development, I
               don't just design; I bring ideas to life. From concept to code,
@@ -46,9 +55,9 @@ function App() {
             </Text>
           </Box>
           <Box>
-            <Text as="h3" sx={{ fontWeight: "bold" }}>
+            <Heading as="h3" mb={3}>
               Collaboration is core to how I work
-            </Text>
+            </Heading>
             <Text>
               I don't work in a silo. I team up with your engineers, product
               managers, and stakeholders. Solving hard problems is hard, so I
@@ -56,9 +65,9 @@ function App() {
             </Text>
           </Box>
           <Box>
-            <Text as="h3" sx={{ fontWeight: "bold" }}>
+            <Heading as="h3" mb={3}>
               I care about people
-            </Text>
+            </Heading>
             <Text>
               I'm motivated by great people on great teams doing great work. I
               love to solve product problems that will have real impact on real
@@ -67,11 +76,13 @@ function App() {
           </Box>
         </Flex>
         <Flex sx={{ flexDirection: "column", gap: 4 }}>
-          <Heading as="h2">Case studies</Heading>
+          <Heading as="h2" sx={{ fontSize: 7, mb: 3 }}>
+            Case studies
+          </Heading>
           <Box>
-            <Text as="h3" sx={{ fontWeight: "bold" }}>
+            <Heading as="h3" mb={3}>
               Meta Quest: Your bridge to the Metaverse
-            </Text>
+            </Heading>
             <YouTube videoId="W3MjL7-RHSw" />
             <Text>
               I led the design for the Meta Quest app during Facebook's
@@ -84,9 +95,9 @@ function App() {
             </Text>
           </Box>
           <Box>
-            <Text as="h3" sx={{ fontWeight: "bold" }}>
+            <Heading as="h3" mb={3}>
               Watch Duty: The trusted companion for wildfire awareness
-            </Text>
+            </Heading>
             <YouTube videoId="GoAHRfv6ToY" />
             <Text>
               When wildfires blaze through California, having accurate, timely
