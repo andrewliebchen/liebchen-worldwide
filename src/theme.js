@@ -14,7 +14,7 @@ const theme = {
   },
   lineHeights: {
     body: 1.4,
-    heading: 1.15,
+    heading: 1,
   },
   colors: {
     text: "#FFF",

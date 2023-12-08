@@ -8,8 +8,8 @@ const settings = {
   height: "15rem",
   width: "10.5rem",
   photoSize: "7.5rem",
-  top: "4rem",
-  left: "68vw",
+  top: "3rem",
+  left: "65vw",
   hologramSize: "2.5rem",
   transition: "500ms",
 };
@@ -42,13 +42,13 @@ const checkScrollSpeed = (function (settings) {
   };
 })();
 
-const rotatePoints = (x, y, angle) => {
-  // Thanks ChatGPT! https://chat.openai.com/share/09aceffc-18c2-4ea2-ab2b-4c337a093a6d
-  var radians = (-angle * Math.PI) / 180;
-  var xPrime = x * Math.cos(radians) - y * Math.sin(radians);
-  var yPrime = x * Math.sin(radians) + y * Math.cos(radians);
-  return `${xPrime}px ${yPrime}px`;
-};
+// const rotatePoints = (x, y, angle) => {
+//   // Thanks ChatGPT! https://chat.openai.com/share/09aceffc-18c2-4ea2-ab2b-4c337a093a6d
+//   var radians = (angle * Math.PI) / 180;
+//   var xPrime = x * Math.cos(radians) - (y - settings.top) * Math.sin(radians);
+//   var yPrime = x * Math.sin(radians) + (y - settings.top) * Math.cos(radians);
+//   return `${xPrime}px ${yPrime}px`;
+// };
 
 function Badge() {
   const [rotation, setRotation] = useState(0);
@@ -61,13 +61,13 @@ function Badge() {
 
       if (scrollSpeed.newPos < 1) {
         // At the top of the doc?
-        setRotation(-5);
+        setRotation(0);
       } else if (
-        document.documentElement.scrollHeight ===
+        document.documentElement.scrollHeight <=
         scrollSpeed.newPos + window.innerHeight
       ) {
         // At the bottom of the doc?
-        setRotation(5);
+        setRotation(0);
       } else {
         // Otherwise, set the rotation based on the speed
         setRotation(scrollSpeed.delta);
@@ -102,11 +102,8 @@ function Badge() {
           alignItems: "center",
           justifyContent: "space-between",
           border: "10px solid rgba(51, 54, 255, 0.8)",
-          boxShadow: `${rotatePoints(
-            0,
-            20,
-            rotation
-          )} 19px 0px rgba(0, 0, 0, 0.2), 0px -10px 20px 0px rgba(255, 255, 255, 1) inset`,
+          transition: "box-shadow 100ms",
+          // boxShadow: "0 40px 40px 5px rgba(0, 0, 0, 0.2)",
         }}
       >
         <Flex sx={{ flexDirection: "column" }}>

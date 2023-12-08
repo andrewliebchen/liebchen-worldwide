@@ -8,7 +8,7 @@ function App() {
     <ThemeUIProvider theme={theme}>
       <Flex sx={{ maxWidth: "50vw", m: 6, flexDirection: "column", gap: 5 }}>
         <Box>
-          <Heading as="h1" sx={{ mb: 3, fontSize: 8 }}>
+          <Heading as="h1" sx={{ mb: 3, fontSize: 120 }}>
             Hi there, startup founder!
           </Heading>
           <Text>
@@ -20,7 +20,7 @@ function App() {
         </Box>
         <Box>
           <Heading as="h2" mb={3}>
-            That’s where I come in!
+            That’s where I come in...
           </Heading>
           <Text>
             I've spent more than a decade designing stellar products for
@@ -69,9 +69,9 @@ function App() {
         <Flex sx={{ flexDirection: "column", gap: 4 }}>
           <Heading as="h2">Case studies</Heading>
           <Box>
-            <Heading as="h3" sx={{ mb: 2, fontSize: 5 }}>
+            <Text as="h3" sx={{ fontWeight: "bold" }}>
               Meta Quest: Your bridge to the Metaverse
-            </Heading>
+            </Text>
             <YouTube videoId="W3MjL7-RHSw" />
             <Text>
               I led the design for the Meta Quest app during Facebook's
@@ -84,9 +84,9 @@ function App() {
             </Text>
           </Box>
           <Box>
-            <Heading as="h3" sx={{ mb: 2, fontSize: 5 }}>
+            <Text as="h3" sx={{ fontWeight: "bold" }}>
               Watch Duty: The trusted companion for wildfire awareness
-            </Heading>
+            </Text>
             <YouTube videoId="GoAHRfv6ToY" />
             <Text>
               When wildfires blaze through California, having accurate, timely
