@@ -1,7 +1,7 @@
 import theme from "./theme";
 import { ThemeUIProvider, Box, Text, Heading, Flex } from "theme-ui";
-import YouTube from "react-youtube";
 import Badge from "./Badge";
+import CaseStudy from "./CaseStudy";
 
 function App() {
   return (
@@ -79,28 +79,23 @@ function App() {
           <Heading as="h2" sx={{ fontSize: 7, mb: 3 }}>
             Case studies
           </Heading>
-          <Box>
-            <Heading as="h3" mb={3}>
-              Meta Quest: Your bridge to the Metaverse
-            </Heading>
-            <YouTube videoId="W3MjL7-RHSw" />
-            <Text>
-              I led the design for the Meta Quest app during Facebook's
+          <Flex sx={{ flexDirection: "column", gap: 5 }}>
+            <CaseStudy
+              title="Meta Quest"
+              subtitle="Your bridge to the Metaverse"
+              text="I led the design for the Meta Quest app during Facebook's
               metamorphosis into Meta. The challenge? Make this app a must-have
               for Oculus users while ramping up in-app revenue. The result? A
               revamped landing page that solved real user pain points, fostering
               social connections and preventing battery-induced FOMO. All this
               while moving the needle on key metrics like retention and user
-              engagement. That's the power of design driven by real human needs.
-            </Text>
-          </Box>
-          <Box>
-            <Heading as="h3" mb={3}>
-              Watch Duty: The trusted companion for wildfire awareness
-            </Heading>
-            <YouTube videoId="GoAHRfv6ToY" />
-            <Text>
-              When wildfires blaze through California, having accurate, timely
+              engagement. That's the power of design driven by real human needs."
+              videoId="W3MjL7-RHSw"
+            />
+            <CaseStudy
+              title="Watch Duty"
+              subtitle="The trusted companion for wildfire awareness"
+              text="When wildfires blaze through California, having accurate, timely
               information can be a lifesaver—literally. That's where Watch Duty
               comes in. I worked closely with a technical founder and a team of
               volunteers to create an app that's become a go-to resource for
@@ -108,9 +103,10 @@ function App() {
               containment icons, I poured my design skills into making this app
               as intuitive and helpful as possible. Because when you're in a
               high-stress situation, the last thing you should worry about is
-              navigating an app.
-            </Text>
-          </Box>
+              navigating an app."
+              videoId="GoAHRfv6ToY"
+            />
+          </Flex>
         </Flex>
         <Badge />
       </Flex>
