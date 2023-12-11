@@ -113,7 +113,7 @@ function App() {
             Ready to get started?
           </Heading>
           <Text>
-            Let's chat. Shoot me an{" "}
+            Let's chat! Shoot me an{" "}
             <Link href="mailto:andrewliebchen@gmail.com&subject=Let's work together">
               email
             </Link>{" "}
