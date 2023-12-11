@@ -74,7 +74,7 @@ const theme = {
       lineHeight: "body",
     },
     a: {
-      color: "primary",
+      color: "text",
       textDecoration: "underline",
     },
     pre: {

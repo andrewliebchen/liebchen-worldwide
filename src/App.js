@@ -1,5 +1,5 @@
 import theme from "./theme";
-import { ThemeUIProvider, Box, Text, Heading, Flex } from "theme-ui";
+import { ThemeUIProvider, Box, Text, Heading, Flex, Link } from "theme-ui";
 import Badge from "./Badge";
 import CaseStudy from "./CaseStudy";
 
@@ -11,7 +11,7 @@ function App() {
           <Heading as="h1" sx={{ mb: 3, fontSize: 120 }}>
             Hi there, startup founder!
           </Heading>
-          <Text sx={{ fontSize: 6 }}>
+          <Text>
             I get it, running a startup is exhilarating but tough. You've got a
             world-changing idea and a core team of believers. You're still
             missing one thing &#8212; a reliable, experienced product designer
@@ -107,6 +107,25 @@ function App() {
               videoId="GoAHRfv6ToY"
             />
           </Flex>
+        </Flex>
+        <Flex sx={{ flexDirection: "column" }}>
+          <Heading as="h2" sx={{ fontSize: 7, mb: 3 }}>
+            Ready to get started?
+          </Heading>
+          <Text>
+            Let's chat. Shoot me an{" "}
+            <Link href="mailto:andrewliebchen@gmail.com&subject=Let's work together">
+              email
+            </Link>{" "}
+            or{" "}
+            <Link
+              href="https://calendly.com/andrewliebchen/25min"
+              target="_blank"
+            >
+              schedule
+            </Link>{" "}
+            some time.
+          </Text>
         </Flex>
         <Badge />
       </Flex>
