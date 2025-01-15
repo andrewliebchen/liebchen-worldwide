@@ -12,6 +12,7 @@ function App() {
         flexDirection: "column", 
         gap: [4, 5, 6] 
       }}>
+        <Badge />
         <Box>
           <Heading as="h1" sx={{ 
             mb: 3, 
@@ -151,9 +152,6 @@ function App() {
             some time.
           </Text>
         </Flex>
-        <Badge sx={{ 
-          display: ['none', 'none', 'block'] 
-        }} />
       </Flex>
     </ThemeUIProvider>
   );

@@ -54,9 +54,14 @@ function Badge() {
   const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
-    // listen to "scroll" event
+    let resetTimeout;
+
     window.onscroll = function () {
-      // Calcuate rotate and store
+      // Clear any existing timeout
+      if (resetTimeout) {
+        clearTimeout(resetTimeout);
+      }
+
       const scrollSpeed = checkScrollSpeed();
 
       if (scrollSpeed.newPos < 1) {
@@ -71,6 +76,19 @@ function Badge() {
       } else {
         // Otherwise, set the rotation based on the speed
         setRotation(scrollSpeed.delta);
+        
+        // Set a timeout to reset rotation after scrolling stops
+        resetTimeout = setTimeout(() => {
+          setRotation(0);
+        }, 150); // Adjust this value to control how quickly it returns to neutral
+      }
+    };
+
+    // Cleanup
+    return () => {
+      window.onscroll = null;
+      if (resetTimeout) {
+        clearTimeout(resetTimeout);
       }
     };
   }, []);
@@ -78,14 +96,15 @@ function Badge() {
   return (
     <Box
       sx={{
-        position: "fixed",
+        position: ['static', 'static', 'fixed'],
         left: settings.left,
         top: settings.top,
-        transform: `rotate(${rotation}deg)`,
+        transform: ['none', 'none', `rotate(${rotation}deg)`],
         transition: settings.transition,
         transformOrigin: "50% -20%",
         zIndex: 999,
-        display: ['none', 'none', 'block'],
+        mx: ['auto', 'auto', 0],
+        mb: [4, 4, 0],
       }}
     >
       <Flex
@@ -104,7 +123,7 @@ function Badge() {
           justifyContent: "space-between",
           border: "10px solid rgba(51, 54, 255, 0.8)",
           transition: "box-shadow 100ms",
-          // boxShadow: "0 40px 40px 5px rgba(0, 0, 0, 0.2)",
+          position: "relative",
         }}
       >
         <Flex sx={{ flexDirection: "column" }}>
