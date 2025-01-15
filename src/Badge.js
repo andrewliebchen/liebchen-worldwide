@@ -9,7 +9,7 @@ const settings = {
   width: "10.5rem",
   photoSize: "7.5rem",
   top: "3rem",
-  left: "65vw",
+  left: ['0', '0', '65vw'],
   hologramSize: "2.5rem",
   transition: "500ms",
 };
@@ -85,6 +85,7 @@ function Badge() {
         transition: settings.transition,
         transformOrigin: "50% -20%",
         zIndex: 999,
+        display: ['none', 'none', 'block'],
       }}
     >
       <Flex

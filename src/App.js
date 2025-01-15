@@ -6,12 +6,21 @@ import CaseStudy from "./CaseStudy";
 function App() {
   return (
     <ThemeUIProvider theme={theme}>
-      <Flex sx={{ maxWidth: "50vw", m: 6, flexDirection: "column", gap: 6 }}>
+      <Flex sx={{ 
+        maxWidth: ['100vw', '100vw', '50vw'], 
+        m: [3, 4, 6], 
+        flexDirection: "column", 
+        gap: [4, 5, 6] 
+      }}>
         <Box>
-          <Heading as="h1" sx={{ mb: 3, fontSize: 120 }}>
+          <Heading as="h1" sx={{ 
+            mb: 3, 
+            fontSize: [7, 8, 120],
+            lineHeight: 1
+          }}>
             Hi there, startup founder!
           </Heading>
-          <Text>
+          <Text sx={{ fontSize: [3, 3, 4], }}>
             I get it, running a startup is exhilarating but tough. You've got a
             world-changing idea and a core team of believers. You're still
             missing one thing &#8212; a reliable, experienced product designer
@@ -20,20 +29,26 @@ function App() {
         </Box>
         <Box>
           <Box mb={5}>
-            <Heading as="h2" sx={{ fontSize: 7, mb: 3 }}>
-              That’s where I come in...
+            <Heading as="h2" sx={{ 
+              fontSize: [6, 6, 7],
+              mb: 3 
+            }}>
+              That's where I come in...
             </Heading>
-            <Text>
+            <Text sx={{ fontSize: [3, 3, 4], }}>
               I've spent more than a decade designing stellar products for
               companies ranging from bootstrapped startups to giants like Meta.
               I'm here to offer you all that expertise on a fractional basis.
             </Text>
           </Box>
           <Box>
-            <Heading as="h3" mb={3}>
+            <Heading as="h3" sx={{ 
+              mb: 3,
+              fontSize: [4, 5, 5]
+            }}>
               What does that mean?
             </Heading>
-            <Text>
+            <Text sx={{ fontSize: [3, 3, 4], }}>
               I give you the full spectrum of product design services you need,
               without the full-time commitment. Plus, a slice of equity makes us
               partners—your success is my success.
@@ -41,14 +56,17 @@ function App() {
           </Box>
         </Box>
         <Flex sx={{ flexDirection: "column", gap: 4 }}>
-          <Heading as="h2" sx={{ fontSize: 7, mb: 3 }}>
+          <Heading as="h2" sx={{ 
+            fontSize: [6, 6, 7],
+            mb: 3 
+          }}>
             What I bring to the table?
           </Heading>
           <Box>
             <Heading as="h3" mb={3}>
               I'm a full-stack product designer
             </Heading>
-            <Text>
+            <Text sx={{ fontSize: [3, 3, 4], }}>
               With a background in architecture and front-end development, I
               don't just design; I bring ideas to life. From concept to code,
               consider it done.
@@ -58,7 +76,7 @@ function App() {
             <Heading as="h3" mb={3}>
               Collaboration is core to how I work
             </Heading>
-            <Text>
+            <Text sx={{ fontSize: [3, 3, 4], }}>
               I don't work in a silo. I team up with your engineers, product
               managers, and stakeholders. Solving hard problems is hard, so I
               bring an open heart and open mind to every meeting and mockup.
@@ -68,7 +86,7 @@ function App() {
             <Heading as="h3" mb={3}>
               I care about people
             </Heading>
-            <Text>
+            <Text sx={{ fontSize: [3, 3, 4], }}>
               I'm motivated by great people on great teams doing great work. I
               love to solve product problems that will have real impact on real
               people's lives.
@@ -76,7 +94,10 @@ function App() {
           </Box>
         </Flex>
         <Flex sx={{ flexDirection: "column", gap: 4 }}>
-          <Heading as="h2" sx={{ fontSize: 7, mb: 3 }}>
+          <Heading as="h2" sx={{ 
+            fontSize: [6, 6, 7],
+            mb: 3 
+          }}>
             Case studies
           </Heading>
           <Flex sx={{ flexDirection: "column", gap: 5 }}>
@@ -109,10 +130,13 @@ function App() {
           </Flex>
         </Flex>
         <Flex sx={{ flexDirection: "column" }}>
-          <Heading as="h2" sx={{ fontSize: 7, mb: 3 }}>
+          <Heading as="h2" sx={{ 
+            fontSize: [6, 6, 7],
+            mb: 3 
+          }}>
             Ready to get started?
           </Heading>
-          <Text>
+          <Text sx={{ fontSize: [3, 3, 4], }}>
             Let's chat! Shoot me an{" "}
             <Link href="mailto:andrewliebchen@gmail.com&subject=Let's work together">
               email
@@ -127,7 +151,9 @@ function App() {
             some time.
           </Text>
         </Flex>
-        <Badge />
+        <Badge sx={{ 
+          display: ['none', 'none', 'block'] 
+        }} />
       </Flex>
     </ThemeUIProvider>
   );

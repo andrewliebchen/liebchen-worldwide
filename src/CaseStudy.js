@@ -20,12 +20,25 @@ function CaseStudy(props) {
         />
       </Flex>
       <Box>
-        <Heading as="h3" mb={1}>
+        <Heading as="h3" sx={{ 
+          mb: 1,
+          fontSize: [4, 5, 5]
+        }}>
           {props.title}
         </Heading>
-        <Text sx={{ mb: 3 }}>{props.subtitle}</Text>
+        <Text sx={{ 
+          mb: 3,
+          fontSize: [3, 3, 4],
+          fontWeight: "bold"
+        }}>
+          {props.subtitle}
+        </Text>
       </Box>
-      <Text sx={{ fontSize: 4 }}>{props.text}</Text>
+      <Text sx={{ 
+        fontSize: [3, 3, 4]
+      }}>
+        {props.text}
+      </Text>
     </Flex>
   );
 }

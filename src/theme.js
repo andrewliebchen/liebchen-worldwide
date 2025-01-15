@@ -14,7 +14,7 @@ const theme = {
   },
   lineHeights: {
     body: 1.4,
-    heading: 1,
+    heading: 1.3,
   },
   colors: {
     text: "#FFF",
@@ -68,6 +68,12 @@ const theme = {
       fontWeight: "heading",
     },
     p: {
+      color: "text",
+      fontFamily: "body",
+      fontWeight: "body",
+      lineHeight: "body",
+    },
+    span: {
       color: "text",
       fontFamily: "body",
       fontWeight: "body",
