@@ -9,8 +9,8 @@ const settings = {
   height: "15rem",
   width: "10.5rem",
   photoSize: "7.5rem",
-  top: "3rem",
-  left: ['0', '0', '65vw'],
+  top: "2.5rem",
+  left: ['0', '0', '67vw'],
   hologramSize: "2.5rem",
   transition: "500ms",
 };
@@ -43,7 +43,9 @@ function Badge() {
     const delta = scrollY - (handleScroll.lastScrollY || 0);
     handleScroll.lastScrollY = scrollY;
     
-    setRotation(delta);
+    // Clamp rotation between -30 and 30 degrees
+    const clampedDelta = Math.max(Math.min(delta, 30), -30);
+    setRotation(clampedDelta);
     
     // Reset rotation after a delay
     clearTimeout(handleScroll.resetTimeout);
