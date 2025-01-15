@@ -1,7 +1,8 @@
 import { Box, Flex, Text, Image } from "theme-ui";
 import Topper from "./images/BadgeTopper.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Headshot from "./images/Headshot.png";
+import HeadshotWebp from "./images/Headshot.webp";
 import LogoMask from "./images/LogoMask.svg";
 
 const settings = {
@@ -14,84 +15,50 @@ const settings = {
   transition: "500ms",
 };
 
-const checkScrollSpeed = (function (settings) {
-  settings = settings || {};
-
-  let lastPos,
-    newPos,
-    timer,
-    delta,
-    delay = 200; // in "ms" (higher means lower fidelity )
-
-  function clear() {
-    lastPos = null;
-    delta = 0;
-  }
-
-  clear();
-
-  return function () {
-    newPos = window.scrollY;
-    if (lastPos != null) {
-      delta = newPos - lastPos;
+function throttle(func, limit) {
+  let inThrottle;
+  return function(...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
     }
-    lastPos = newPos;
-    clearTimeout(timer);
-    timer = setTimeout(clear, delay);
-    return { delta: delta, newPos: newPos };
-  };
-})();
-
-// const rotatePoints = (x, y, angle) => {
-//   // Thanks ChatGPT! https://chat.openai.com/share/09aceffc-18c2-4ea2-ab2b-4c337a093a6d
-//   var radians = (angle * Math.PI) / 180;
-//   var xPrime = x * Math.cos(radians) - (y - settings.top) * Math.sin(radians);
-//   var yPrime = x * Math.sin(radians) + (y - settings.top) * Math.cos(radians);
-//   return `${xPrime}px ${yPrime}px`;
-// };
+  }
+}
 
 function Badge() {
   const [rotation, setRotation] = useState(0);
 
+  const handleScroll = useCallback(throttle(() => {
+    const scrollY = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    
+    // At top or bottom
+    if (scrollY < 1 || scrollY >= maxScroll) {
+      setRotation(0);
+      return;
+    }
+    
+    // Calculate rotation based on last scroll position
+    const delta = scrollY - (handleScroll.lastScrollY || 0);
+    handleScroll.lastScrollY = scrollY;
+    
+    setRotation(delta);
+    
+    // Reset rotation after a delay
+    clearTimeout(handleScroll.resetTimeout);
+    handleScroll.resetTimeout = setTimeout(() => {
+      setRotation(0);
+    }, 150);
+  }, 50), []); // 50ms throttle
+
   useEffect(() => {
-    let resetTimeout;
-
-    window.onscroll = function () {
-      // Clear any existing timeout
-      if (resetTimeout) {
-        clearTimeout(resetTimeout);
-      }
-
-      const scrollSpeed = checkScrollSpeed();
-
-      if (scrollSpeed.newPos < 1) {
-        // At the top of the doc?
-        setRotation(0);
-      } else if (
-        document.documentElement.scrollHeight <=
-        scrollSpeed.newPos + window.innerHeight
-      ) {
-        // At the bottom of the doc?
-        setRotation(0);
-      } else {
-        // Otherwise, set the rotation based on the speed
-        setRotation(scrollSpeed.delta);
-        
-        // Set a timeout to reset rotation after scrolling stops
-        resetTimeout = setTimeout(() => {
-          setRotation(0);
-        }, 150); // Adjust this value to control how quickly it returns to neutral
-      }
-    };
-
-    // Cleanup
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.onscroll = null;
-      if (resetTimeout) {
-        clearTimeout(resetTimeout);
-      }
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(handleScroll.resetTimeout);
     };
-  }, []);
+  }, [handleScroll]);
 
   return (
     <Box
@@ -134,14 +101,20 @@ function Badge() {
             Fractional Product Designer
           </Text>
         </Flex>
-        <Image
-          src={Headshot}
-          sx={{
-            size: settings.photoSize,
-            borderRadius: settings.photoSize,
-            flex: "0 0 auto",
-          }}
-        />
+        <picture>
+          <source srcSet={HeadshotWebp} type="image/webp" />
+          <Image
+            src={Headshot}
+            loading="eager"
+            sx={{
+              size: settings.photoSize,
+              borderRadius: settings.photoSize,
+              flex: "0 0 auto",
+            }}
+            width={300}
+            height={300}
+          />
+        </picture>
         <Box
           sx={{
             mask: `url(${LogoMask})`,
@@ -167,6 +140,7 @@ function Badge() {
       </Flex>
       <Image
         src={Topper}
+        loading="eager"
         sx={{
           position: "absolute",
           top: "1.5rem",
