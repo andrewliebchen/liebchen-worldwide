@@ -22,7 +22,8 @@
     "build": "SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "generate-webp": "node scripts/generate-webp.js"
+    "generate-webp": "node scripts/generate-webp.js",
+    "deploy": "vercel deploy --prod"
   },
   "eslintConfig": {
     "extends": [
