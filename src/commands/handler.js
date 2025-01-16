@@ -3,10 +3,16 @@ import { generateResponse } from './openai';
 import { imageToAscii } from '../utils/asciiArt';
 
 const isStaticCommand = (cmd) => {
-  return Object.values(COMMANDS).includes(cmd.toLowerCase().split(' ')[0]);
+  const command = cmd.toLowerCase().trim();
+  return command.startsWith('help') ||
+         command.startsWith('portfolio') ||
+         command.startsWith('contact') ||
+         command.startsWith('clear') ||
+         command.startsWith('back') ||
+         command.startsWith('ascii');
 };
 
-export const handleCommand = async (command, context = {}) => {
+export const handleCommand = async (command, context = {}, queryCount = 0) => {
   const cmd = command.toLowerCase().trim();
   const [mainCommand, ...args] = cmd.split(' ');
   
@@ -109,5 +115,5 @@ export const handleCommand = async (command, context = {}) => {
   }
 
   // Handle dynamic commands with OpenAI
-  return await generateResponse(command, context);
+  return await generateResponse(command, context, queryCount);
 }; 

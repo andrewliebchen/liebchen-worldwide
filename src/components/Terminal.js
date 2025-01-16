@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Typewriter from 'typewriter-effect';
 import { handleCommand } from '../commands/handler';
+import { useQuery } from '../context/QueryContext';
 import headshot from '../images/Headshot.webp';
 
 const TerminalContainer = styled.div`
@@ -114,6 +115,7 @@ const TypewriterWrapper = styled.div`
 
 const LoadingDots = styled.div`
   color: #7aa2f7;
+  padding-left: 30px;
   &:after {
     content: '.';
     animation: dots 1.5s steps(5, end) infinite;
@@ -155,8 +157,51 @@ const HeaderText = styled.span`
   font-size: 14px;
 `;
 
+const getStatusColor = (status) => {
+  switch (status) {
+    case 'error':
+      return '#f7768e';
+    case 'processing':
+    case 'thinking':
+    case 'loading':
+      return '#7aa2f7';
+    case 'connected':
+      return '#28c841';
+    case 'connecting':
+    case 'reconnecting':
+      return '#e0af68';
+    case 'offline':
+      return '#565f89';
+    default:
+      return '#565f89';
+  }
+};
+
+const getStatusText = (status) => {
+  switch (status) {
+    case 'error':
+      return 'Error occurred';
+    case 'processing':
+      return 'Sending to OpenAI';
+    case 'thinking':
+      return 'Thinking...';
+    case 'loading':
+      return 'Loading content';
+    case 'connected':
+      return 'Connected';
+    case 'connecting':
+      return 'Connecting';
+    case 'reconnecting':
+      return 'Reconnecting';
+    case 'offline':
+      return 'Offline';
+    default:
+      return 'Idle';
+  }
+};
+
 const HeaderStatus = styled.div`
-  color: ${props => props.isProcessing ? '#7aa2f7' : '#565f89'};
+  color: ${props => getStatusColor(props.status)};
   font-size: 12px;
   display: flex;
   align-items: center;
@@ -168,7 +213,7 @@ const HeaderStatus = styled.div`
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: ${props => props.isProcessing ? '#7aa2f7' : '#28c841'};
+    background-color: ${props => getStatusColor(props.status)};
   }
 `;
 
@@ -202,9 +247,10 @@ const TypewriterText = ({ content }) => (
 );
 
 const Terminal = () => {
+  const { queryCount, incrementQuery, resetQueries } = useQuery();
   const [history, setHistory] = useState([{
     type: 'system',
-    content: 'Welcome to Andrew.AI Terminal Portfolio\nType \'help\' to explore commands.',
+    content: 'Welcome to Andrew.AI Terminal Portfolio\nType \'help\' to explore commands.\n\n░░░░░ 0/5 queries used',
     id: Date.now()
   }]);
   const [input, setInput] = useState('');
@@ -213,7 +259,7 @@ const Terminal = () => {
     inCaseStudy: false,
     currentCaseStudy: null
   });
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [status, setStatus] = useState('connected');
   const outputRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -227,7 +273,7 @@ const Terminal = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [history, isProcessing]);
+  }, [history, status]);
 
   const handleTerminalClick = () => {
     if (inputRef.current) {
@@ -236,13 +282,40 @@ const Terminal = () => {
   };
 
   const processCommand = async (command) => {
-    // Immediately add the user's command to history
+    console.log('Terminal: Processing command:', command);
+    console.log('Terminal: Current queryCount:', queryCount);
+    
     const commandEntry = { 
       type: 'command', 
       content: command,
       id: Date.now()
     };
     
+    // Check if this will be an AI query (any non-static command)
+    const isStaticCommand = command.toLowerCase().startsWith('help') ||
+                          command.toLowerCase().startsWith('portfolio') ||
+                          command.toLowerCase().startsWith('contact') ||
+                          command.toLowerCase().startsWith('clear') ||
+                          command.toLowerCase().startsWith('back') ||
+                          command.toLowerCase().startsWith('ascii');
+    
+    const isAIQuery = !isStaticCommand;
+    console.log('Terminal: isAIQuery:', isAIQuery);
+    
+    if (isAIQuery && queryCount >= 5) {
+      console.log('Terminal: Query limit reached');
+      setHistory(prev => [...prev, commandEntry, {
+        type: 'error',
+        content: 'You have reached the query limit for this session.\n\n' +
+                'I\'d love to continue our conversation! You can:\n' +
+                '• Email me at andrew@liebchen.world\n' +
+                '• Schedule a call: https://calendly.com/andrewliebchen/25min\n\n' +
+                'Or refresh the page to start a new session.',
+        id: Date.now() + 1
+      }]);
+      return;
+    }
+
     const thinkingEntry = {
       type: 'thinking',
       content: '',
@@ -250,13 +323,23 @@ const Terminal = () => {
     };
 
     setHistory(prev => [...prev, commandEntry, thinkingEntry]);
-    setIsProcessing(true);
+    setStatus('processing');
 
     try {
-      const response = await handleCommand(command, context);
+      if (isAIQuery) {
+        console.log('Terminal: Starting AI query processing');
+        setStatus('thinking');
+      } else if (command === 'portfolio') {
+        setStatus('loading');
+      }
+
+      const response = await handleCommand(command, context, queryCount);
+      console.log('Terminal: Got response:', response);
 
       if (response.type === 'clear') {
+        console.log('Terminal: Clearing history and resetting queries');
         setHistory([]);
+        resetQueries();
         setContext({ 
           awaitingCaseStudy: false, 
           inCaseStudy: false,
@@ -265,9 +348,15 @@ const Terminal = () => {
         return;
       }
 
+      // Update query count after successful AI response
+      if (isAIQuery && response.type !== 'error') {
+        console.log('Terminal: Incrementing query count after successful AI response');
+        incrementQuery();
+      }
+
       // Replace the thinking entry with the actual response
       setHistory(prev => [
-        ...prev.slice(0, -1), // Remove thinking entry
+        ...prev.slice(0, -1),
         {
           type: response.type,
           content: response.content,
@@ -275,16 +364,21 @@ const Terminal = () => {
         }
       ]);
 
-      // Only update context if not a throttled response
       if (response.type !== 'error') {
         setContext({
           awaitingCaseStudy: response.awaitCaseStudy || false,
           inCaseStudy: response.type === 'case-study',
           currentCaseStudy: response.currentCaseStudy || null
         });
+        setStatus('connected');
+      } else {
+        console.log('Terminal: Error response received');
+        setStatus('error');
+        setTimeout(() => setStatus('connected'), 3000);
       }
     } catch (error) {
-      // Replace thinking entry with error message
+      console.error('Terminal: Error processing command:', error);
+      setStatus('error');
       setHistory(prev => [
         ...prev.slice(0, -1),
         {
@@ -293,18 +387,36 @@ const Terminal = () => {
           id: Date.now() + 2
         }
       ]);
-    } finally {
-      setIsProcessing(false);
+      setTimeout(() => setStatus('connected'), 3000);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!input.trim() || isProcessing) return;
+    if (!input.trim() || status === 'processing') return;
     
     processCommand(input.trim());
     setInput('');
   };
+
+  // Add connection status effect
+  useEffect(() => {
+    setStatus('connecting');
+    // Simulate initial connection
+    setTimeout(() => setStatus('connected'), 1000);
+
+    // Add window online/offline listeners
+    const handleOnline = () => setStatus('connected');
+    const handleOffline = () => setStatus('offline');
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   return (
     <TerminalContainer onClick={handleTerminalClick}>
@@ -313,8 +425,8 @@ const Terminal = () => {
           <HeaderAvatar src={headshot} alt="Andrew Liebchen" />
           <HeaderText>andrew.ai ~ terminal</HeaderText>
         </HeaderTitle>
-        <HeaderStatus isProcessing={isProcessing}>
-          {isProcessing ? 'processing' : 'connected'}
+        <HeaderStatus status={status}>
+          {getStatusText(status)}
         </HeaderStatus>
       </TerminalHeader>
       <OutputPane ref={outputRef}>
@@ -342,7 +454,7 @@ const Terminal = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type 'help' to explore commands..."
-              disabled={isProcessing}
+              disabled={status === 'processing'}
             />
           </InputContainer>
         </form>

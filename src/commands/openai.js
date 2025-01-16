@@ -71,15 +71,37 @@ const sanitizeResponse = (response) => {
   return response;
 };
 
-export const generateResponse = async (query, currentContext = {}) => {
+const generateProgressBar = (used, total) => {
+  const filled = '█'.repeat(used);
+  const empty = '░'.repeat(total - used);
+  return `${filled}${empty} ${used}/${total} queries used`;
+};
+
+export const generateResponse = async (query, currentContext = {}, queryCount = 0) => {
+  console.log('OpenAI: Generating response with queryCount:', queryCount);
+  
   if (!canMakeRequest()) {
+    console.log('OpenAI: Throttled, cannot make request yet');
     return {
       type: 'error',
       content: 'Please wait a few seconds before asking another question.'
     };
   }
 
+  // If query limit reached, return contact message
+  if (queryCount >= 5) {
+    console.log('OpenAI: Query limit reached');
+    return {
+      type: 'error',
+      content: 'You have reached the query limit for this session.\n\n' +
+               'I\'d love to continue our conversation! You can:\n' +
+               '• Email me at andrew@liebchen.world\n' +
+               '• Schedule a call: https://calendly.com/andrewliebchen/25min.'
+    };
+  }
+
   try {
+    console.log('OpenAI: Preparing messages for API call');
     const messages = [
       { role: 'system', content: SYSTEM_PROMPT },
       { role: 'system', content: STATIC_CONTEXT }
@@ -87,6 +109,7 @@ export const generateResponse = async (query, currentContext = {}) => {
 
     // Add current case study context if relevant
     if (currentContext.inCaseStudy && currentContext.currentCaseStudy) {
+      console.log('OpenAI: Adding case study context:', currentContext.currentCaseStudy);
       const study = Object.values(CASE_STUDIES).find(s => s.title === currentContext.currentCaseStudy);
       if (study) {
         messages.push({
@@ -101,23 +124,39 @@ export const generateResponse = async (query, currentContext = {}) => {
       content: query
     });
 
+    console.log('OpenAI: Making API call');
     const completion = await openai.chat.completions.create({
       model: 'gpt-4',
       messages,
-      temperature: 0.2, // Low temperature to reduce randomness
-      max_tokens: 200,  // Keep responses concise
-      presence_penalty: 0.1, // Slight penalty for repetition
-      frequency_penalty: 0.1 // Slight penalty for repetition
+      temperature: 0.2,
+      max_tokens: 200,
+      presence_penalty: 0.1,
+      frequency_penalty: 0.1
     });
 
     const response = sanitizeResponse(completion.choices[0].message.content);
+    const progressBar = generateProgressBar(queryCount + 1, 5);
+    console.log('OpenAI: Generated progress bar:', progressBar);
+
+    // If this is the last available query (queryCount is 4, becoming 5 after this)
+    if (queryCount >= 4) {
+      return {
+        type: 'ai-response',
+        content: `${response}\n\n${progressBar}\n\n` +
+                'This was your final AI query for this session.\n' +
+                'I\'d love to continue our conversation! You can:\n' +
+                '• Email me at andrew@liebchen.world\n' +
+                '• Schedule a call: https://calendly.com/andrewliebchen/25min\n\n' +
+                'Or refresh the page to start a new session.'
+      };
+    }
 
     return {
       type: 'ai-response',
-      content: response
+      content: `${response}\n\n${progressBar}`
     };
   } catch (error) {
-    console.error('OpenAI API Error:', error);
+    console.error('OpenAI: API Error:', error);
     return {
       type: 'error',
       content: 'Sorry, I couldn\'t process that. Type `help` for available commands.'

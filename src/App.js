@@ -1,6 +1,7 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Terminal from './components/Terminal';
+import { QueryProvider } from './context/QueryContext';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
@@ -22,10 +23,10 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <>
+    <QueryProvider>
       <GlobalStyle />
       <Terminal />
-    </>
+    </QueryProvider>
   );
 }
 
