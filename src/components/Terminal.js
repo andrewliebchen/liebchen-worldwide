@@ -6,14 +6,13 @@ import headshot from '../images/Headshot.webp';
 
 const TerminalContainer = styled.div`
   background-color: #1a1b26;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
 `;
 
 const OutputPane = styled.div`
@@ -21,6 +20,8 @@ const OutputPane = styled.div`
   overflow-y: auto;
   padding: 20px;
   padding-bottom: 20px;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
 
   strong {
     color: #7aa2f7;
@@ -66,6 +67,9 @@ const InputContainer = styled.div`
   padding: 10px 20px;
   border-radius: 4px;
   margin: 0 20px 20px 20px;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 `;
 
 const Prompt = styled.span`
@@ -81,6 +85,13 @@ const Input = styled.input`
   font-size: 16px;
   width: 100%;
   outline: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  line-height: normal;
+  position: relative;
+  z-index: 2;
 
   &::placeholder {
     color: #565f89;
@@ -170,28 +181,21 @@ const ErrorMessage = styled.div`
   font-style: italic;
 `;
 
-const TypewriterText = ({ content }) => {
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
-  
-  return (
-    <TypewriterWrapper>
-      <Typewriter
-        options={{
-          delay: 5,
-          cursor: ''
-        }}
-        onInit={(typewriter) => {
-          typewriter
-            .typeString(content)
-            .callFunction(() => {
-              setIsTypingComplete(true);
-            })
-            .start();
-        }}
-      />
-    </TypewriterWrapper>
-  );
-};
+const TypewriterText = ({ content }) => (
+  <TypewriterWrapper>
+    <Typewriter
+      options={{
+        delay: 5,
+        cursor: ''
+      }}
+      onInit={(typewriter) => {
+        typewriter
+          .typeString(content)
+          .start();
+      }}
+    />
+  </TypewriterWrapper>
+);
 
 const Terminal = () => {
   const [history, setHistory] = useState([{
