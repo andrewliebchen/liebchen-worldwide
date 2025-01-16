@@ -64,17 +64,17 @@ const InputContainer = styled.div`
   display: flex;
   align-items: center;
   background-color: #24283b;
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 4px;
-  margin: 0 20px 20px 20px;
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
+  margin: 10px 0;
 `;
 
 const Prompt = styled.span`
   color: #7aa2f7;
   margin-right: 10px;
+  min-width: 20px;
+  display: inline-flex;
+  justify-content: center;
 `;
 
 const Input = styled.input`
@@ -102,9 +102,11 @@ const OutputLine = styled.div`
   margin: 8px 0;
   line-height: 1.5;
   white-space: pre-wrap;
+  padding-left: 10px;
 `;
 
 const TypewriterWrapper = styled.div`
+  padding-left: 30px;
   .Typewriter__cursor {
     display: none;
   }
@@ -173,12 +175,14 @@ const HeaderStatus = styled.div`
 const CommandLine = styled.div`
   display: flex;
   align-items: center;
-  color: #565f89;  // Darker color for user messages
+  color: #565f89;
+  padding-left: 0;
 `;
 
 const ErrorMessage = styled.div`
   color: #f7768e;
   font-style: italic;
+  padding-left: 30px;
 `;
 
 const TypewriterText = ({ content }) => (
@@ -329,20 +333,20 @@ const Terminal = () => {
             )}
           </OutputLine>
         ))}
+        <form onSubmit={handleSubmit}>
+          <InputContainer>
+            <Prompt>❯</Prompt>
+            <Input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type 'help' to explore commands..."
+              disabled={isProcessing}
+            />
+          </InputContainer>
+        </form>
       </OutputPane>
-      <form onSubmit={handleSubmit}>
-        <InputContainer>
-          <Prompt>❯</Prompt>
-          <Input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type 'help' to explore commands..."
-            disabled={isProcessing}
-          />
-        </InputContainer>
-      </form>
     </TerminalContainer>
   );
 };
