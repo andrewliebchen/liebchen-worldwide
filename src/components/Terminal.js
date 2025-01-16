@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Typewriter from 'typewriter-effect';
 import ReactMarkdown from 'react-markdown';
 import { handleCommand } from '../commands/handler';
+import headshot from '../images/Headshot.webp';
 
 const TerminalContainer = styled.div`
   background-color: #1a1b26;
@@ -99,17 +100,23 @@ const TerminalHeader = styled.div`
   justify-content: space-between;
 `;
 
+const HeaderAvatar = styled.img`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  border: 1px solid #565f89;
+`;
+
 const HeaderTitle = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
 `;
-
 
 const HeaderText = styled.span`
   color: #7aa2f7;
   font-size: 14px;
-  margin-left: 8px;
 `;
 
 const HeaderStatus = styled.div`
@@ -135,6 +142,35 @@ const CommandLine = styled.div`
   color: #565f89;  // Darker color for user messages
 `;
 
+const ErrorMessage = styled.div`
+  color: #f7768e;
+  font-style: italic;
+`;
+
+const TypewriterMarkdown = ({ content }) => {
+  const [typedContent, setTypedContent] = useState('');
+  
+  return (
+    <TypewriterWrapper>
+      <Typewriter
+        options={{
+          delay: 5,
+          cursor: ''
+        }}
+        onInit={(typewriter) => {
+          typewriter
+            .typeString(content)
+            .callFunction(() => {
+              setTypedContent(content);
+            })
+            .start();
+        }}
+      />
+      {typedContent && <ReactMarkdown>{typedContent}</ReactMarkdown>}
+    </TypewriterWrapper>
+  );
+};
+
 const Terminal = () => {
   const [history, setHistory] = useState([{
     type: 'system',
@@ -149,12 +185,25 @@ const Terminal = () => {
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const outputRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (outputRef.current) {
       outputRef.current.scrollTop = outputRef.current.scrollHeight;
     }
   }, [history]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [history, isProcessing]);
+
+  const handleTerminalClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
 
   const processCommand = async (command) => {
     // Immediately add the user's command to history
@@ -196,11 +245,14 @@ const Terminal = () => {
         }
       ]);
 
-      setContext({
-        awaitingCaseStudy: response.awaitCaseStudy || false,
-        inCaseStudy: response.type === 'case-study',
-        currentCaseStudy: response.currentCaseStudy || null
-      });
+      // Only update context if not a throttled response
+      if (response.type !== 'error') {
+        setContext({
+          awaitingCaseStudy: response.awaitCaseStudy || false,
+          inCaseStudy: response.type === 'case-study',
+          currentCaseStudy: response.currentCaseStudy || null
+        });
+      }
     } catch (error) {
       // Replace thinking entry with error message
       setHistory(prev => [
@@ -224,40 +276,11 @@ const Terminal = () => {
     setInput('');
   };
 
-  const renderContent = (entry) => {
-    if (entry.type === 'command') {
-      return (
-        <CommandLine>
-          <Prompt>❯</Prompt> {entry.content}
-        </CommandLine>
-      );
-    }
-
-    if (entry.type === 'thinking') {
-      return <LoadingDots>Thinking</LoadingDots>;
-    }
-
-    return (
-      <TypewriterWrapper>
-        <Typewriter
-          options={{
-            delay: 5,
-            cursor: ''
-          }}
-          onInit={(typewriter) => {
-            typewriter
-              .typeString(entry.content)
-              .start();
-          }}
-        />
-      </TypewriterWrapper>
-    );
-  };
-
   return (
-    <TerminalContainer>
+    <TerminalContainer onClick={handleTerminalClick}>
       <TerminalHeader>
         <HeaderTitle>
+          <HeaderAvatar src={headshot} alt="Andrew Liebchen" />
           <HeaderText>andrew.ai ~ terminal</HeaderText>
         </HeaderTitle>
         <HeaderStatus isProcessing={isProcessing}>
@@ -267,10 +290,16 @@ const Terminal = () => {
       <OutputPane ref={outputRef}>
         {history.map((entry) => (
           <OutputLine key={entry.id}>
-            {entry.type === 'case-study' || entry.type === 'ai-response' ? (
-              <ReactMarkdown>{entry.content}</ReactMarkdown>
+            {entry.type === 'command' ? (
+              <CommandLine>
+                <Prompt>❯</Prompt> {entry.content}
+              </CommandLine>
+            ) : entry.type === 'thinking' ? (
+              <LoadingDots>Thinking</LoadingDots>
+            ) : entry.type === 'error' ? (
+              <ErrorMessage>{entry.content}</ErrorMessage>
             ) : (
-              renderContent(entry)
+              <TypewriterMarkdown content={entry.content} />
             )}
           </OutputLine>
         ))}
@@ -279,11 +308,11 @@ const Terminal = () => {
         <InputContainer>
           <Prompt>❯</Prompt>
           <Input
+            ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type 'help' to explore commands..."
-            autoFocus
             disabled={isProcessing}
           />
         </InputContainer>

@@ -6,6 +6,19 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true
 });
 
+// Throttling configuration
+let lastRequestTime = 0;
+const THROTTLE_TIME = 5000; // 5 seconds
+
+const canMakeRequest = () => {
+  const now = Date.now();
+  if (now - lastRequestTime >= THROTTLE_TIME) {
+    lastRequestTime = now;
+    return true;
+  }
+  return false;
+};
+
 const SYSTEM_PROMPT = `You are Andrew.AI, a terminal-based assistant representing Andrew Liebchen, a versatile product designer with over a decade of experience in consumer, enterprise, and data-driven product design. Andrew has worked with companies ranging from pre-money startups to global organizations like Meta, where he led design efforts for the Meta Quest app. He specializes in creating MVPs for startups, offering expertise in product strategy, UX/UI design, branding, and even light front-end development.
 
 Key highlights of Andrew's career include:
@@ -77,6 +90,13 @@ const getRelevantContext = (query) => {
 };
 
 export const generateResponse = async (query, currentContext = {}) => {
+  if (!canMakeRequest()) {
+    return {
+      type: 'error',
+      content: 'Please wait a few seconds before asking another question.'
+    };
+  }
+
   try {
     const relevantContext = getRelevantContext(query);
     
