@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Typewriter from 'typewriter-effect';
-import ReactMarkdown from 'react-markdown';
 import { handleCommand } from '../commands/handler';
 import headshot from '../images/Headshot.webp';
 
@@ -33,6 +32,30 @@ const OutputPane = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 4px 0;
+  }
+
+  li {
+    padding-left: 16px;
+    position: relative;
+    margin: 4px 0;
+    line-height: 1.4;
+
+    &:before {
+      content: ">";
+      position: absolute;
+      left: 0;
+      color: #565f89;
+    }
+  }
+
+  p {
+    margin: 8px 0;
   }
 `;
 
@@ -147,8 +170,8 @@ const ErrorMessage = styled.div`
   font-style: italic;
 `;
 
-const TypewriterMarkdown = ({ content }) => {
-  const [typedContent, setTypedContent] = useState('');
+const TypewriterText = ({ content }) => {
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
   
   return (
     <TypewriterWrapper>
@@ -161,12 +184,11 @@ const TypewriterMarkdown = ({ content }) => {
           typewriter
             .typeString(content)
             .callFunction(() => {
-              setTypedContent(content);
+              setIsTypingComplete(true);
             })
             .start();
         }}
       />
-      {typedContent && <ReactMarkdown>{typedContent}</ReactMarkdown>}
     </TypewriterWrapper>
   );
 };
@@ -299,7 +321,7 @@ const Terminal = () => {
             ) : entry.type === 'error' ? (
               <ErrorMessage>{entry.content}</ErrorMessage>
             ) : (
-              <TypewriterMarkdown content={entry.content} />
+              <TypewriterText content={entry.content} />
             )}
           </OutputLine>
         ))}
