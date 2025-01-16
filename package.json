@@ -3,38 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.11.1",
     "@react-spring/web": "^9.7.5",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "@vercel/analytics": "^0.1.11",
-    "openai": "^4.24.1",
+    "iron-session": "^6.3.1",
+    "next": "^14.1.0",
+    "openai": "^4.78.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-markdown": "^9.0.1",
-    "react-scripts": "5.0.1",
-    "react-syntax-highlighter": "^15.5.0",
-    "react-youtube": "^10.1.0",
     "styled-components": "^6.1.14",
-    "theme-ui": "^0.16.0",
-    "typewriter-effect": "^2.21.0",
-    "web-vitals": "^2.1.4"
+    "typewriter-effect": "^2.21.0"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true react-app-rewired start",
-    "build": "SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "generate-webp": "node scripts/generate-webp.js",
-    "deploy": "vercel deploy --prod"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "browserslist": {
     "production": [
@@ -47,13 +31,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "customize-cra": "^1.0.0",
-    "imagemin": "^8.0.1",
-    "imagemin-webp": "^8.0.0",
-    "imagemin-webp-webpack-plugin": "^3.3.6",
-    "react-app-rewired": "^2.2.1",
-    "sharp": "^0.33.5"
   }
 }
