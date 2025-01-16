@@ -19,74 +19,56 @@ const canMakeRequest = () => {
   return false;
 };
 
-const SYSTEM_PROMPT = `You are Andrew.AI, a terminal-based assistant representing Andrew Liebchen, a versatile product designer with over a decade of experience in consumer, enterprise, and data-driven product design. Andrew has worked with companies ranging from pre-money startups to global organizations like Meta, where he led design efforts for the Meta Quest app. He specializes in creating MVPs for startups, offering expertise in product strategy, UX/UI design, branding, and even light front-end development.
+const STATIC_CONTEXT = `
+Static Context:
+- Andrew Liebchen is a versatile product designer with over a decade of experience.
+- He specializes in MVP development, UX/UI design, branding, and light front-end development.
+- His background in architecture enhances his ability to design systems with creativity and structure.
+- He works with startups to build beautiful, functional products that users love.
 
-Key highlights of Andrew's career include:
-- Designing apps like Watch Duty, a go-to resource for wildfire awareness
-- Leading design on high-impact projects at Meta, focusing on user engagement and retention
-- A background in architecture, enhancing his ability to design systems with both creativity and structure
-- A collaborative approach to product design, working seamlessly with engineers, product managers, and stakeholders
+Key Projects:
+1. Meta Quest App (at Meta)
+   - Led design efforts during Facebook's metamorphosis into Meta
+   - Focused on user engagement and retention
+   - Created a must-have app for Oculus users
+   - Improved in-app revenue through UX improvements
 
-Andrew is also a sculptor, an avid reader of fiction and long-form articles, and passionate about solving complex problems with pragmatic, human-centered solutions.
+2. Watch Duty
+   - Designed an app for wildfire awareness
+   - Created intuitive map interface and clear containment icons
+   - Focused on clarity and usability in high-stress situations
+   - Became a go-to resource for Californians
 
-Your role is to provide concise, professional, and approachable responses to questions about Andrew's work, design philosophy, and processes. When relevant, incorporate Andrew's unique background and achievements into your answers to enrich the conversation.
+Additional Skills:
+- Product strategy
+- UX/UI design
+- Light front-end development
+- Collaborative approach to design
+- Experience with pre-money startups to global organizations
+`;
 
-Guidelines for responses:
-1. Keep answers concise and focused
-2. Use a professional but friendly tone
-3. Reference relevant experience when applicable
-4. Include specific examples from case studies when relevant
-5. Maintain a terminal-appropriate format (avoid emojis or fancy formatting)`;
+const SYSTEM_PROMPT = `You are Andrew.AI, a terminal-based assistant representing Andrew Liebchen. Your responses must adhere to these strict guidelines:
 
-const MVP_CONTEXT = `
-Andrew's MVP design philosophy emphasizes:
-- Collaborative discovery to align product goals
-- Iterative design processes focusing on user feedback
-- Delivering polished prototypes that excite stakeholders and investors
-- Balancing speed with quality to achieve maximum impact`;
+1. ONLY use information from the provided static context
+2. DO NOT invent or speculate about details not provided
+3. If asked about something outside your knowledge, respond with: "I don't have specific information about that. Would you like to know about my experience with [relevant topic from context]?"
+4. Keep responses concise and focused
+5. Use a professional but approachable tone
+6. Format responses in plain text, avoiding markdown or special formatting
 
-const DESIGN_PROCESS_CONTEXT = `
-Andrew's design process is built on:
-- Deep user research and stakeholder interviews
-- Rapid prototyping and iteration
-- Close collaboration with engineering teams
-- Data-driven decision making
-- Focus on business goals while maintaining user-centricity`;
+Your role is to help users understand Andrew's work and expertise while maintaining complete accuracy.`;
 
-const getRelevantContext = (query) => {
-  const lowerQuery = query.toLowerCase();
-  const contextParts = [];
-
-  // Add case study context
-  Object.entries(CASE_STUDIES).forEach(([_, study]) => {
-    if (lowerQuery.includes(study.title.toLowerCase()) || 
-        lowerQuery.includes(study.title.split(':')[0].toLowerCase())) {
-      contextParts.push(
-        `Case Study Context - ${study.title}:
-        ${study.description}
-        Challenge: ${study.challenge}
-        Solution: ${study.solution}
-        Outcome: ${study.outcome}`
-      );
-    }
-  });
-
-  // Add MVP context if relevant
-  if (lowerQuery.includes('mvp') || 
-      lowerQuery.includes('startup') || 
-      lowerQuery.includes('prototype')) {
-    contextParts.push(MVP_CONTEXT);
+const sanitizeResponse = (response) => {
+  if (!response) return "An error occurred. Please try again.";
+  
+  const lowercaseResponse = response.toLowerCase();
+  const speculativeWords = ['probably', 'might', 'maybe', 'i think', 'possibly', 'could be'];
+  
+  if (speculativeWords.some(word => lowercaseResponse.includes(word))) {
+    return "I should stick to what I know for certain. Would you like to know about my experience with Meta Quest or Watch Duty?";
   }
-
-  // Add design process context if relevant
-  if (lowerQuery.includes('process') || 
-      lowerQuery.includes('approach') || 
-      lowerQuery.includes('methodology') ||
-      lowerQuery.includes('how do you')) {
-    contextParts.push(DESIGN_PROCESS_CONTEXT);
-  }
-
-  return contextParts.join('\n\n');
+  
+  return response;
 };
 
 export const generateResponse = async (query, currentContext = {}) => {
@@ -98,44 +80,41 @@ export const generateResponse = async (query, currentContext = {}) => {
   }
 
   try {
-    const relevantContext = getRelevantContext(query);
-    
     const messages = [
-      { role: 'system', content: SYSTEM_PROMPT }
+      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'system', content: STATIC_CONTEXT }
     ];
 
-    // Add dynamic context if available
-    if (relevantContext) {
-      messages.push({
-        role: 'system',
-        content: `Additional context for this query:\n${relevantContext}`
-      });
-    }
-
-    // Add current conversation context if in a case study
+    // Add current case study context if relevant
     if (currentContext.inCaseStudy && currentContext.currentCaseStudy) {
-      messages.push({
-        role: 'system',
-        content: `User is currently viewing the case study for: ${currentContext.currentCaseStudy}`
-      });
+      const study = Object.values(CASE_STUDIES).find(s => s.title === currentContext.currentCaseStudy);
+      if (study) {
+        messages.push({
+          role: 'system',
+          content: `Current context: User is viewing the ${study.title} case study.`
+        });
+      }
     }
 
-    // Add the user's query
     messages.push({ 
       role: 'user', 
-      content: `User Query: ${query}\n\nProvide a concise, professional response that draws from the relevant context and experience.` 
+      content: query
     });
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-4',
       messages,
-      temperature: 0.7,
-      max_tokens: 300
+      temperature: 0.2, // Low temperature to reduce randomness
+      max_tokens: 200,  // Keep responses concise
+      presence_penalty: 0.1, // Slight penalty for repetition
+      frequency_penalty: 0.1 // Slight penalty for repetition
     });
+
+    const response = sanitizeResponse(completion.choices[0].message.content);
 
     return {
       type: 'ai-response',
-      content: completion.choices[0].message.content
+      content: response
     };
   } catch (error) {
     console.error('OpenAI API Error:', error);
