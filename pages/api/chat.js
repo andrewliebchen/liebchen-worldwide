@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import { withIronSessionApiRoute } from 'iron-session/next';
-import { OPENAI_CONFIG, SESSION_CONFIG, formatContactLinks } from '../../config/openai';
+import { OPENAI_CONFIG, SESSION_CONFIG } from '../../config/openai';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -83,12 +83,9 @@ async function chatRoute(req, res) {
     await req.session.save();
     console.log('API: Session saved');
     
-    // Add contact links if relevant
-    const formattedResponse = response + formatContactLinks(response);
-    
     console.log('API: Sending successful response with query count:', req.session.queryCount);
     return res.json({
-      response: formattedResponse,
+      response: response,
       queryCount: req.session.queryCount
     });
 
