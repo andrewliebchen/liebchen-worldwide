@@ -1,6 +1,5 @@
 import { COMMANDS, RESPONSES, CASE_STUDIES } from './content';
 import { generateResponse } from './openai';
-import { imageToAscii } from '../utils/asciiArt';
 
 const isStaticCommand = (cmd) => {
   const command = cmd.toLowerCase().trim();

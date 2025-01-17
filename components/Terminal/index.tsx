@@ -4,12 +4,12 @@ import { handleCommand } from '../../commands/handler';
 import { TerminalContainer, OutputPane, OutputLine } from '../styles/terminal.styles';
 import { Header } from './Header';
 import { Input } from './Input';
-import { Message } from './Message';
-import type { Message as MessageType, StatusType, TerminalContext } from '../types/terminal';
+import { Message as MessageComponent } from './Message';
+import type { Message, MessageType, StatusType, TerminalContext } from '../types/terminal';
 
 export default function Terminal() {
-  const { queryCount, incrementQuery, resetQueries } = useQuery();
-  const [history, setHistory] = useState<MessageType[]>([{
+  const { queryCount, syncWithServer, resetSession, isLoading } = useQuery();
+  const [history, setHistory] = useState<Message[]>([{
     type: 'system',
     content: 'Welcome to Andrew.AI Terminal Portfolio\nType \'help\' to explore commands.\n\n░░░░░ 5 queries left',
     id: Date.now()
@@ -43,10 +43,29 @@ export default function Terminal() {
   };
 
   const processCommand = async (command: string) => {
-    console.log('Terminal: Processing command:', command);
-    console.log('Terminal: Current queryCount:', queryCount);
+    if (isLoading) {
+      console.log('Client: Still loading query count, ignoring command');
+      return;
+    }
+
+    // Handle refresh command
+    if (command.toLowerCase() === 'refresh') {
+      console.log('Client: Refreshing session');
+      setStatus('connecting');
+      await resetSession();
+      setHistory([{
+        type: 'system',
+        content: 'Session refreshed. Welcome to Andrew.AI Terminal Portfolio\nType \'help\' to explore commands.\n\n░░░░░ 5 queries left',
+        id: Date.now()
+      }]);
+      setStatus('connected');
+      return;
+    }
+
+    console.log('Client: Processing command:', command);
+    console.log('Client: Current local query count:', queryCount);
     
-    const commandEntry: MessageType = { 
+    const commandEntry: Message = { 
       type: 'command', 
       content: command,
       id: Date.now()
@@ -61,23 +80,35 @@ export default function Terminal() {
                           command.toLowerCase().startsWith('ascii');
     
     const isAIQuery = !isStaticCommand;
-    console.log('Terminal: isAIQuery:', isAIQuery);
-    
-    if (isAIQuery && queryCount >= 5) {
-      console.log('Terminal: Query limit reached');
-      setHistory(prev => [...prev, commandEntry, {
-        type: 'error',
-        content: 'You have reached the query limit for this session.\n\n' +
-                'I\'d love to continue our conversation! You can:\n' +
-                '• Email me at andrew@liebchen.world\n' +
-                '• Schedule a call: https://calendly.com/andrewliebchen/25min\n\n' +
-                'Or refresh the page to start a new session.',
-        id: Date.now() + 1
-      }]);
-      return;
+    console.log('Client: Is AI query:', isAIQuery);
+
+    if (isAIQuery) {
+      // Check server-side query count before proceeding
+      try {
+        console.log('Client: Checking server query count');
+        const serverCount = await syncWithServer();
+        console.log('Client: Server query count:', serverCount);
+        
+        if (serverCount >= 5) {
+          console.log('Client: Server indicates query limit reached');
+          const errorMessage: Message = {
+            type: 'error',
+            content: 'You have reached the query limit for this session.\n\n' +
+                    'I\'d love to continue our conversation! You can:\n' +
+                    '• Email me at andrew@liebchen.world\n' +
+                    '• Schedule a call: https://calendly.com/andrewliebchen/25min\n\n' +
+                    'Or refresh the page to start a new session.',
+            id: Date.now() + 1
+          };
+          setHistory(prev => [...prev, commandEntry, errorMessage]);
+          return;
+        }
+      } catch (error) {
+        console.error('Client: Failed to check query count:', error);
+      }
     }
 
-    const thinkingEntry: MessageType = {
+    const thinkingEntry: Message = {
       type: 'thinking',
       content: '',
       id: Date.now() + 1
@@ -88,19 +119,19 @@ export default function Terminal() {
 
     try {
       if (isAIQuery) {
-        console.log('Terminal: Starting AI query processing');
+        console.log('Client: Starting AI query');
         setStatus('thinking');
       } else if (command === 'portfolio') {
         setStatus('loading');
       }
 
       const response = await handleCommand(command, context, queryCount);
-      console.log('Terminal: Got response:', response);
+      console.log('Client: Got response:', response);
 
       if (response.type === 'clear') {
-        console.log('Terminal: Clearing history and resetting queries');
+        console.log('Client: Clearing history and resetting session');
+        await resetSession();
         setHistory([]);
-        resetQueries();
         setContext({ 
           awaitingCaseStudy: false, 
           inCaseStudy: false,
@@ -111,19 +142,17 @@ export default function Terminal() {
 
       // Update query count after successful AI response
       if (isAIQuery && response.type !== 'error') {
-        console.log('Terminal: Incrementing query count after successful AI response');
-        incrementQuery();
+        console.log('Client: Successful AI response, syncing query count');
+        await syncWithServer();
       }
 
       // Replace the thinking entry with the actual response
-      setHistory(prev => [
-        ...prev.slice(0, -1),
-        {
-          type: response.type,
-          content: response.content,
-          id: Date.now() + 2
-        }
-      ]);
+      const responseMessage: Message = {
+        type: response.type as MessageType,
+        content: response.content,
+        id: Date.now() + 2
+      };
+      setHistory(prev => [...prev.slice(0, -1), responseMessage]);
 
       if (response.type !== 'error') {
         setContext({
@@ -140,14 +169,12 @@ export default function Terminal() {
     } catch (error) {
       console.error('Terminal: Error processing command:', error);
       setStatus('error');
-      setHistory(prev => [
-        ...prev.slice(0, -1),
-        {
-          type: 'error',
-          content: 'An error occurred. Please try again.',
-          id: Date.now() + 2
-        }
-      ]);
+      const errorMessage: Message = {
+        type: 'error',
+        content: 'An error occurred. Please try again.',
+        id: Date.now() + 2
+      };
+      setHistory(prev => [...prev.slice(0, -1), errorMessage]);
       setTimeout(() => setStatus('connected'), 3000);
     }
   };
@@ -166,18 +193,18 @@ export default function Terminal() {
 
   return (
     <TerminalContainer onClick={handleTerminalClick}>
-      <Header status={status} />
+      <Header status={isLoading ? 'connecting' : status} />
       <OutputPane ref={outputRef}>
         {history.map((message) => (
           <OutputLine key={message.id}>
-            <Message message={message} />
+            <MessageComponent message={message} />
           </OutputLine>
         ))}
         <Input
           value={input}
           onChange={handleChange}
           onSubmit={handleSubmit}
-          disabled={status === 'processing'}
+          disabled={isLoading || status === 'processing'}
           inputRef={inputRef}
         />
       </OutputPane>

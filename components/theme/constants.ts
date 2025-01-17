@@ -4,6 +4,7 @@ export const spacing = {
   md: '16px',
   lg: '20px',
   xl: '24px',
+  xxl: '30px',
 } as const;
 
 export const typography = {

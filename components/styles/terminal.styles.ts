@@ -5,67 +5,42 @@ import type { HeaderStatusProps } from '../types/terminal';
 
 export const TerminalContainer = styled.div`
   background-color: ${colors.bg.primary};
-  height: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
-  -webkit-overflow-scrolling: touch;
-  overflow-y: auto;
 `;
 
 export const OutputPane = styled.div`
   flex: 1;
   overflow-y: auto;
   padding: ${spacing.lg};
-  padding-bottom: ${spacing.lg};
   -webkit-overflow-scrolling: touch;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+`;
 
-  strong {
-    color: ${colors.text.accent};
-  }
-
-  a {
-    color: ${colors.text.link};
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  ul {
-    list-style: none;
-    padding-left: 0;
-    margin: ${spacing.xs} 0;
-  }
-
-  li {
-    padding-left: ${spacing.md};
-    position: relative;
-    margin: ${spacing.xs} 0;
-    line-height: ${typography.lineHeight.normal};
-
-    &:before {
-      content: ">";
-      position: absolute;
-      left: 0;
-      color: ${colors.text.secondary};
-    }
-  }
-
-  p {
-    margin: ${spacing.sm} 0;
-  }
+export const OutputLine = styled.div`
+  margin-bottom: ${spacing.sm};
+  word-wrap: break-word;
+  white-space: pre-wrap;
 `;
 
 export const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: ${colors.bg.secondary};
-  padding: ${spacing.sm};
-  border-radius: ${layout.borderRadius};
-  margin: ${spacing.sm} 0;
+  position: sticky;
+  bottom: 0;
+  background-color: ${colors.bg.primary};
+  padding-top: ${spacing.sm};
+  margin: 0 -${spacing.sm};
+  
+
+  form {
+    display: flex;
+    align-items: center;
+    background-color: ${colors.bg.secondary};
+    padding: ${spacing.sm};
+    border-radius: ${layout.borderRadius};
+  }
 `;
 
 export const Prompt = styled.span`
@@ -95,13 +70,6 @@ export const Input = styled.input`
   &::placeholder {
     color: ${colors.text.secondary};
   }
-`;
-
-export const OutputLine = styled.div`
-  margin: ${spacing.sm} 0;
-  line-height: ${typography.lineHeight.relaxed};
-  white-space: pre-wrap;
-  padding-left: ${spacing.sm};
 `;
 
 export const MessageContainer = styled.div`

@@ -7,8 +7,13 @@ const openai = new OpenAI({
 });
 
 async function chatRoute(req, res) {
+  console.log('API: Starting chat route');
+  console.log('API: Session ID:', req.session.id);
+  console.log('API: Initial query count:', req.session.queryCount);
+
   // Ensure proper method
   if (req.method !== 'POST') {
+    console.log('API: Invalid method:', req.method);
     return res.status(405).json({ 
       error: 'Method not allowed',
       message: 'Only POST requests are allowed'
@@ -18,6 +23,7 @@ async function chatRoute(req, res) {
   // Validate request body
   const { query, context, systemPrompt, staticContext } = req.body;
   if (!query || !systemPrompt || !staticContext) {
+    console.log('API: Missing required fields:', { query, systemPrompt, staticContext });
     return res.status(400).json({
       error: 'Bad Request',
       message: 'Missing required fields in request body'
@@ -27,20 +33,20 @@ async function chatRoute(req, res) {
   try {
     // Initialize query count if not exists
     if (typeof req.session.queryCount === 'undefined') {
+      console.log('API: Initializing query count');
       req.session.queryCount = 0;
     }
 
+    console.log('API: Current query count:', req.session.queryCount);
+
     // Check query limit
     if (req.session.queryCount >= 5) {
+      console.log('API: Query limit reached');
       return res.status(429).json({
         error: 'Query limit reached',
         message: 'You have reached the query limit for this session.'
       });
     }
-    
-    // Increment query count before making the request
-    req.session.queryCount += 1;
-    await req.session.save();
     
     // Prepare messages array
     const messages = [
@@ -57,6 +63,7 @@ async function chatRoute(req, res) {
 
     messages.push({ role: 'user', content: query });
 
+    console.log('API: Making OpenAI request');
     // Make OpenAI API call
     const completion = await openai.chat.completions.create({
       messages,
@@ -64,21 +71,33 @@ async function chatRoute(req, res) {
     });
 
     if (!completion.choices?.[0]?.message?.content) {
+      console.log('API: Invalid OpenAI response');
       throw new Error('Invalid response from OpenAI');
     }
 
     const response = completion.choices[0].message.content;
     
+    // Only increment query count after successful response
+    req.session.queryCount += 1;
+    console.log('API: Incrementing query count to:', req.session.queryCount);
+    await req.session.save();
+    console.log('API: Session saved');
+    
     // Add contact links if relevant
     const formattedResponse = response + formatContactLinks(response);
     
+    console.log('API: Sending successful response with query count:', req.session.queryCount);
     return res.json({
       response: formattedResponse,
       queryCount: req.session.queryCount
     });
 
   } catch (error) {
-    console.error('Chat API Error:', error);
+    console.error('API Error:', error);
+    console.log('API: Session state at error:', {
+      queryCount: req.session.queryCount,
+      sessionId: req.session.id
+    });
     
     if (error.response?.status === 429) {
       return res.status(429).json({

@@ -2,35 +2,9 @@
 export const OPENAI_CONFIG = {
   model: 'gpt-4',
   temperature: 0.2,      // Lower temperature for more focused, consistent responses
-  max_tokens: 500,       // Increased to allow for detailed responses
+  max_tokens: 300,       // Reduced to enforce shorter responses
   presence_penalty: 0.1, // Slight penalty to avoid repetition
   frequency_penalty: 0.1 // Slight penalty to encourage varied language
-};
-
-// Contact information and common links
-export const CONTACT_INFO = {
-  calendly: {
-    url: 'https://calendly.com/andrewliebchen/25min',
-    text: 'schedule a call'
-  },
-  email: {
-    url: 'mailto:andrewliebchen@gmail.com',
-    text: 'email me'
-  }
-};
-
-// Helper to format contact links in responses
-export const formatContactLinks = (response) => {
-  const links = [];
-  
-  if (response.toLowerCase().includes('calendly')) {
-    links.push(`→ [${CONTACT_INFO.calendly.text}](${CONTACT_INFO.calendly.url})`);
-  }
-  if (response.toLowerCase().includes('email')) {
-    links.push(`→ [${CONTACT_INFO.email.text}](${CONTACT_INFO.email.url})`);
-  }
-  
-  return links.length > 0 ? `\n\n---\n${links.join('\n')}` : '';
 };
 
 // Markdown formatting instructions for the LLM
@@ -43,6 +17,10 @@ Format responses using these markdown conventions:
 - Use [text](url) for links
 - Avoid using markdown lists (ul/ol)
 - Use line breaks and paragraphs for structure
+
+CRITICAL instructions:
+- Keep responses concise, no more than 3 short paragraphs
+- Focus on the most relevant information
 `;
 
 // Validate SESSION_SECRET and get password

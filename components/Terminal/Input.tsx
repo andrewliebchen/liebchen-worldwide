@@ -5,14 +5,14 @@ interface InputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
-  disabled: boolean;
+  disabled?: boolean;
   inputRef: React.RefObject<HTMLInputElement>;
 }
 
 export function Input({ value, onChange, onSubmit, disabled, inputRef }: InputProps) {
   return (
-    <form onSubmit={onSubmit}>
-      <InputContainer>
+    <InputContainer>
+      <form onSubmit={onSubmit}>
         <Prompt>❯</Prompt>
         <StyledInput
           ref={inputRef}
@@ -22,7 +22,7 @@ export function Input({ value, onChange, onSubmit, disabled, inputRef }: InputPr
           placeholder="Type 'help' to explore commands..."
           disabled={disabled}
         />
-      </InputContainer>
-    </form>
+      </form>
+    </InputContainer>
   );
 } 
