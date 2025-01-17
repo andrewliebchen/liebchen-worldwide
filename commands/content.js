@@ -12,6 +12,13 @@ export const CASE_STUDIES = {
     challenge: 'Ensure clarity and usability under high-stress conditions.',
     solution: 'Intuitive map interface and clear containment icons.',
     outcome: 'Became a go-to resource for Californians navigating wildfire risks.'
+  },
+  3: {
+    title: "Miri: AI-powered wellness coach",
+    description: "",
+    challenge: "",
+    solution: "",
+    outcome: ""
   }
 };
 
