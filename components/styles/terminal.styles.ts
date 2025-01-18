@@ -16,8 +16,7 @@ export const TerminalContainer = styled.div`
 export const OutputPane = styled.div`
   flex: 1;
   overflow-y: auto;
-  padding: ${spacing.lg};
-  padding-bottom: 0; // For sticky scrolling
+  padding: ${spacing.lg} ${spacing.lg} 0 ${spacing.lg};
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
@@ -28,6 +27,7 @@ export const OutputLine = styled.div`
   margin-bottom: ${spacing.sm};
   word-wrap: break-word;
   white-space: pre-wrap;
+  padding-left: ${spacing.xl};
 `;
 
 export const InputContainer = styled.div`
@@ -36,9 +36,10 @@ export const InputContainer = styled.div`
   left: 0;
   right: 0;
   background-color: ${colors.bg.primary};
-  padding: ${spacing.lg};
-  padding-top: 0;
+  padding-bottom:${spacing.lg};
   z-index: 10;
+  padding-left: ${spacing.sm};
+  margin: 0 -10px;
 
   form {
     display: flex;
@@ -51,10 +52,10 @@ export const InputContainer = styled.div`
 
 export const Prompt = styled.span`
   color: ${colors.text.accent};
-  margin-right: ${spacing.sm};
-  min-width: ${spacing.lg};
+  min-width: 20px;
   display: inline-flex;
   justify-content: center;
+  margin: 0 2px 0 -2px; // Minor visual adjustment
 `;
 
 export const Input = styled.input`
@@ -83,7 +84,12 @@ export const MessageContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: ${spacing.lg};
-  padding-left: ${spacing.xl};
+  
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: ${spacing.sm};
+  }
 `;
 
 export const MessageContent = styled.div`
@@ -103,11 +109,14 @@ export const QueryCount = styled.div`
   font-family: ${typography.fontFamily.primary};
   flex-shrink: 0;
   padding-top: ${spacing.xs};
+
+  @media (max-width: 600px) {
+    padding: ${spacing.xs} 0;
+  }
 `;
 
 export const LoadingDots = styled.div`
   color: ${colors.text.accent};
-  padding-left: ${spacing.xl};
   &:after {
     content: '.';
     animation: dots 1.5s steps(5, end) infinite;
@@ -175,7 +184,7 @@ export const CommandLine = styled.div`
   display: flex;
   align-items: center;
   color: ${colors.text.secondary};
-  padding-left: 0;
+  margin-left: -${spacing.lg};
 `;
 
 export const ErrorMessage = styled.div`
