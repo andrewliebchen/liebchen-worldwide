@@ -84,7 +84,7 @@ export const MessageContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: ${spacing.lg};
-  
+  width: 100%;
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -108,11 +108,8 @@ export const QueryCount = styled.div`
   font-size: ${typography.fontSize.xs};
   font-family: ${typography.fontFamily.primary};
   flex-shrink: 0;
-  padding-top: ${spacing.xs};
-
-  @media (max-width: 600px) {
-    padding: ${spacing.xs} 0;
-  }
+  white-space: pre;
+  min-width: 100px;
 `;
 
 export const LoadingDots = styled.div`

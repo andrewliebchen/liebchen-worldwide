@@ -1,10 +1,28 @@
 import OpenAI from 'openai';
 import { withIronSessionApiRoute } from 'iron-session/next';
-import { OPENAI_CONFIG, SESSION_CONFIG } from '../../config/openai';
+import { OPENAI_CONFIG, SESSION_CONFIG, isAIEnabled } from '../../config/openai';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
+const MAINTENANCE_MODE_RESPONSES = [
+  "I'm currently in maintenance mode, but you can still:",
+  "While I'm being upgraded, feel free to:",
+  "I'm taking a brief break to recharge, but you can:",
+  "My AI features are temporarily paused, but you can still:"
+];
+
+const getMaintenanceResponse = () => {
+  const randomIntro = MAINTENANCE_MODE_RESPONSES[Math.floor(Math.random() * MAINTENANCE_MODE_RESPONSES.length)];
+  return {
+    response: `${randomIntro}\n\n` +
+              '→ Browse my portfolio with the `portfolio` command\n' +
+              '→ Learn about my experience with `about`\n' +
+              '→ Schedule a call: https://calendly.com/andrewliebchen/25min\n' +
+              '→ Email me at andrew@liebchen.world'
+  };
+};
 
 async function chatRoute(req, res) {
   console.log('API: Starting chat route');
@@ -18,6 +36,12 @@ async function chatRoute(req, res) {
       error: 'Method not allowed',
       message: 'Only POST requests are allowed'
     });
+  }
+
+  // Check if AI is enabled
+  if (!isAIEnabled()) {
+    console.log('API: AI is disabled, returning maintenance response');
+    return res.json(getMaintenanceResponse());
   }
 
   // Validate request body
@@ -44,7 +68,7 @@ async function chatRoute(req, res) {
       console.log('API: Query limit reached');
       return res.status(429).json({
         error: 'Query limit reached',
-        message: 'You have reached the query limit for this session.'
+        message: 'You\'ve reached the query limit. Your session will reset in 6 hours.'
       });
     }
     

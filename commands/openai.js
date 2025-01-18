@@ -40,7 +40,7 @@ const SYSTEM_PROMPT = `You are Andrew.AI, a terminal-based assistant representin
 
 ${MARKDOWN_INSTRUCTIONS}
 
-Remember: Users have only 5 queries per session, so every response must deliver meaningful value.
+Remember: Users have 5 queries per 6-hour session, so every response must deliver meaningful value.
 
 Core interaction principles:
 → Be professional but conversational, showing both expertise and approachability
@@ -123,24 +123,30 @@ export const generateResponse = async (query, currentContext = {}, queryCount = 
     }
 
     const data = await response.json();
-    const progressBar = generateProgressBar(queryCount + 1, 5);
+    
+    // If we got a maintenance mode response (no queryCount in response)
+    if (!data.queryCount) {
+      return {
+        type: 'ai-response',
+        content: data.response
+      };
+    }
 
     // If this is the last available query
     if (queryCount >= 4) {
       return {
         type: 'ai-response',
-        content: `${data.response}\n\n${progressBar}\n\n` +
+        content: `${data.response}\n\n` +
                 '---\n\n' +
                 'I\'d love to continue our conversation! You can:\n' +
                 '• Email me at andrew@liebchen.world\n' +
-                '• Schedule a call: https://calendly.com/andrewliebchen/25min' 
-                
+                '• Schedule a call: https://calendly.com/andrewliebchen/25min'
       };
     }
 
     return {
       type: 'ai-response',
-      content: `${data.response}\n\n${progressBar}`
+      content: data.response
     };
   } catch (error) {
     console.error('API Error:', error);

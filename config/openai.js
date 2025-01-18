@@ -7,6 +7,11 @@ export const OPENAI_CONFIG = {
   frequency_penalty: 0.1 // Slight penalty to encourage varied language
 };
 
+// Check if AI functionality is enabled
+export const isAIEnabled = () => {
+  return process.env.ENABLE_AI !== 'false' && !!process.env.OPENAI_API_KEY;
+};
+
 // Markdown formatting instructions for the LLM
 export const MARKDOWN_INSTRUCTIONS = `
 Format responses using these markdown conventions:
@@ -43,6 +48,6 @@ export const SESSION_CONFIG = {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     httpOnly: true,
-    maxAge: 24 * 60 * 60
+    maxAge: 6 * 60 * 60
   }
 }; 

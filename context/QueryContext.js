@@ -5,6 +5,7 @@ const QueryContext = createContext();
 export function QueryProvider({ children }) {
   const [queryCount, setQueryCount] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [aiEnabled, setAiEnabled] = useState(false);
 
   const resetSession = async () => {
     try {
@@ -13,6 +14,7 @@ export function QueryProvider({ children }) {
       });
       const data = await response.json();
       setQueryCount(data.queryCount);
+      setAiEnabled(data.aiEnabled);
       return data.queryCount;
     } catch (error) {
       console.error('Failed to reset session:', error);
@@ -25,6 +27,7 @@ export function QueryProvider({ children }) {
       const response = await fetch('/api/queries/count');
       const data = await response.json();
       setQueryCount(data.queryCount);
+      setAiEnabled(data.aiEnabled);
       return data.queryCount;
     } catch (error) {
       console.error('Failed to sync with server:', error);
@@ -36,7 +39,7 @@ export function QueryProvider({ children }) {
   useEffect(() => {
     const initialize = async () => {
       setIsLoading(true);
-      await resetSession(); // Reset session on page load
+      await syncWithServer(); // Changed from resetSession to syncWithServer
       setIsLoading(false);
     };
     initialize();
@@ -47,7 +50,8 @@ export function QueryProvider({ children }) {
       queryCount: queryCount ?? 0, 
       resetSession,
       syncWithServer,
-      isLoading 
+      isLoading,
+      aiEnabled
     }}>
       {children}
     </QueryContext.Provider>

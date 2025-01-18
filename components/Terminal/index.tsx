@@ -8,10 +8,10 @@ import { Message as MessageComponent } from './Message';
 import type { Message, MessageType, StatusType, TerminalContext } from '../types/terminal';
 
 export default function Terminal() {
-  const { queryCount, syncWithServer, resetSession, isLoading } = useQuery();
+  const { queryCount, syncWithServer, resetSession, isLoading, aiEnabled } = useQuery();
   const [history, setHistory] = useState<Message[]>([{
     type: 'system',
-    content: 'Welcome to Andrew.AI Terminal Portfolio\nType \'help\' to explore commands.\n\n░░░░░ 5 queries left',
+    content: 'Welcome to Andrew.AI Terminal Portfolio\nType \'help\' to explore commands.',
     id: Date.now()
   }]);
   const [input, setInput] = useState('');
@@ -45,20 +45,6 @@ export default function Terminal() {
   const processCommand = async (command: string) => {
     if (isLoading) {
       console.log('Client: Still loading query count, ignoring command');
-      return;
-    }
-
-    // Handle refresh command
-    if (command.toLowerCase() === 'refresh') {
-      console.log('Client: Refreshing session');
-      setStatus('connecting');
-      await resetSession();
-      setHistory([{
-        type: 'system',
-        content: 'Session refreshed. Welcome to Andrew.AI Terminal Portfolio\nType \'help\' to explore commands.\n\n░░░░░ 5 queries left',
-        id: Date.now()
-      }]);
-      setStatus('connected');
       return;
     }
 

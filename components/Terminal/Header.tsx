@@ -1,7 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, HeaderStatus } from '../styles/terminal.styles';
+import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, HeaderStatus, QueryCount } from '../styles/terminal.styles';
 import type { StatusType } from '../types/terminal';
+import { useQuery } from '../../context/QueryContext';
 
 interface HeaderProps {
   status: StatusType;
@@ -30,7 +31,19 @@ const getStatusText = (status: StatusType): string => {
   }
 };
 
+const generateProgressBar = (used: number, total: number = 5) => {
+  if (used >= total) {
+    return '█████ No queries left';
+  }
+  const filled = '█'.repeat(used);
+  const empty = '░'.repeat(total - used);
+  const remaining = total - used;
+  return `${filled}${empty} ${remaining} ${remaining === 1 ? 'query' : 'queries'} left`;
+};
+
 export const Header: React.FC<HeaderProps> = ({ status }) => {
+  const { queryCount, aiEnabled } = useQuery();
+
   return (
     <TerminalHeader>
       <HeaderTitle>
@@ -46,9 +59,16 @@ export const Header: React.FC<HeaderProps> = ({ status }) => {
         </HeaderAvatar>
         <HeaderText>andrew.ai ~ terminal</HeaderText>
       </HeaderTitle>
-      <HeaderStatus $status={status}>
-        {getStatusText(status)}
-      </HeaderStatus>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        {aiEnabled && (
+          <QueryCount>
+            {generateProgressBar(queryCount ?? 0)}
+          </QueryCount>
+        )}
+        <HeaderStatus $status={status}>
+          {getStatusText(status)}
+        </HeaderStatus>
+      </div>
     </TerminalHeader>
   );
 }; 
