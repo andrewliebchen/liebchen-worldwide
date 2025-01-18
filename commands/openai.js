@@ -83,6 +83,9 @@ Always maintain a balance between:
 You have access to Andrew's background, skills, and case studies. Use this information strategically to demonstrate value, not just to share facts. Make every interaction count - users have limited queries, so ensure each response provides meaningful insights or actionable information.`;
 
 const generateProgressBar = (used, total) => {
+  if (used >= total) {
+    return '█████ No queries left';
+  }
   const filled = '█'.repeat(used);
   const empty = '░'.repeat(total - used);
   const remaining = total - used;
@@ -111,11 +114,9 @@ export const generateResponse = async (query, currentContext = {}, queryCount = 
       if (response.status === 429) {
         return {
           type: 'error',
-          content: 'You have reached the query limit for this session.\n\n' +
-                  'I\'d love to continue our conversation! You can:\n' +
+          content: 'I\'d love to continue our conversation! You can:\n' +
                   '• Email me at andrew@liebchen.world\n' +
-                  '• Schedule a call: https://calendly.com/andrewliebchen/25min\n\n' +
-                  'Or refresh the page to start a new session.'
+                  '• Schedule a call: https://calendly.com/andrewliebchen/25min' 
         };
       }
       throw new Error(error.message);
@@ -130,11 +131,10 @@ export const generateResponse = async (query, currentContext = {}, queryCount = 
         type: 'ai-response',
         content: `${data.response}\n\n${progressBar}\n\n` +
                 '---\n\n' +
-                'This was your final AI query for this session.\n' +
                 'I\'d love to continue our conversation! You can:\n' +
                 '• Email me at andrew@liebchen.world\n' +
-                '• Schedule a call: https://calendly.com/andrewliebchen/25min\n\n' +
-                'Or refresh the page to start a new session.'
+                '• Schedule a call: https://calendly.com/andrewliebchen/25min' 
+                
       };
     }
 

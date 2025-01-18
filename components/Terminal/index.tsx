@@ -88,21 +88,6 @@ export default function Terminal() {
         console.log('Client: Checking server query count');
         const serverCount = await syncWithServer();
         console.log('Client: Server query count:', serverCount);
-        
-        if (serverCount >= 5) {
-          console.log('Client: Server indicates query limit reached');
-          const errorMessage: Message = {
-            type: 'error',
-            content: 'You have reached the query limit for this session.\n\n' +
-                    'I\'d love to continue our conversation! You can:\n' +
-                    '• Email me at andrew@liebchen.world\n' +
-                    '• Schedule a call: https://calendly.com/andrewliebchen/25min\n\n' +
-                    'Or refresh the page to start a new session.',
-            id: Date.now() + 1
-          };
-          setHistory(prev => [...prev, commandEntry, errorMessage]);
-          return;
-        }
       } catch (error) {
         console.error('Client: Failed to check query count:', error);
       }
