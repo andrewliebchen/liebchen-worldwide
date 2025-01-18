@@ -6,18 +6,22 @@ import type { HeaderStatusProps } from '../types/terminal';
 export const TerminalContainer = styled.div`
   background-color: ${colors.bg.primary};
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
 `;
 
 export const OutputPane = styled.div`
   flex: 1;
   overflow-y: auto;
   padding: ${spacing.lg};
+  padding-bottom: 0; // For sticky scrolling
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 export const OutputLine = styled.div`
@@ -29,10 +33,12 @@ export const OutputLine = styled.div`
 export const InputContainer = styled.div`
   position: sticky;
   bottom: 0;
+  left: 0;
+  right: 0;
   background-color: ${colors.bg.primary};
-  padding-top: ${spacing.sm};
-  margin: 0 -${spacing.sm};
-  
+  padding: ${spacing.lg};
+  padding-top: 0;
+  z-index: 10;
 
   form {
     display: flex;
@@ -122,6 +128,9 @@ export const TerminalHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 export const HeaderAvatar = styled.div`
