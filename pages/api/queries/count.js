@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from 'iron-session/next';
-import { SESSION_CONFIG, isAIEnabled } from '@/src/ai/config/openai';
+import { SESSION_CONFIG, isAIEnabled } from '../../../src/ai/config/openai';
 
 async function countRoute(req, res) {
   console.log('API Count: Starting count route');
@@ -20,7 +20,7 @@ async function countRoute(req, res) {
 
   console.log('API Count: Returning query count:', req.session.queryCount);
   res.json({ 
-    queryCount: req.session.queryCount,
+    queryCount: req.session.queryCount || 0,
     aiEnabled: isAIEnabled()
   });
 }

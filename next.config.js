@@ -7,11 +7,7 @@ const nextConfig = {
   images: {
     domains: ['localhost']
   },
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  distDir: '.next',
-  experimental: {
-    appDir: false
-  }
+  distDir: 'build'
 };
 
 module.exports = nextConfig;
