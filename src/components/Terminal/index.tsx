@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useQuery } from '@context/QueryContext';
-import { handleCommand } from '@commands/handler';
+import { useQuery } from '@/src/context/QueryContext';
+import { handleCommand } from '@/src/ai/commands/handler';
 import { TerminalContainer, OutputPane, OutputLine } from '@/src/styles/components/terminal.styles';
-import { Header } from '@components/Terminal/Header';
-import { Input } from '@components/Terminal/Input';
-import { Message as MessageComponent } from '@components/Terminal/Message';
-import type { Message, MessageType, StatusType, TerminalContext } from '@components/types/terminal';
+import { Header } from '@/src/components/Terminal/Header';
+import { Input } from '@/src/components/Terminal/Input';
+import { Message as MessageComponent } from '@/src/components/Terminal/Message';
+import type { Message, MessageType, StatusType, TerminalContext } from '@/src/types/terminal';
 
 export default function Terminal() {
   const { queryCount, syncWithServer, resetSession, isLoading, aiEnabled } = useQuery();

@@ -6,7 +6,9 @@ const nextConfig = {
   },
   images: {
     domains: ['localhost']
-  }
+  },
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  dir: 'src'
 };
 
 module.exports = nextConfig; 

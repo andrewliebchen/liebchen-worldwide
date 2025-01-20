@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
 import { spacing, typography, layout } from '@/src/styles/theme/constants';
-import type { HeaderStatusProps } from '@components/types/terminal';
+import type { HeaderStatusProps } from '@/src/types/terminal';
 
 export const TerminalContainer = styled.div`
   background-color: ${colors.bg.primary};

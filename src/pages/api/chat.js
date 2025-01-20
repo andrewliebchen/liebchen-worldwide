@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import { withIronSessionApiRoute } from 'iron-session/next';
-import { OPENAI_CONFIG, SESSION_CONFIG, isAIEnabled } from '../../config/openai';
+import { OPENAI_CONFIG, SESSION_CONFIG, isAIEnabled } from '@/src/ai/config/openai';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,

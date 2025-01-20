@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from 'iron-session/next';
-import { SESSION_CONFIG } from '../../../config/openai';
+import { SESSION_CONFIG } from '@/src/ai/config/openai';
 
 async function resetRoute(req, res) {
   console.log('API Reset: Starting reset route');

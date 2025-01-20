@@ -1,5 +1,5 @@
 import { CASE_STUDIES } from './content';
-import { BACKGROUND_CONTEXT } from '../llm-context/background';
+import { BACKGROUND_CONTEXT } from '../context/background';
 import { MARKDOWN_INSTRUCTIONS } from '../config/openai';
 
 const API_URL = process.env.NODE_ENV === 'production'
