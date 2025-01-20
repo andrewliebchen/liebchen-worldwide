@@ -8,7 +8,7 @@ const nextConfig = {
     domains: ['localhost']
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  dir: 'src'
+  distDir: '.next'
 };
 
-module.exports = nextConfig; 
+module.exports = nextConfig;
