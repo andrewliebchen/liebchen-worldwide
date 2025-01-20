@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputContainer, Prompt, Input as StyledInput } from '../styles/terminal.styles';
+import { InputContainer, Prompt, Input as StyledInput } from '@/src/styles/components/terminal.styles';
 
 interface InputProps {
   value: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
-import { colors } from '../theme/colors';
+import { colors } from '@/src/styles/theme/colors';
 
 const StyledMarkdown = styled.div`
   font-family: inherit;

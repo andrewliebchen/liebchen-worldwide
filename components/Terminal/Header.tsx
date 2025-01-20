@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, HeaderStatus, QueryCount } from '../styles/terminal.styles';
-import type { StatusType } from '../types/terminal';
-import { useQuery } from '../../context/QueryContext';
+import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, HeaderStatus, QueryCount } from '@/src/styles/components/terminal.styles';
+import type { StatusType } from '@components/types/terminal';
+import { useQuery } from '@context/QueryContext';
 
 interface HeaderProps {
   status: StatusType;

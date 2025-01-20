@@ -16,17 +16,24 @@ Static Context:
 → He works with startups to build beautiful, functional products that users love
 
 Key Projects:
-1. Meta Quest App (at Meta)
+1. Meta Quest App (at Meta): Your mobile companion for the Metaverse
    → Led design efforts during Facebook's metamorphosis into Meta
    → Focused on user engagement and retention
    → Created a must-have app for Oculus users
    → Improved in-app revenue through UX improvements
 
-2. Watch Duty
+2. Watch Duty: Community-powered wildfire awareness app
    → Designed an app for wildfire awareness
    → Created intuitive map interface and clear containment icons
    → Focused on clarity and usability in high-stress situations
    → Became a go-to resource for Californians
+
+3. Miri (current client): AI-powered nutrition app
+   → Designed an AI-powered nutrition app with personalized meal tracking and coaching.
+   → Improved user engagement through seamless UX and modular SDK integration.
+   → Expanded reach with accessible design and white-label B2B customizations.
+   → Developed novel AI-driven nutrition coaching features.
+
 
 Additional Skills:
 → Product strategy

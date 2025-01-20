@@ -1,5 +1,5 @@
-import { COMMANDS, RESPONSES, CASE_STUDIES } from './content';
-import { generateResponse } from './openai';
+import { COMMANDS, RESPONSES, CASE_STUDIES } from '@commands/content';
+import { generateResponse } from '@commands/openai';
 
 const isStaticCommand = (cmd) => {
   const command = cmd.toLowerCase().trim();

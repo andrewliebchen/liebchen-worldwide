@@ -8,9 +8,9 @@ import {
   CommandLine,
   Prompt,
   ErrorMessage,
-} from '../styles/terminal.styles';
-import type { Message as MessageType } from '../types/terminal';
-import MarkdownResponse from './MarkdownResponse';
+} from '@/src/styles/components/terminal.styles';
+import type { Message as MessageType } from '@components/types/terminal';
+import MarkdownResponse from '@components/Terminal/MarkdownResponse';
 
 interface MessageProps {
   message: MessageType;
