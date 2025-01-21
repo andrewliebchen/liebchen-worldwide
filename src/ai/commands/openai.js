@@ -2,9 +2,7 @@ import { CASE_STUDIES } from './content';
 import { BACKGROUND_CONTEXT } from '../context/background';
 import { MARKDOWN_INSTRUCTIONS } from '../config/openai';
 
-const API_URL = process.env.NODE_ENV === 'production'
-  ? 'https://your-production-domain.com'
-  : '';  // Empty string for same-origin requests in development
+const API_URL = '';  // Empty string for relative URLs in all environments
 
 const STATIC_CONTEXT = `
 ${BACKGROUND_CONTEXT}
