@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputContainer, Prompt, Input as StyledInput } from '@/src/styles/components/terminal.styles';
+import { CommandLine, InputContainer, Input as StyledInput } from '@/src/styles/components/terminal.styles';
 
 interface InputProps {
   value: string;
@@ -13,7 +13,6 @@ export function Input({ value, onChange, onSubmit, disabled, inputRef }: InputPr
   return (
     <InputContainer>
       <form onSubmit={onSubmit}>
-        <Prompt>❯</Prompt>
         <StyledInput
           ref={inputRef}
           type="text"

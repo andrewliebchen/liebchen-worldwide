@@ -113,15 +113,6 @@ Always maintain a balance between:
 
 You have access to Andrew's background, skills, and case studies. Use this information strategically to demonstrate value, not just to share facts. Make every interaction count - users have limited queries, so ensure each response provides meaningful insights or actionable information.`;
 
-const generateProgressBar = (used, total) => {
-  if (used >= total) {
-    return '█████ No queries left';
-  }
-  const filled = '█'.repeat(used);
-  const empty = '░'.repeat(total - used);
-  const remaining = total - used;
-  return `${filled}${empty} ${remaining} ${remaining === 1 ? 'query' : 'queries'} left`;
-};
 
 export const generateResponse = async (query, currentContext = {}, queryCount = 0) => {
   try {

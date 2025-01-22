@@ -1,77 +1,147 @@
 import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
-import { spacing, typography, layout } from '@/src/styles/theme/constants';
-import type { HeaderStatusProps } from '@/src/types/terminal';
+import { spacing, typography, layout, size, maxWidth } from '@/src/styles/theme/constants';
+
+const PROMPT_STYLE = `
+    content: '❯';
+    position: absolute;
+    left: -${size[6]};
+    color: ${colors.text.accent};
+    display: block;
+`;
+
+export const TerminalHeader = styled.div`
+  background-color: ${colors.bg.secondary};
+  padding: ${size[3]} ${size[8]};
+  position: sticky;
+  top: 0;
+  z-index: 10;
+`;
+
+export const HeaderContainer = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: ${maxWidth};
+`;
+
+export const HeaderTitle = styled.div`
+  align-items: center;
+  display: flex;
+  gap: ${size[2]};
+`;
+
+export const HeaderAvatar = styled.div`
+  background-color: ${colors.bg.primary};
+  border-radius: 50%;
+  height: ${size[9]};
+  margin-right: ${spacing.sm};
+  overflow: hidden;
+  position: relative;
+  width: ${size[9]};
+`;
+
+export const HeaderText = styled.span`
+  color: ${colors.text.accent};
+  font-size: ${typography.fontSize[2]};
+`;
+
+export const QueryCount = styled.div`
+  color: ${colors.text.primary};
+  flex-shrink: 0;
+  font-family: ${typography.fontFamily.primary};
+  font-size: ${typography.fontSize[1]};
+  min-width: 100px;
+  white-space: pre;
+`;
 
 export const TerminalContainer = styled.div`
   background-color: ${colors.bg.primary};
-  min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  position: relative;
+  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
+  position: relative;
 `;
 
 export const OutputPane = styled.div`
-  flex: 1;
-  overflow-y: auto;
-  padding: ${spacing.lg} ${spacing.lg} 0 ${spacing.lg};
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  gap: ${size[5]};
+  overflow-y: auto;
+  padding: ${size[5]} 0;
   position: relative;
 `;
 
 export const OutputLine = styled.div`
-  margin-bottom: ${spacing.sm};
-  word-wrap: break-word;
+  padding: 0 ${size[8]};
   white-space: pre-wrap;
-  padding-left: ${spacing.xl};
+  word-wrap: break-word;
 `;
 
-export const InputContainer = styled.div`
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: ${colors.bg.primary};
-  padding-bottom:${spacing.lg};
-  z-index: 10;
-  padding-left: ${spacing.sm};
-  margin: 0 -10px;
+export const MessageContainer = styled.div`
+  align-items: flex-start;
+  display: flex;
+  gap: ${size[10]};
+  justify-content: space-between;
+  max-width: ${maxWidth};
+  margin: 0 auto;
 
-  form {
-    display: flex;
-    align-items: center;
-    background-color: ${colors.bg.secondary};
-    padding: ${spacing.sm};
-    border-radius: ${layout.borderRadius};
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: ${size[2]};
   }
 `;
 
-export const Prompt = styled.span`
-  color: ${colors.text.accent};
-  min-width: 20px;
-  display: inline-flex;
-  justify-content: center;
-  margin: 0 2px 0 -2px; // Minor visual adjustment
+export const CommandLine = styled.div`
+  color: ${colors.text.secondary};
+  position: relative;
+
+  &::before {
+    ${PROMPT_STYLE}
+  }
 `;
 
+export const InputContainer = styled.div`
+  background-color: ${colors.bg.secondary};
+  bottom: 0;
+  left: 0;
+  padding: ${size[4]} ${size[8]};
+  position: sticky;
+  right: 0;
+  z-index: 10;
+
+  form {
+    align-items: center;
+    display: flex;
+    max-width: ${maxWidth};
+    margin: 0 auto;
+    position: relative;
+
+    &::before {
+      ${PROMPT_STYLE}
+    }
+  }
+`;
+
+
 export const Input = styled.input`
+  -webkit-appearance: none;
   background: none;
+  border-radius: 0;
   border: none;
   color: ${colors.text.primary};
   font-family: ${typography.fontFamily.primary};
-  font-size: ${typography.fontSize.md};
-  width: 100%;
-  outline: none;
-  -webkit-appearance: none;
-  border-radius: 0;
-  padding: 0;
-  margin: 0;
+  font-size: ${typography.fontSize[2]};
   line-height: normal;
+  margin: 0 auto;
+  outline: none;
   position: relative;
+  width: 100%;
   z-index: 2;
 
   &::placeholder {
@@ -79,23 +149,6 @@ export const Input = styled.input`
   }
 `;
 
-export const MessageContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: ${spacing.lg};
-  width: 100%;
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-    gap: ${spacing.sm};
-  }
-`;
-
-export const MessageContent = styled.div`
-  flex: 1;
-  min-width: 0;
-`;
 
 export const TypewriterWrapper = styled.div`
   .Typewriter__cursor {
@@ -103,18 +156,12 @@ export const TypewriterWrapper = styled.div`
   }
 `;
 
-export const QueryCount = styled.div`
-  color: ${colors.text.secondary};
-  font-size: ${typography.fontSize.xs};
-  font-family: ${typography.fontFamily.primary};
-  flex-shrink: 0;
-  white-space: pre;
-  min-width: 100px;
-`;
-
 export const LoadingDots = styled.div`
   color: ${colors.text.accent};
-  &:after {
+  max-width: ${maxWidth};
+  margin: 0 auto;
+
+  &::after {
     content: '.';
     animation: dots 1.5s steps(5, end) infinite;
   }
@@ -127,65 +174,7 @@ export const LoadingDots = styled.div`
   }
 `;
 
-export const TerminalHeader = styled.div`
-  background-color: ${colors.bg.secondary};
-  padding: ${spacing.sm} ${spacing.lg};
-  border-bottom: 1px solid ${colors.border.primary};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-`;
-
-export const HeaderAvatar = styled.div`
-  width: ${layout.avatarSize};
-  height: ${layout.avatarSize};
-  border-radius: 50%;
-  position: relative;
-  margin-right: ${spacing.sm};
-  border: 1px solid ${colors.border.primary};
-  overflow: hidden;
-  background-color: ${colors.bg.primary};
-`;
-
-export const HeaderTitle = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const HeaderText = styled.span`
-  color: ${colors.text.accent};
-  font-size: ${typography.fontSize.sm};
-`;
-
-export const HeaderStatus = styled.div<HeaderStatusProps>`
-  color: ${props => colors.status[props.$status]};
-  font-size: ${typography.fontSize.xs};
-  display: flex;
-  align-items: center;
-  gap: ${spacing.xs};
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: ${spacing.sm};
-    height: ${spacing.sm};
-    border-radius: 50%;
-    background-color: ${props => colors.status[props.$status]};
-  }
-`;
-
-export const CommandLine = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${colors.text.secondary};
-  margin-left: -${spacing.lg};
-`;
-
 export const ErrorMessage = styled.div`
   color: ${colors.text.error};
   font-style: italic;
-  padding-left: ${spacing.xl};
 `; 

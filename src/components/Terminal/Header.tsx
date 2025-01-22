@@ -1,16 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
-import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, QueryCount } from '@/src/styles/components/terminal.styles';
+import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, QueryCount, HeaderContainer } from '@/src/styles/components/terminal.styles';
 import { useQuery } from '@/src/context/QueryContext';
 
 const generateProgressBar = (used: number, total: number = 5) => {
   if (used >= total) {
-    return '█████ No queries left';
+    return '█████ No AI queries left';
   }
   const filled = '█'.repeat(used);
   const empty = '░'.repeat(total - used);
   const remaining = total - used;
-  return `${filled}${empty} ${remaining} ${remaining === 1 ? 'query' : 'queries'} left`;
+  return `${filled}${empty} ${remaining} AI ${remaining === 1 ? 'query' : 'queries'} left`;
 };
 
 export const Header: React.FC = () => {
@@ -18,6 +18,7 @@ export const Header: React.FC = () => {
 
   return (
     <TerminalHeader>
+      <HeaderContainer>
       <HeaderTitle>
         <HeaderAvatar>
           <Image
@@ -31,13 +32,12 @@ export const Header: React.FC = () => {
         </HeaderAvatar>
         <HeaderText>Andrew.ai Terminal</HeaderText>
       </HeaderTitle>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-        {aiEnabled && (
-          <QueryCount>
-            {generateProgressBar(queryCount ?? 0)}
-          </QueryCount>
-        )}
-      </div>
+      {aiEnabled && (
+        <QueryCount>
+          {generateProgressBar(queryCount ?? 0)}
+        </QueryCount>
+      )}
+      </HeaderContainer>
     </TerminalHeader>
   );
 }; 

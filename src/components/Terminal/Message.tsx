@@ -2,11 +2,9 @@ import React from 'react';
 import Typewriter from 'typewriter-effect';
 import {
   MessageContainer,
-  MessageContent,
   TypewriterWrapper,
   LoadingDots,
   CommandLine,
-  Prompt,
   ErrorMessage,
 } from '@/src/styles/components/terminal.styles';
 import type { Message as MessageType } from '@/src/types/terminal';
@@ -20,9 +18,9 @@ export function Message({ message }: MessageProps) {
   switch (message.type) {
     case 'command':
       return (
-        <CommandLine>
-          <Prompt>❯</Prompt> {message.content}
-        </CommandLine>
+        <MessageContainer>
+          <CommandLine>{message.content}</CommandLine>
+        </MessageContainer>
       );
     
     case 'thinking':
@@ -53,13 +51,11 @@ export function Message({ message }: MessageProps) {
 
       return (
         <MessageContainer>
-          <MessageContent>
-            {Content}
-          </MessageContent>
+          {Content}
         </MessageContainer>
       );
 
     default:
-      return <div>{message.content}</div>;
+      return <MessageContainer>{message.content}</MessageContainer>;
   }
 } 
