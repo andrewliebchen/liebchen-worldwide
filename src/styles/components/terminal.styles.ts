@@ -184,4 +184,6 @@ export const LoadingDots = styled.div`
 export const ErrorMessage = styled.div`
   color: ${colors.text.error};
   font-style: italic;
+  max-width: ${maxWidth};
+  margin: 0 auto;
 `; 
