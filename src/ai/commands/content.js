@@ -15,10 +15,10 @@ export const CASE_STUDIES = {
   },
   3: {
     title: "Miri: AI-powered wellness coach",
-    description: "",
-    challenge: "",
-    solution: "",
-    outcome: ""
+    description: "Led the design of an innovative AI-powered nutrition app focused on personalized wellness coaching.",
+    challenge: "Create an engaging, personalized nutrition tracking experience that scales across both B2C and B2B markets.",
+    solution: "Designed an intuitive app with AI-driven coaching features, seamless UX, and a modular SDK for white-label integration.",
+    outcome: "Successfully expanded market reach through accessible design and B2B customizations while improving user engagement."
   }
 };
 

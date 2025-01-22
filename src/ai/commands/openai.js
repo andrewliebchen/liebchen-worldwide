@@ -1,5 +1,5 @@
-import { BACKGROUND_CONTEXT } from '../context/background';
-import { MARKDOWN_INSTRUCTIONS } from '../config/openai';
+import { BACKGROUND_CONTEXT } from '@/src/ai/context/background';
+import { MARKDOWN_INSTRUCTIONS } from '@/src/ai/config/openai';
 
 const API_URL = '';  // Empty string for relative URLs in all environments
 

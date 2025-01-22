@@ -1,7 +1,7 @@
 // OpenAI API configuration
 export const OPENAI_CONFIG = {
   model: 'gpt-4',
-  temperature: 0.2,      // Lower temperature for more focused, consistent responses
+  temperature: 0.3,      // Lower temperature for more focused, consistent responses
   max_tokens: 300,       // Reduced to enforce shorter responses
   presence_penalty: 0.1, // Slight penalty to avoid repetition
   frequency_penalty: 0.1 // Slight penalty to encourage varied language
