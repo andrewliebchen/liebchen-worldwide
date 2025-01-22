@@ -11,12 +11,12 @@ export default function Terminal() {
   const { queryCount, syncWithServer, resetSession, isLoading, aiEnabled } = useQuery();
   const [history, setHistory] = useState<Message[]>([{
     type: 'system',
-    content: `╒══════════════════════════════════════════╕
-|                                          |
-|       Connected to Andrew.AI             |
-|       Running on LiebchenOS v0.1.0       |
-|                                          |
-╘══════════════════════════════════════════╛
+    content: `╒══════════════════════════════════╕
+|                                  |
+|   Connected to Andrew.AI         |
+|   Running on LiebchenOS v0.1.0   |
+|                                  |
+╘══════════════════════════════════╛
 
 Ask me about Andrew's work, projects, or skills
 Type **help** to explore commands`,

@@ -24,6 +24,12 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   margin: 0 auto;
   max-width: ${maxWidth};
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: ${size[3]};
+    align-items: flex-start;
+  }
 `;
 
 export const HeaderTitle = styled.div`
@@ -36,7 +42,7 @@ export const HeaderAvatar = styled.div`
   background-color: ${colors.bg.primary};
   border-radius: 50%;
   height: ${size[9]};
-  margin-right: ${spacing.sm};
+  aspect-ratio: 1;
   overflow: hidden;
   position: relative;
   width: ${size[9]};
