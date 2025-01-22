@@ -1,4 +1,4 @@
-import { CALENDLY_LINK, EMAIL, LINKEDIN_LINK } from '@/src/ai/config/openai';
+import { CALENDLY_LINK, LINKEDIN_LINK } from '@/src/ai/config/openai';
 
 export const CASE_STUDIES = {
   1: {
@@ -33,17 +33,17 @@ export const COMMANDS = {
 };
 
 export const RESPONSES = {
-  HELP: `Available commands:
-- help: Show this help message
-- about: Learn about me
-- portfolio: View my case studies
-- contact: Get in touch`,
+  HELP: `Available commands:\n
+→ **help**: Show this help message
+→ **about**: Learn about me
+→ **portfolio**: View my case studies
+→ **contact**: Get in touch`,
 
   ABOUT: `I'm Andrew Liebchen, a product designer with over a decade of experience crafting stellar products.
 I specialize in helping startups build beautiful, functional products that users love.
 My background in architecture and front-end development allows me to bridge the gap between design and implementation.
 
-Type 'portfolio' to see my work or 'contact' to get in touch.`,
+Type portfolio' to see my work or 'contact' to get in touch.`,
 
   CONTACT: `Message me on LinkedIn: ${LINKEDIN_LINK}
 Or schedule a call: ${CALENDLY_LINK}`,
@@ -51,6 +51,7 @@ Or schedule a call: ${CALENDLY_LINK}`,
   PORTFOLIO: `Here are my case studies:
 1. Meta Quest: Bridge to the Metaverse
 2. Watch Duty: Wildfire Awareness
+3. Miri: AI-powered wellness coach
 
 Type the number of the case study you'd like to explore.`,
 

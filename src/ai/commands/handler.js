@@ -18,6 +18,7 @@ const isStaticCommand = (cmd) => {
          command.startsWith('contact') ||
          command.startsWith('clear') ||
          command.startsWith('back') ||
+         command.startsWith('about') ||
          command.startsWith('ascii');
 };
 

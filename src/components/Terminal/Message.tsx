@@ -36,6 +36,10 @@ export function Message({ message }: MessageProps) {
       );
 
     default:
-      return <MessageContainer>{message.content}</MessageContainer>;
+      return (
+        <MessageContainer>
+          <MarkdownResponse content={message.content} />
+        </MessageContainer>
+      );
   }
 } 
