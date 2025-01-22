@@ -35,7 +35,7 @@ export function Message({ message }: MessageProps) {
         <TypewriterWrapper>
           <Typewriter
             options={{
-              delay: 5,
+              delay: 1,
               cursor: ''
             }}
             onInit={(typewriter) => {
