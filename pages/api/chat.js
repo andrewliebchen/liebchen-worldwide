@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import { withIronSessionApiRoute } from 'iron-session/next';
-import { OPENAI_CONFIG, SESSION_CONFIG, isAIEnabled, shouldEnforceQueryLimits, CALENDLY_LINK, EMAIL } from '../../src/ai/config/openai';
+import { OPENAI_CONFIG, SESSION_CONFIG, isAIEnabled, shouldEnforceQueryLimits, CALENDLY_LINK, EMAIL, LINKEDIN_LINK } from '../../src/ai/config/openai';
 import { track } from '@vercel/analytics/next';
 
 // Wrap track in a safe function that won't throw
@@ -27,10 +27,10 @@ const getMaintenanceResponse = () => {
   const randomIntro = MAINTENANCE_MODE_RESPONSES[Math.floor(Math.random() * MAINTENANCE_MODE_RESPONSES.length)];
   return {
     response: `${randomIntro}\n\n` +
-              '→ Browse my portfolio with the `portfolio` command\n' +
-              '→ Learn about my experience with `about`\n' +
-              '→ Schedule a call: ${CALENDLY_LINK}\n' +
-              `→ Email me at ${EMAIL}`
+              `→ Browse my portfolio with the **portfolio** command\n` +
+              `→ Learn about my experience with **about**\n` +
+              `→ Schedule a call: [${CALENDLY_LINK}](${CALENDLY_LINK})\n` +
+              `→ Connect with me: [${LINKEDIN_LINK}](${LINKEDIN_LINK})`
   };
 };
 
