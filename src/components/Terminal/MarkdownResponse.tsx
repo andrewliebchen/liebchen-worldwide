@@ -9,9 +9,12 @@ const StyledMarkdown = styled.div`
   
   a {
     color: ${colors.text.link};
-    text-decoration: none;
+    text-decoration: underline;
+    padding: 2px;
+    margin: -2px;
+
     &:hover {
-      text-decoration: underline;
+      background-color: ${colors.bg.secondary};
     }
   }
 

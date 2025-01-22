@@ -1,5 +1,5 @@
 import { BACKGROUND_CONTEXT } from '@/src/ai/context/background';
-import { MARKDOWN_INSTRUCTIONS, CALENDLY_LINK, EMAIL, shouldEnforceQueryLimits } from '@/src/ai/config/openai';
+import { MARKDOWN_INSTRUCTIONS, CALENDLY_LINK, EMAIL, LINKEDIN_LINK, shouldEnforceQueryLimits } from '@/src/ai/config/openai';
 
 const API_URL = '';  // Empty string for relative URLs in all environments
 
@@ -95,7 +95,7 @@ When discussing:
 
 For contact and next steps:
 → Use "[schedule a call](${CALENDLY_LINK})" to include the scheduling link
-→ Use "[email me](${EMAIL})" to include the email address
+→ Use "[message me on LinkedIn](${LINKEDIN_LINK})" to include the LinkedIn link
 → Always provide a clear path forward for interested clients
 → Encourage scheduling calls for detailed discussions about projects or collaboration
 
@@ -137,8 +137,8 @@ export const generateResponse = async (query, currentContext = {}, queryCount = 
         return {
           type: 'error',
           content: 'I\'d love to continue our conversation! You can:\n' +
-                  `• Email me at ${EMAIL}\n` +
-                  `• Schedule a call: ${CALENDLY_LINK}`
+                  `→ Message me on LinkedIn: ${LINKEDIN_LINK}\n` +
+                  `→ Schedule a call: ${CALENDLY_LINK}`
         };
       }
       throw new Error(error.message);
@@ -161,8 +161,8 @@ export const generateResponse = async (query, currentContext = {}, queryCount = 
         content: `${data.response}\n\n` +
                 '---\n\n' +
                 'I\'d love to continue our conversation! You can:\n' +
-                `• Email me at ${EMAIL}\n` +
-                `• Schedule a call: ${CALENDLY_LINK}`
+                `→ Message me on LinkedIn: ${LINKEDIN_LINK}\n` +
+                `→ Schedule a call: ${CALENDLY_LINK}`
       };
     }
 

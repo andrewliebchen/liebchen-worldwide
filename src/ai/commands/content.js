@@ -1,4 +1,4 @@
-import { CALENDLY_LINK, EMAIL } from '@/src/ai/config/openai';
+import { CALENDLY_LINK, EMAIL, LINKEDIN_LINK } from '@/src/ai/config/openai';
 
 export const CASE_STUDIES = {
   1: {
@@ -45,7 +45,7 @@ My background in architecture and front-end development allows me to bridge the 
 
 Type 'portfolio' to see my work or 'contact' to get in touch.`,
 
-  CONTACT: `Email me at: ${EMAIL}
+  CONTACT: `Message me on LinkedIn: ${LINKEDIN_LINK}
 Or schedule a call: ${CALENDLY_LINK}`,
 
   PORTFOLIO: `Here are my case studies:

@@ -11,7 +11,15 @@ export default function Terminal() {
   const { queryCount, syncWithServer, resetSession, isLoading, aiEnabled } = useQuery();
   const [history, setHistory] = useState<Message[]>([{
     type: 'system',
-    content: 'Welcome to Andrew.AI Terminal Portfolio\nType \'help\' to explore commands.',
+    content: `████████████████████████████████████████
+█                                      █
+█     Welcome to Andrew.AI             █
+█     Running on LiebchenOS v0.1.0     █
+█                                      █
+████████████████████████████████████████
+
+Type 'help' to explore commands
+Ask me about Andrew's work, projects, or skills`,
     id: Date.now()
   }]);
   const [input, setInput] = useState('');

@@ -47,6 +47,12 @@ export const HeaderText = styled.span`
   font-size: ${typography.fontSize[2]};
 `;
 
+export const HeaderVersion = styled.span`
+  color: ${colors.text.secondary};
+  font-size: ${typography.fontSize[1]};
+  font-weight: bold;
+`;
+
 export const QueryCount = styled.div`
   color: ${colors.text.primary};
   flex-shrink: 0;

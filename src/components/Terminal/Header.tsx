@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, QueryCount, HeaderContainer } from '@/src/styles/components/terminal.styles';
+import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, QueryCount, HeaderContainer, HeaderVersion } from '@/src/styles/components/terminal.styles';
 import { useQuery } from '@/src/context/QueryContext';
 
 const generateProgressBar = (used: number, total: number = 5) => {
@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
             style={{ objectFit: 'cover' }}
           />
         </HeaderAvatar>
-        <HeaderText>Andrew.ai Terminal</HeaderText>
+        <HeaderText>Andrew.AI Portfolio <HeaderVersion>v0.1.0</HeaderVersion></HeaderText>
       </HeaderTitle>
       {aiEnabled && (
         <QueryCount>

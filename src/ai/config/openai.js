@@ -40,6 +40,7 @@ CRITICAL instructions:
 
 export const CALENDLY_LINK = 'https://calendly.com/andrewliebchen/25min';
 export const EMAIL = 'andrewliebchen@gmail.com';
+export const LINKEDIN_LINK = 'https://www.linkedin.com/in/andrewliebchen/';
 
 // Validate SESSION_SECRET and get password
 const getSessionPassword = () => {
