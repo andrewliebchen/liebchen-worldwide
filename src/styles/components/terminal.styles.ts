@@ -79,7 +79,7 @@ export const OutputPane = styled.div`
   flex: 1;
   gap: ${size[5]};
   overflow-y: auto;
-  padding: ${size[5]} 0;
+  padding-top: ${size[5]};
   position: relative;
 `;
 
