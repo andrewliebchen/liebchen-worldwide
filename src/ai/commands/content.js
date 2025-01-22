@@ -43,7 +43,7 @@ export const RESPONSES = {
 I specialize in helping startups build beautiful, functional products that users love.
 My background in architecture and front-end development allows me to bridge the gap between design and implementation.
 
-Type portfolio' to see my work or 'contact' to get in touch.`,
+Type **portfolio** to see my work or **contact** to get in touch.`,
 
   CONTACT: `Message me on LinkedIn: ${LINKEDIN_LINK}
 Or schedule a call: ${CALENDLY_LINK}`,
@@ -55,8 +55,8 @@ Or schedule a call: ${CALENDLY_LINK}`,
 
 Type the number of the case study you'd like to explore.`,
 
-  INVALID_SELECTION: `Invalid selection. Type 'portfolio' to see the list again.`,
+  INVALID_SELECTION: `Invalid selection. Type **portfolio** to see the list again.`,
   
-  NOT_RECOGNIZED: `Command not recognized. Type 'help' for available commands.`,
+  NOT_RECOGNIZED: `Command not recognized. Type **help** for available commands.`,
 
 }; 
