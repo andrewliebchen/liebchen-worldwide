@@ -19,7 +19,7 @@ export default function Terminal() {
 ╘══════════════════════════════════════════╛
 
 Ask me about Andrew's work, projects, or skills
-Type 'help' to explore commands`,
+Type **help** to explore commands`,
     id: Date.now()
   }]);
   const [input, setInput] = useState('');
