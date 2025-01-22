@@ -49,9 +49,9 @@ Type **portfolio** to see my work or **contact** to get in touch.`,
 Or schedule a call: ${CALENDLY_LINK}`,
 
   PORTFOLIO: `Here are my case studies:
-1. Meta Quest: Bridge to the Metaverse
-2. Watch Duty: Wildfire Awareness
-3. Miri: AI-powered wellness coach
+1 → Meta Quest: Bridge to the Metaverse
+2 → Watch Duty: Wildfire Awareness
+3 → Miri: AI-powered wellness coach
 
 Type the number of the case study you'd like to explore.`,
 

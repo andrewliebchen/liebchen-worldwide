@@ -14,7 +14,7 @@ export const isDevelopment = () => {
 
 // Check if AI functionality is enabled
 export const isAIEnabled = () => {
-  return process.env.ENABLE_AI !== 'false' && !!process.env.OPENAI_API_KEY;
+  return process.env.ENABLE_AI === 'true' && !!process.env.OPENAI_API_KEY;
 };
 
 // Check if query limits should be enforced
