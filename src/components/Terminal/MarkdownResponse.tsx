@@ -27,11 +27,6 @@ const StyledMarkdown = styled.div`
   strong {
     color: ${colors.text.accent};
   }
-
-  p {
-    margin: 0;
-    padding: 0;
-  }
 `;
 
 interface MarkdownResponseProps {

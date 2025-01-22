@@ -1,8 +1,6 @@
 import React from 'react';
-import Typewriter from 'typewriter-effect';
 import {
   MessageContainer,
-  TypewriterWrapper,
   LoadingDots,
   CommandLine,
   ErrorMessage,
@@ -31,27 +29,9 @@ export function Message({ message }: MessageProps) {
     
     case 'ai-response':
     case 'system':
-      const Content = message.type === 'system' ? (
-        <TypewriterWrapper>
-          <Typewriter
-            options={{
-              delay: 1,
-              cursor: ''
-            }}
-            onInit={(typewriter) => {
-              typewriter
-                .typeString(message.content)
-                .start();
-            }}
-          />
-        </TypewriterWrapper>
-      ) : (
-        <MarkdownResponse content={message.content} />
-      );
-
       return (
         <MessageContainer>
-          {Content}
+          <MarkdownResponse content={message.content} />
         </MessageContainer>
       );
 
