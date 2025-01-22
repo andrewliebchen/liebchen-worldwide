@@ -164,7 +164,7 @@ export default function Terminal() {
 
   return (
     <TerminalContainer onClick={handleTerminalClick}>
-      <Header status={isLoading ? 'connecting' : status} />
+      <Header />
       <OutputPane ref={outputRef}>
         {history.map((message) => (
           <OutputLine key={message.id}>

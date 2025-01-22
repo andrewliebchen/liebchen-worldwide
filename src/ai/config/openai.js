@@ -1,15 +1,25 @@
 // OpenAI API configuration
 export const OPENAI_CONFIG = {
-  model: 'gpt-4',
+  model: 'gpt-4o-mini-2024-07-18',
   temperature: 0.3,      // Lower temperature for more focused, consistent responses
   max_tokens: 300,       // Reduced to enforce shorter responses
   presence_penalty: 0.1, // Slight penalty to avoid repetition
   frequency_penalty: 0.1 // Slight penalty to encourage varied language
 };
 
+// Check if we're in development mode
+export const isDevelopment = () => {
+  return process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'preview';
+};
+
 // Check if AI functionality is enabled
 export const isAIEnabled = () => {
   return process.env.ENABLE_AI !== 'false' && !!process.env.OPENAI_API_KEY;
+};
+
+// Check if query limits should be enforced
+export const shouldEnforceQueryLimits = () => {
+  return !isDevelopment();
 };
 
 // Markdown formatting instructions for the LLM
@@ -27,6 +37,9 @@ CRITICAL instructions:
 - Keep responses concise, no more than 3 short paragraphs
 - Focus on the most relevant information
 `;
+
+export const CALENDLY_LINK = 'https://calendly.com/andrewliebchen/25min';
+export const EMAIL = 'andrewliebchen@gmail.com';
 
 // Validate SESSION_SECRET and get password
 const getSessionPassword = () => {
@@ -53,6 +66,7 @@ export const SESSION_CONFIG = {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     httpOnly: true,
-    maxAge: 6 * 60 * 60
+    maxAge: 6 * 60 * 60,
+    path: "/"
   }
 }; 

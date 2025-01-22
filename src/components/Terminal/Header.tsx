@@ -1,35 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, HeaderStatus, QueryCount } from '@/src/styles/components/terminal.styles';
-import type { StatusType } from '@/src/types/terminal';
+import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, QueryCount } from '@/src/styles/components/terminal.styles';
 import { useQuery } from '@/src/context/QueryContext';
-
-interface HeaderProps {
-  status: StatusType;
-}
-
-const getStatusText = (status: StatusType): string => {
-  switch (status) {
-    case 'error':
-      return 'Error occurred';
-    case 'processing':
-      return 'Sending to OpenAI';
-    case 'thinking':
-      return 'Thinking...';
-    case 'loading':
-      return 'Loading content';
-    case 'connected':
-      return 'Connected';
-    case 'connecting':
-      return 'Connecting';
-    case 'reconnecting':
-      return 'Reconnecting';
-    case 'offline':
-      return 'Offline';
-    default:
-      return 'Idle';
-  }
-};
 
 const generateProgressBar = (used: number, total: number = 5) => {
   if (used >= total) {
@@ -41,7 +13,7 @@ const generateProgressBar = (used: number, total: number = 5) => {
   return `${filled}${empty} ${remaining} ${remaining === 1 ? 'query' : 'queries'} left`;
 };
 
-export const Header: React.FC<HeaderProps> = ({ status }) => {
+export const Header: React.FC = () => {
   const { queryCount, aiEnabled } = useQuery();
 
   return (
@@ -57,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ status }) => {
             style={{ objectFit: 'cover' }}
           />
         </HeaderAvatar>
-        <HeaderText>andrew.ai ~ terminal</HeaderText>
+        <HeaderText>Andrew.ai Terminal</HeaderText>
       </HeaderTitle>
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         {aiEnabled && (
@@ -65,9 +37,6 @@ export const Header: React.FC<HeaderProps> = ({ status }) => {
             {generateProgressBar(queryCount ?? 0)}
           </QueryCount>
         )}
-        <HeaderStatus $status={status}>
-          {getStatusText(status)}
-        </HeaderStatus>
       </div>
     </TerminalHeader>
   );

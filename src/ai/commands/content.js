@@ -1,3 +1,5 @@
+import { CALENDLY_LINK, EMAIL } from '@/src/ai/config/openai';
+
 export const CASE_STUDIES = {
   1: {
     title: 'Meta Quest: Bridge to the Metaverse',
@@ -43,8 +45,8 @@ My background in architecture and front-end development allows me to bridge the 
 
 Type 'portfolio' to see my work or 'contact' to get in touch.`,
 
-  CONTACT: `Email me at: andrew@liebchen.world
-Or schedule a call: https://calendly.com/andrewliebchen/25min`,
+  CONTACT: `Email me at: ${EMAIL}
+Or schedule a call: ${CALENDLY_LINK}`,
 
   PORTFOLIO: `Here are my case studies:
 1. Meta Quest: Bridge to the Metaverse

@@ -1,5 +1,5 @@
 import { BACKGROUND_CONTEXT } from '@/src/ai/context/background';
-import { MARKDOWN_INSTRUCTIONS } from '@/src/ai/config/openai';
+import { MARKDOWN_INSTRUCTIONS, CALENDLY_LINK, EMAIL, shouldEnforceQueryLimits } from '@/src/ai/config/openai';
 
 const API_URL = '';  // Empty string for relative URLs in all environments
 
@@ -89,13 +89,13 @@ When discussing:
 → Technical details: Show understanding while maintaining focus on business value
 
 For contact and next steps:
-→ Use "[schedule a call](Calendly)" to include the scheduling link
-→ Use "[email me](email)" to include the email address
+→ Use "[schedule a call](${CALENDLY_LINK})" to include the scheduling link
+→ Use "[email me](${EMAIL})" to include the email address
 → Always provide a clear path forward for interested clients
 → Encourage scheduling calls for detailed discussions about projects or collaboration
 
 If asked about:
-→ Availability: Suggest scheduling a call via Calendly link
+→ Availability: Suggest scheduling a call via Calendly link: ${CALENDLY_LINK}
 → Technical implementation: Provide high-level insights, then suggest direct discussion
 → Rates/pricing: Direct to email/call for detailed discussion
 → Portfolio: Guide through relevant case studies based on their interests
@@ -141,8 +141,8 @@ export const generateResponse = async (query, currentContext = {}, queryCount = 
         return {
           type: 'error',
           content: 'I\'d love to continue our conversation! You can:\n' +
-                  '• Email me at andrew@liebchen.world\n' +
-                  '• Schedule a call: https://calendly.com/andrewliebchen/25min' 
+                  `• Email me at ${EMAIL}\n` +
+                  `• Schedule a call: ${CALENDLY_LINK}`
         };
       }
       throw new Error(error.message);
@@ -158,15 +158,15 @@ export const generateResponse = async (query, currentContext = {}, queryCount = 
       };
     }
 
-    // If this is the last available query
-    if (queryCount >= 4) {
+    // Only show last query message in production
+    if (shouldEnforceQueryLimits() && queryCount >= 4) {
       return {
         type: 'ai-response',
         content: `${data.response}\n\n` +
                 '---\n\n' +
                 'I\'d love to continue our conversation! You can:\n' +
-                '• Email me at andrew@liebchen.world\n' +
-                '• Schedule a call: https://calendly.com/andrewliebchen/25min'
+                `• Email me at ${EMAIL}\n` +
+                `• Schedule a call: ${CALENDLY_LINK}`
       };
     }
 
