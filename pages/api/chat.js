@@ -1,7 +1,16 @@
 import OpenAI from 'openai';
 import { withIronSessionApiRoute } from 'iron-session/next';
 import { OPENAI_CONFIG, SESSION_CONFIG, isAIEnabled } from '../../src/ai/config/openai';
-import { track } from '@vercel/analytics';
+import { track } from '@vercel/analytics/next';
+
+// Wrap track in a safe function that won't throw
+const safeTrack = async (eventName, properties) => {
+  try {
+    await track(eventName, properties);
+  } catch (error) {
+    console.warn('Analytics tracking failed:', error);
+  }
+};
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -102,8 +111,8 @@ async function chatRoute(req, res) {
 
     const response = completion.choices[0].message.content;
     
-    // Track the AI interaction
-    track('ai_interaction', {
+    // Track the AI interaction with safe tracking
+    await safeTrack('ai_interaction', {
       query_count: req.session.queryCount,
       query_length: query.length,
       response_length: response.length

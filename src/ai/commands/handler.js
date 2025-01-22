@@ -1,6 +1,15 @@
 import { COMMANDS, RESPONSES, CASE_STUDIES } from './content';
 import { generateResponse } from './openai';
-import { track } from '@vercel/analytics';
+import { track } from '@vercel/analytics/next';
+
+// Safe analytics tracking that works in both client and server
+const trackEvent = (eventName, properties) => {
+  try {
+    track(eventName, properties);
+  } catch (error) {
+    console.debug('Analytics tracking failed:', error);
+  }
+};
 
 const isStaticCommand = (cmd) => {
   const command = cmd.toLowerCase().trim();
@@ -41,7 +50,7 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
   // Handle static commands
   if (isStaticCommand(cmd)) {
     // Track the static command usage
-    track('static_command', {
+    trackEvent('static_command', {
       command: mainCommand
     });
 
