@@ -18,7 +18,7 @@ export function Input({ value, onChange, onSubmit, disabled, inputRef }: InputPr
           type="text"
           value={value}
           onChange={onChange}
-          placeholder="Type 'help' to explore commands..."
+          placeholder="Ask a question or type 'help'..."
           disabled={disabled}
         />
       </form>

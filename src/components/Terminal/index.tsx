@@ -18,8 +18,8 @@ export default function Terminal() {
 |                                          |
 ╘══════════════════════════════════════════╛
 
-Type 'help' to explore commands
-Ask me about Andrew's work, projects, or skills`,
+Ask me about Andrew's work, projects, or skills
+Type 'help' to explore commands`,
     id: Date.now()
   }]);
   const [input, setInput] = useState('');

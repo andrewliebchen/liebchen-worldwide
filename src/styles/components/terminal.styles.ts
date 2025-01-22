@@ -120,6 +120,7 @@ export const InputContainer = styled.div`
   position: sticky;
   right: 0;
   z-index: 10;
+  margin-top: ${size[5]};
 
   form {
     align-items: center;
