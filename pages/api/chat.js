@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { withIronSessionApiRoute } from 'iron-session/next';
 import { OPENAI_CONFIG, SESSION_CONFIG, isAIEnabled } from '../../src/ai/config/openai';
+import { track } from '@vercel/analytics';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -100,6 +101,13 @@ async function chatRoute(req, res) {
     }
 
     const response = completion.choices[0].message.content;
+    
+    // Track the AI interaction
+    track('ai_interaction', {
+      query_count: req.session.queryCount,
+      query_length: query.length,
+      response_length: response.length
+    });
     
     // Only increment query count after successful response
     req.session.queryCount += 1;

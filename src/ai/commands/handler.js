@@ -1,5 +1,6 @@
 import { COMMANDS, RESPONSES, CASE_STUDIES } from './content';
 import { generateResponse } from './openai';
+import { track } from '@vercel/analytics';
 
 const isStaticCommand = (cmd) => {
   const command = cmd.toLowerCase().trim();
@@ -39,6 +40,11 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
 
   // Handle static commands
   if (isStaticCommand(cmd)) {
+    // Track the static command usage
+    track('static_command', {
+      command: mainCommand
+    });
+
     switch (mainCommand) {
       case COMMANDS.HELP:
         return {
