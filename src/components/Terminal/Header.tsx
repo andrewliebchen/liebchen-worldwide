@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
             style={{ objectFit: 'cover' }}
           />
         </HeaderAvatar>
-        <HeaderText>Andrew.AI Portfolio <HeaderVersion>v0.1.0</HeaderVersion></HeaderText>
+        <HeaderText>Andrew.AI <HeaderVersion>Interactive portfolio v0.1.1</HeaderVersion></HeaderText>
       </HeaderTitle>
       {aiEnabled && (
         <QueryCount>

@@ -35,7 +35,7 @@ export const HeaderContainer = styled.div`
 export const HeaderTitle = styled.div`
   align-items: center;
   display: flex;
-  gap: ${size[2]};
+  gap: ${size[4]};
 `;
 
 export const HeaderAvatar = styled.div`

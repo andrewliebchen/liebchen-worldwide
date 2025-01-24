@@ -7,6 +7,29 @@ import { Input } from '@/src/components/Terminal/Input';
 import { Message as MessageComponent } from '@/src/components/Terminal/Message';
 import type { Message, MessageType, StatusType, TerminalContext } from '@/src/types/terminal';
 
+const TypewriterMessage: React.FC<{ content: string; onComplete?: () => void }> = ({ content, onComplete }) => {
+  const [displayedContent, setDisplayedContent] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
+  
+  useEffect(() => {
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (currentIndex <= content.length) {
+        setDisplayedContent(content.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+        setIsComplete(true);
+        onComplete?.();
+      }
+    }, 10); // Adjust speed as needed
+
+    return () => clearInterval(interval);
+  }, [content, onComplete]);
+
+  return <MessageComponent message={{ type: 'system', content: displayedContent, id: Date.now() }} />;
+};
+
 const welcomeMessages = [
   "Hey there, Andrew.AI here to help. Andrew's all about designing products that feel intuitive and genuinely helpful—whether it's an MVP for a startup or AI-driven tools for nutrition coaching. Got a question? Just ask, or type help for ideas.",
   "Welcome! Andrew's spent over a decade crafting thoughtful, user-focused designs for everything from Meta's Metaverse app to wildfire awareness tools. Curious how he approaches design? Ask away or type help to see where we can go.",
@@ -19,11 +42,8 @@ const proTip = "\n\n**Pro tip:** You can ask up to 5 questions per day, so make 
 
 export default function Terminal() {
   const { queryCount, syncWithServer, resetSession, isLoading, aiEnabled } = useQuery();
-  const [history, setHistory] = useState<Message[]>([{
-    type: 'system',
-    content: welcomeMessages[0] + proTip, // Always use the first message for initial render
-    id: Date.now()
-  }]);
+  const [history, setHistory] = useState<Message[]>([]);
+  const [isInitialMessageComplete, setIsInitialMessageComplete] = useState(false);
   const [input, setInput] = useState('');
   const [context, setContext] = useState<TerminalContext>({
     awaitingCaseStudy: false,
@@ -175,17 +195,30 @@ export default function Terminal() {
   // After initial mount, randomly change the welcome message
   useEffect(() => {
     const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
-    setHistory([{
-      type: 'system',
-      content: randomMessage + proTip,
-      id: Date.now()
-    }]);
-  }, []); // Empty dependency array means this runs once after mount
+    const fullMessage = randomMessage + proTip;
+    // Don't set history here anymore, we'll handle it in the TypewriterMessage
+  }, []); 
 
   return (
     <TerminalContainer onClick={handleTerminalClick}>
       <Header />
       <OutputPane ref={outputRef}>
+        {history.length === 0 && (
+          <OutputLine>
+            <TypewriterMessage 
+              content={welcomeMessages[0] + proTip}
+              onComplete={() => {
+                const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+                setHistory([{
+                  type: 'system',
+                  content: randomMessage + proTip,
+                  id: Date.now()
+                }]);
+                setIsInitialMessageComplete(true);
+              }}
+            />
+          </OutputLine>
+        )}
         {history.map((message) => (
           <OutputLine key={message.id}>
             <MessageComponent message={message} />
@@ -195,7 +228,7 @@ export default function Terminal() {
           value={input}
           onChange={handleChange}
           onSubmit={handleSubmit}
-          disabled={isLoading || status === 'processing'}
+          disabled={isLoading || status === 'processing' || !isInitialMessageComplete}
           inputRef={inputRef}
         />
       </OutputPane>
