@@ -7,19 +7,21 @@ import { Input } from '@/src/components/Terminal/Input';
 import { Message as MessageComponent } from '@/src/components/Terminal/Message';
 import type { Message, MessageType, StatusType, TerminalContext } from '@/src/types/terminal';
 
+const welcomeMessages = [
+  "Hey there, Andrew.AI here to help. Andrew's all about designing products that feel intuitive and genuinely helpful—whether it's an MVP for a startup or AI-driven tools for nutrition coaching. Got a question? Just ask, or type help for ideas.",
+  "Welcome! Andrew's spent over a decade crafting thoughtful, user-focused designs for everything from Meta's Metaverse app to wildfire awareness tools. Curious how he approaches design? Ask away or type help to see where we can go.",
+  "Hi there, Andrew.AI here. Andrew believes good design is about solving real problems with empathy and a bit of creativity (architecture degree helps). Want to chat about his work or skills? I'm ready when you are—or type help if you're unsure.",
+  "Andrew.AI checking in. Andrew's work spans startups to global companies, always focused on building functional, beautiful products. Need a starting point? Ask about his process, recent projects, or type help to get unstuck.",
+  "Hello from Andrew.AI. Andrew loves a good challenge, whether it's designing for VR, wildfire response, or AI-powered coaching. Let's talk about how he approaches design—or type help if you'd like some suggestions."
+];
+
+const proTip = "\n\n**Pro tip:** You can ask up to 5 questions per day, so make them count! Commands like **about** and **projects** are unlimited—use them anytime to explore.";
+
 export default function Terminal() {
   const { queryCount, syncWithServer, resetSession, isLoading, aiEnabled } = useQuery();
   const [history, setHistory] = useState<Message[]>([{
     type: 'system',
-    content: `╒══════════════════════════════════╕
-|                                  |
-|   Connected to Andrew.AI         |
-|   Running on LiebchenOS v0.1.0   |
-|                                  |
-╘══════════════════════════════════╛
-
-Ask me about Andrew's work, projects, or skills
-Type **help** to explore commands`,
+    content: welcomeMessages[0] + proTip, // Always use the first message for initial render
     id: Date.now()
   }]);
   const [input, setInput] = useState('');
@@ -169,6 +171,16 @@ Type **help** to explore commands`,
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
+
+  // After initial mount, randomly change the welcome message
+  useEffect(() => {
+    const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+    setHistory([{
+      type: 'system',
+      content: randomMessage + proTip,
+      id: Date.now()
+    }]);
+  }, []); // Empty dependency array means this runs once after mount
 
   return (
     <TerminalContainer onClick={handleTerminalClick}>
