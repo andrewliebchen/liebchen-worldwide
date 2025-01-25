@@ -1,13 +1,18 @@
 import { COMMANDS, RESPONSES, CASE_STUDIES } from './content';
 import { generateResponse } from './openai';
-import { track } from '@vercel/analytics/next';
+import { track } from '@vercel/analytics';
 
 // Safe analytics tracking that works in both client and server
 const trackEvent = (eventName, properties) => {
   try {
     track(eventName, properties);
+    console.log(`Successfully tracked event: ${eventName}`, properties);
   } catch (error) {
-    console.debug('Analytics tracking failed:', error);
+    console.error(`Analytics tracking failed for event: ${eventName}`, {
+      error: error.message,
+      properties,
+      stack: error.stack
+    });
   }
 };
 

@@ -1,14 +1,19 @@
 import OpenAI from 'openai';
 import { withIronSessionApiRoute } from 'iron-session/next';
 import { OPENAI_CONFIG, SESSION_CONFIG, isAIEnabled, shouldEnforceQueryLimits, CALENDLY_LINK, EMAIL, LINKEDIN_LINK } from '../../src/ai/config/openai';
-import { track } from '@vercel/analytics/next';
+import { track } from '@vercel/analytics/server';
 
 // Wrap track in a safe function that won't throw
 const safeTrack = async (eventName, properties) => {
   try {
     await track(eventName, properties);
+    console.log(`Successfully tracked event: ${eventName}`, properties);
   } catch (error) {
-    console.warn('Analytics tracking failed:', error);
+    console.error(`Analytics tracking failed for event: ${eventName}`, {
+      error: error.message,
+      properties,
+      stack: error.stack
+    });
   }
 };
 
@@ -115,7 +120,8 @@ async function chatRoute(req, res) {
     await safeTrack('ai_interaction', {
       query_count: req.session.queryCount,
       query_length: query.length,
-      response_length: response.length
+      response_length: response.length,
+      query_text: query
     });
     
     // Only increment query count after successful response
