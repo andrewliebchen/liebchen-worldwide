@@ -19,11 +19,32 @@ const trackEvent = (eventName, properties) => {
 const isStaticCommand = (cmd) => {
   const command = cmd.toLowerCase().trim();
   return command.startsWith('help') ||
+         command.startsWith('commands') ||
+         command.startsWith('menu') ||
+         command === '?' ||
          command.startsWith('portfolio') ||
+         command.startsWith('projects') ||
+         command.startsWith('work') ||
+         command.startsWith('cases') ||
+         command.startsWith('case-studies') ||
+         command.startsWith('experience') ||
+         command.startsWith('examples') ||
+         command.startsWith('showcase') ||
+         command.startsWith('resume') ||
+         command.startsWith('about') ||
+         command.startsWith('info') ||
+         command.startsWith('information') ||
+         command.startsWith('bio') ||
+         command.startsWith('background') ||
+         command.startsWith('who') ||
          command.startsWith('contact') ||
+         command.startsWith('connect') ||
+         command.startsWith('chat') ||
+         command.startsWith('reach') ||
+         command.startsWith('reach-out') ||
+         command.startsWith('hire') ||
          command.startsWith('clear') ||
          command.startsWith('back') ||
-         command.startsWith('about') ||
          command.startsWith('ascii');
 };
 
@@ -38,12 +59,20 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
       const study = CASE_STUDIES[caseNumber];
       return {
         type: 'case-study',
-        content: `> ${study.title}\n\n` +
-                `${study.description}\n\n` +
-                `**Challenge:** ${study.challenge}\n` +
-                `**Solution:** ${study.solution}\n` +
-                `**Outcome:** ${study.outcome}\n\n` +
-                `Type 'back' to return to the portfolio or 'contact' to learn more about working with me.`,
+        content: `**${study.title}**
+
+${study.description}
+
+**Challenge**: ${study.challenge}
+
+**Solution**: ${study.solution}
+
+**Outcome**: ${study.outcome}
+
+**Learn More**: [${study.linkText}](${study.link})
+
+---
+Type **back** to return to the portfolio or **contact** to learn more about working with me.`,
         currentCaseStudy: study.title
       };
     }
@@ -62,24 +91,45 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
 
     switch (mainCommand) {
       case COMMANDS.HELP:
+      case COMMANDS.COMMANDS:
+      case COMMANDS.MENU:
+      case COMMANDS.QUESTION_MARK:
         return {
           type: 'response',
           content: RESPONSES.HELP
         };
         
       case COMMANDS.ABOUT:
+      case COMMANDS.INFO:
+      case COMMANDS.INFORMATION:
+      case COMMANDS.BIO:
+      case COMMANDS.BACKGROUND:
+      case COMMANDS.WHO:
         return {
           type: 'response',
           content: RESPONSES.ABOUT
         };
         
       case COMMANDS.CONTACT:
+      case COMMANDS.CONNECT:
+      case COMMANDS.CHAT:
+      case COMMANDS.REACH:
+      case COMMANDS.REACH_OUT:
+      case COMMANDS.HIRE:
         return {
           type: 'response',
           content: RESPONSES.CONTACT
         };
         
       case COMMANDS.PORTFOLIO:
+      case COMMANDS.PROJECTS:
+      case COMMANDS.WORK:
+      case COMMANDS.CASES:
+      case COMMANDS.CASE_STUDIES:
+      case COMMANDS.EXPERIENCE:
+      case COMMANDS.EXAMPLES:
+      case COMMANDS.SHOWCASE:
+      case COMMANDS.RESUME:
         return {
           type: 'response',
           content: RESPONSES.PORTFOLIO,

@@ -20,6 +20,7 @@ export function Input({ value, onChange, onSubmit, disabled, inputRef }: InputPr
           onChange={onChange}
           placeholder="Ask a question or type 'help'"
           disabled={disabled}
+          autoFocus
         />
       </form>
     </InputContainer>
