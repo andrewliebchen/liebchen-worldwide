@@ -11,7 +11,7 @@ const TypewriterMessage: React.FC<{ content: string; onComplete?: () => void }> 
   const [displayedContent, setDisplayedContent] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const messageId = useRef(Date.now()).current;
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   
   const complete = React.useCallback(() => {
     if (!isComplete) {
@@ -208,6 +208,12 @@ export default function Terminal() {
         content: response.content,
         id: Date.now() + 2
       };
+
+      // Log AI responses
+      if (isAIQuery && response.type === 'ai-response') {
+        console.log('Client: AI Response Content:', response.content);
+      }
+
       setHistory(prev => [...prev.slice(0, -1), responseMessage]);
 
       if (response.type !== 'error') {
