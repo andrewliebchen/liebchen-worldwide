@@ -2,15 +2,6 @@ import { CALENDLY_LINK, LINKEDIN_LINK } from '@/src/ai/config/openai';
 
 export const CASE_STUDIES = {
   1: {
-    title: 'Meta Quest: Bridge to the Metaverse',
-    description: 'I led the design for the Meta Quest app during Facebook\'s metamorphosis into Meta.',
-    challenge: 'Create a must-have app for Oculus users while ramping up in-app revenue.',
-    solution: 'A revamped landing page addressing user pain points and fostering social connections.',
-    outcome: 'Boosted retention and engagement metrics significantly.',
-    linkText: 'Walkthru on YouTube',
-    link: 'https://youtu.be/W3MjL7-RHSw'
-  },
-  2: {
     title: 'Watch Duty: Wildfire Awareness',
     description: 'Worked closely with a founder and volunteers to design an app that provides timely wildfire updates.',
     challenge: 'Ensure clarity and usability under high-stress conditions.',
@@ -18,6 +9,15 @@ export const CASE_STUDIES = {
     outcome: 'Became a go-to resource for Californians navigating wildfire risks.',
     linkText: 'Walkthru on YouTube',
     link: 'https://youtu.be/GoAHRfv6ToY'
+  },
+  2: {
+    title: 'Meta Quest: Bridge to the Metaverse',
+    description: 'I led the design for the Meta Quest app during Facebook\'s metamorphosis into Meta.',
+    challenge: 'Create a must-have app for Oculus users while ramping up in-app revenue.',
+    solution: 'A revamped landing page addressing user pain points and fostering social connections.',
+    outcome: 'Boosted retention and engagement metrics significantly.',
+    linkText: 'Walkthru on YouTube',
+    link: 'https://youtu.be/W3MjL7-RHSw'
   },
   3: {
     title: "Miri: AI-powered wellness coach",
@@ -80,8 +80,8 @@ Type **projects** to see my work or **contact** to get in touch.`,
 Or schedule a call: ${CALENDLY_LINK}`,
 
   PORTFOLIO: `Here are my case studies:
-1 → **Meta Quest**: Bridge to the Metaverse [Walkthru on YouTube](${CASE_STUDIES[1].link})
-2 → **Watch Duty**: Wildfire Awareness [Walkthru on YouTube](${CASE_STUDIES[2].link})
+1 → **Watch Duty**: Wildfire Awareness [Walkthru on YouTube](${CASE_STUDIES[2].link})
+2 → **Meta Quest**: Bridge to the Metaverse [Walkthru on YouTube](${CASE_STUDIES[1].link})
 3 → **Miri**: AI-powered wellness coach [Miri.ai](${CASE_STUDIES[3].link})
 
 Type the number of the case study you'd like to explore.`,

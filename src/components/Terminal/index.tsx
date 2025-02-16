@@ -40,11 +40,17 @@ const welcomeMessages = [
 
 const proTip = "\n\n**Pro tip:** You can ask up to 5 questions per day, so make them count! Commands like **about** and **projects** are unlimited—use them anytime to explore.";
 
+const getRandomWelcomeMessage = () => {
+  const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+  return randomMessage + proTip;
+};
+
 export default function Terminal() {
   const { queryCount, syncWithServer, resetSession, isLoading, aiEnabled } = useQuery();
   const [history, setHistory] = useState<Message[]>([]);
   const [isInitialMessageComplete, setIsInitialMessageComplete] = useState(false);
   const [input, setInput] = useState('');
+  const [welcomeMessage] = useState(getRandomWelcomeMessage());
   const [context, setContext] = useState<TerminalContext>({
     awaitingCaseStudy: false,
     inCaseStudy: false,
@@ -192,26 +198,18 @@ export default function Terminal() {
     setInput(e.target.value);
   };
 
-  // After initial mount, randomly change the welcome message
-  useEffect(() => {
-    const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
-    const fullMessage = randomMessage + proTip;
-    // Don't set history here anymore, we'll handle it in the TypewriterMessage
-  }, []); 
-
   return (
     <TerminalContainer onClick={handleTerminalClick}>
       <Header />
       <OutputPane ref={outputRef}>
-        {history.length === 0 && (
+        {history.length === 0 && welcomeMessage && (
           <OutputLine>
             <TypewriterMessage 
-              content={welcomeMessages[0] + proTip}
+              content={welcomeMessage}
               onComplete={() => {
-                const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
                 setHistory([{
                   type: 'system',
-                  content: randomMessage + proTip,
+                  content: welcomeMessage,
                   id: Date.now()
                 }]);
                 setIsInitialMessageComplete(true);
@@ -228,7 +226,7 @@ export default function Terminal() {
           value={input}
           onChange={handleChange}
           onSubmit={handleSubmit}
-          disabled={isLoading || status === 'processing' || !isInitialMessageComplete}
+          disabled={isLoading || status === 'processing' || !isInitialMessageComplete || !welcomeMessage}
           inputRef={inputRef}
         />
       </OutputPane>

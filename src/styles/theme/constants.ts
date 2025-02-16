@@ -1,4 +1,4 @@
-export const maxWidth = '1200px';
+export const maxWidth = '1000px';
 
 export const spacing = {
   xs: '4px',
