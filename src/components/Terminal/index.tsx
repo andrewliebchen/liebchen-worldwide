@@ -7,28 +7,66 @@ import { Input } from '@/src/components/Terminal/Input';
 import { Message as MessageComponent } from '@/src/components/Terminal/Message';
 import type { Message, MessageType, StatusType, TerminalContext } from '@/src/types/terminal';
 
-const TypewriterMessage: React.FC<{ content: string; onComplete?: () => void }> = ({ content, onComplete }) => {
+const TypewriterMessage: React.FC<{ content: string; onComplete?: () => void }> = React.memo(({ content, onComplete }) => {
   const [displayedContent, setDisplayedContent] = useState('');
   const [isComplete, setIsComplete] = useState(false);
+  const messageId = useRef(Date.now()).current;
+  const intervalRef = useRef<NodeJS.Timeout>();
   
+  const complete = React.useCallback(() => {
+    if (!isComplete) {
+      setDisplayedContent(content);
+      setIsComplete(true);
+      onComplete?.();
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    }
+  }, [content, isComplete, onComplete]);
+
   useEffect(() => {
     let currentIndex = 0;
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       if (currentIndex <= content.length) {
         setDisplayedContent(content.slice(0, currentIndex));
         currentIndex++;
       } else {
-        clearInterval(interval);
-        setIsComplete(true);
-        onComplete?.();
+        complete();
       }
-    }, 10); // Adjust speed as needed
+    }, 10);
 
-    return () => clearInterval(interval);
-  }, [content, onComplete]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [content, complete]);
 
-  return <MessageComponent message={{ type: 'system', content: displayedContent, id: Date.now() }} />;
-};
+  // Listen for Enter key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && !isComplete) {
+        complete();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isComplete, complete]);
+
+  return <MessageComponent message={{ type: 'system', content: displayedContent, id: messageId }} />;
+});
+
+const WelcomeSection = React.memo(({ message, onComplete }: { message: string; onComplete: () => void }) => {
+  return (
+    <OutputLine>
+      <TypewriterMessage 
+        content={message}
+        onComplete={onComplete}
+      />
+    </OutputLine>
+  );
+});
 
 const welcomeMessages = [
   "Hey there, Andrew.AI here to help. Andrew's all about designing products that feel intuitive and genuinely helpful—whether it's an MVP for a startup or AI-driven tools for nutrition coaching. Got a question? Just ask, or type help for ideas.",
@@ -60,17 +98,28 @@ export default function Terminal() {
   const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const handleWelcomeComplete = React.useCallback(() => {
+    setHistory([{
+      type: 'system',
+      content: welcomeMessage,
+      id: Date.now()
+    }]);
+    setIsInitialMessageComplete(true);
+  }, [welcomeMessage]);
+
+  // Scroll to bottom when history changes
   useEffect(() => {
     if (outputRef.current) {
       outputRef.current.scrollTop = outputRef.current.scrollHeight;
     }
   }, [history]);
 
+  // Simple focus management
   useEffect(() => {
-    if (inputRef.current) {
+    if (inputRef.current && !isLoading && status !== 'processing') {
       inputRef.current.focus();
     }
-  }, [history, status]);
+  }, [isLoading, status]);
 
   const handleTerminalClick = () => {
     if (inputRef.current) {
@@ -203,19 +252,10 @@ export default function Terminal() {
       <Header />
       <OutputPane ref={outputRef}>
         {history.length === 0 && welcomeMessage && (
-          <OutputLine>
-            <TypewriterMessage 
-              content={welcomeMessage}
-              onComplete={() => {
-                setHistory([{
-                  type: 'system',
-                  content: welcomeMessage,
-                  id: Date.now()
-                }]);
-                setIsInitialMessageComplete(true);
-              }}
-            />
-          </OutputLine>
+          <WelcomeSection 
+            message={welcomeMessage}
+            onComplete={handleWelcomeComplete}
+          />
         )}
         {history.map((message) => (
           <OutputLine key={message.id}>
@@ -226,7 +266,7 @@ export default function Terminal() {
           value={input}
           onChange={handleChange}
           onSubmit={handleSubmit}
-          disabled={isLoading || status === 'processing' || !isInitialMessageComplete || !welcomeMessage}
+          disabled={isLoading || status === 'processing'}
           inputRef={inputRef}
         />
       </OutputPane>
