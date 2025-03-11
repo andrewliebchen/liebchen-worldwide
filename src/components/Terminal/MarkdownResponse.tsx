@@ -34,11 +34,18 @@ interface MarkdownResponseProps {
 }
 
 const MarkdownResponse: React.FC<MarkdownResponseProps> = ({ content }) => {
+  const components = {
+    a: ({ node, ...props }) => (
+      <a target="_blank" rel="noopener noreferrer" {...props} />
+    ),
+  };
+
   return (
     <StyledMarkdown>
       <ReactMarkdown
         allowedElements={['p', 'code', 'strong', 'a']}
         unwrapDisallowed={true}
+        components={components}
       >
         {content}
       </ReactMarkdown>
