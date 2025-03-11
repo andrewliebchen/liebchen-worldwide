@@ -8,7 +8,7 @@ export const CASE_STUDIES = {
     solution: 'Intuitive map interface and clear containment icons.',
     outcome: 'Became a go-to resource for Californians navigating wildfire risks.',
     linkText: 'Project showcase →',
-    link: 'https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%92%81%E2%80%8D%E2%99%82%EF%B8%8F-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=1123%2C263%2C0.17&t=NFL2SDKCCnSotTK3-0&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=197%3A14827&show-proto-sidebar=1'
+    link: 'https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%92%81%E2%80%8D%E2%99%82%EF%B8%8F-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=1123%2C263%2C0.17&t=NFL2SDKCCnSotTK3-0&scaling=min-zoom&scaling=scale-down-width&starting-point-node-id=197%3A14827&show-proto-sidebar=1'
   },
   2: {
     title: 'Meta Quest: Bridge to the Metaverse',
@@ -17,7 +17,7 @@ export const CASE_STUDIES = {
     solution: 'A revamped landing page addressing user pain points and fostering social connections.',
     outcome: 'Boosted retention and engagement metrics significantly.',
     linkText: 'Project showcase →',
-    link: 'https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%92%81%E2%80%8D%E2%99%82%EF%B8%8F-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=1123%2C263%2C0.17&t=NFL2SDKCCnSotTK3-0&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=197%3A14917&show-proto-sidebar=1'
+    link: 'https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%92%81%E2%80%8D%E2%99%82%EF%B8%8F-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=1123%2C263%2C0.17&t=NFL2SDKCCnSotTK3-0&scaling=min-zoom&scaling=scale-down-width&starting-point-node-id=197%3A14917&show-proto-sidebar=1'
   },
   3: {
     title: "Miri: AI-powered wellness coach",
@@ -26,7 +26,7 @@ export const CASE_STUDIES = {
     solution: "Designed an intuitive app with AI-driven coaching features, seamless UX, and a modular SDK for white-label integration.",
     outcome: "Successfully expanded market reach through accessible design and B2B customizations while improving user engagement.",
     linkText: 'Project showcase →',
-    link: "https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%92%81%E2%80%8D%E2%99%82%EF%B8%8F-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=1123%2C263%2C0.17&t=NFL2SDKCCnSotTK3-0&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=197%3A15045&show-proto-sidebar=1"
+    link: "https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%92%81%E2%80%8D%E2%99%82%EF%B8%8F-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=1123%2C263%2C0.17&t=NFL2SDKCCnSotTK3-0&scaling=min-zoom&scaling=scale-down-width&starting-point-node-id=197%3A15045&show-proto-sidebar=1"
   }
 };
 
