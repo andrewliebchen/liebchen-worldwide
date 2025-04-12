@@ -4,12 +4,13 @@ import {
   LoadingDots,
   CommandLine,
   ErrorMessage,
-  CaseStudyButton,
   MessageContent,
 } from '@/src/styles/components/terminal.styles';
+import { TerminalButton } from '@/src/styles/components/buttons';
 import type { Message as MessageType } from '@/src/types/terminal';
 import MarkdownResponse from '@/src/components/Terminal/MarkdownResponse';
 import { TypewriterMessage } from './TypewriterMessage';
+import { colors } from '@/src/styles/theme/colors';
 
 interface MessageProps {
   message: MessageType;
@@ -67,9 +68,14 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
               <MarkdownResponse content={message.content} />
             )}
             {isTextComplete && message.caseStudy && onCaseStudyClick && (
-              <CaseStudyButton onClick={() => onCaseStudyClick(message.caseStudy!)}>
+              <TerminalButton 
+                onClick={() => onCaseStudyClick(message.caseStudy!)}
+                style={{
+                  marginTop: '16px',
+                }}
+              >
                 WATCH CASE STUDY
-              </CaseStudyButton>
+              </TerminalButton>
             )}
           </MessageContent>
         </MessageContainer>

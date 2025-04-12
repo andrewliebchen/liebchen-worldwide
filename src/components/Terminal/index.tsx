@@ -6,6 +6,8 @@ import { Header } from '@/src/components/Terminal/Header';
 import { Input } from '@/src/components/Terminal/Input';
 import { Message as MessageComponent } from '@/src/components/Terminal/Message';
 import { TypewriterMessage } from '@/src/components/Terminal/TypewriterMessage';
+import { VideoOverlay } from '@/src/components/VideoOverlay';
+import { getCaseStudy } from '@/src/config/caseStudies';
 import type { Message, MessageType, StatusType, TerminalContext } from '@/src/types/terminal';
 
 const WelcomeSection = React.memo(({ message, onComplete }: { message: string; onComplete: () => void }) => {
@@ -58,6 +60,7 @@ export default function Terminal() {
   const [status, setStatus] = useState<StatusType>('connected');
   const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [activeCaseStudy, setActiveCaseStudy] = useState<string | null>(null);
 
   // Initialize history with welcome message
   useEffect(() => {
@@ -229,8 +232,14 @@ export default function Terminal() {
 
   const handleCaseStudyClick = (caseStudyId: string) => {
     console.log('Client: Case study clicked:', caseStudyId);
-    // For now, just log the case study ID
-    // In the future, this will open a video overlay
+    const caseStudy = getCaseStudy(caseStudyId);
+    if (caseStudy && caseStudy.videoUrl) {
+      setActiveCaseStudy(caseStudyId);
+    }
+  };
+
+  const handleCloseVideo = () => {
+    setActiveCaseStudy(null);
   };
 
   return (
@@ -253,6 +262,12 @@ export default function Terminal() {
         disabled={!isInitialMessageComplete || status === 'processing'}
         inputRef={inputRef}
       />
+      {activeCaseStudy && (
+        <VideoOverlay
+          caseStudy={getCaseStudy(activeCaseStudy)!}
+          onClose={handleCloseVideo}
+        />
+      )}
     </TerminalContainer>
   );
 } 

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
 import { spacing, typography, layout, size, maxWidth } from '@/src/styles/theme/constants';
 
+
 const PROMPT_STYLE = `
     content: '❯';
     position: absolute;
@@ -200,54 +201,4 @@ export const ErrorMessage = styled.div`
   font-style: italic;
   max-width: ${maxWidth};
   margin: 0 auto;
-`;
-
-export const CaseStudyButton = styled.button`
-  margin-top: ${spacing.md};
-  padding: ${spacing.sm} ${spacing.lg};
-  background-color: transparent;
-  color: ${colors.text.accent};
-  border: 1px solid ${colors.text.accent};
-  border-radius: 0;
-  cursor: pointer;
-  font-family: ${typography.fontFamily.primary};
-  font-size: ${typography.fontSize[1]};
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  width: fit-content;
-  align-self: flex-start;
-  
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent
-    );
-    transition: 0.5s;
-  }
-
-  &:hover {
-    background-color: ${colors.text.accent};
-    color: ${colors.bg.primary};
-    
-    &:before {
-      left: 100%;
-    }
-  }
-  
-  &:active {
-    transform: scale(0.98);
-  }
 `; 
