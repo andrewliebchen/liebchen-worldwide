@@ -32,12 +32,13 @@ const WelcomeSection = React.memo(({ message, onComplete }: { message: string; o
 });
 
 const welcomeMessages = [
-  "Hey there, Andrew.AI here to help. Andrew's all about designing products that feel intuitive and genuinely helpful—whether it's an MVP for a startup or AI-driven tools for nutrition coaching. Got a question? Just ask, or type help for ideas.",
-  "Welcome! Andrew's spent over a decade crafting thoughtful, user-focused designs for everything from Meta's Metaverse app to wildfire awareness tools. Curious how he approaches design? Ask away or type help to see where we can go.",
-  "Hi there, Andrew.AI here. Andrew believes good design is about solving real problems with empathy and a bit of creativity (architecture degree helps). Want to chat about his work or skills? I'm ready when you are—or type help if you're unsure.",
-  "Andrew.AI checking in. Andrew's work spans startups to global companies, always focused on building functional, beautiful products. Need a starting point? Ask about his process, recent projects, or type help to get unstuck.",
-  "Hello from Andrew.AI. Andrew loves a good challenge, whether it's designing for VR, wildfire response, or AI-powered coaching. Let's talk about how he approaches design—or type help if you'd like some suggestions."
+  "Andrew Liebchen is a senior product designer, sculptor, and occasional front-end whisperer. He’s helped startups launch, Meta ship, and wildfire responders stay informed. Ask him about design, AI, or that time his app beat ChatGPT in the App Store. Or type help to poke around.",
+  "Andrew Liebchen designs things that actually help people — not just make corporations richer (though he's done that too). From firefighting apps to VR headsets to AI nutrition coaching, he brings clarity, compassion, and clean code. Curious? Ask about a project, or type help to explore.",
+  "Andrew Liebchen is a product designer who likes his UX clean, his code shippable, and his sculpting clay slightly overambitious. His work spans Meta’s VR universe, wildfire alerts, and AI-powered wellness tools. Type help if you want a tour—or just say hi.",
+  "Need a designer who can ship code, sketch like an architect, and still explain it all in plain English? That’s Andrew Liebchen. He’s worked on everything from AI coaching to emergency response apps. Ask him something, or type help to get ideas.",
+  "Andrew Liebchen once helped an app be #1 in the free section of the App Store. He’s also designed internal tools for Meta, conversational AI apps, and a wildfire platform used by thousands. He’s equal parts craftsman and pragmatist. Want to know more? Just ask—or type help."
 ];
+
 
 const proTip = "\n\n**Pro tip:** You can ask up to 5 questions per day, so make them count! Commands like **about** and **projects** are unlimited—use them anytime to explore.";
 

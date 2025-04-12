@@ -8,7 +8,7 @@ interface ConversationContextType {
 const ConversationContext = createContext<ConversationContextType | undefined>(undefined);
 
 export function ConversationProvider({ children }: { children: React.ReactNode }) {
-  const [currentTopic, setCurrentTopic] = useState<string>('Liebchen.world is initialized');
+  const [currentTopic, setCurrentTopic] = useState<string>('Welcome to Liebchen.world');
 
   return (
     <ConversationContext.Provider value={{ currentTopic, setCurrentTopic }}>
