@@ -106,7 +106,8 @@ async function chatRoute(req, res) {
     // Make OpenAI API call
     const completion = await openai.chat.completions.create({
       messages,
-      ...OPENAI_CONFIG
+      ...OPENAI_CONFIG,
+      response_format: { type: "json_object" }
     });
 
     if (!completion.choices?.[0]?.message?.content) {
@@ -114,14 +115,32 @@ async function chatRoute(req, res) {
       throw new Error('Invalid response from OpenAI');
     }
 
-    const response = completion.choices[0].message.content;
+    let response;
+    try {
+      response = JSON.parse(completion.choices[0].message.content);
+    } catch (error) {
+      console.error('API: Failed to parse JSON response:', error);
+      throw new Error('Invalid JSON response from OpenAI');
+    }
+
+    // Validate response structure
+    if (!response.text || typeof response.text !== 'string') {
+      console.error('API: Invalid response structure - missing or invalid text field');
+      throw new Error('Invalid response structure from OpenAI');
+    }
+
+    if (response.caseStudy && typeof response.caseStudy !== 'string') {
+      console.error('API: Invalid response structure - caseStudy must be a string');
+      throw new Error('Invalid response structure from OpenAI');
+    }
     
     // Track the AI interaction with safe tracking
     await safeTrack('ai_interaction', {
       query_count: req.session.queryCount,
       query_length: query.length,
-      response_length: response.length,
-      query_text: query
+      response_length: response.text.length,
+      query_text: query,
+      has_case_study: !!response.caseStudy
     });
     
     // Only increment query count after successful response

@@ -206,12 +206,14 @@ export default function Terminal() {
       const responseMessage: Message = {
         type: response.type as MessageType,
         content: response.content,
-        id: Date.now() + 2
+        id: Date.now() + 2,
+        caseStudy: response.caseStudy
       };
 
       // Log AI responses
       if (isAIQuery && response.type === 'ai-response') {
         console.log('Client: AI Response Content:', response.content);
+        console.log('Client: Case Study:', response.caseStudy);
       }
 
       setHistory(prev => [...prev.slice(0, -1), responseMessage]);
@@ -253,29 +255,39 @@ export default function Terminal() {
     setInput(e.target.value);
   };
 
+  const handleCaseStudyClick = (caseStudyId: string) => {
+    console.log('Client: Case study clicked:', caseStudyId);
+    // For now, just log the case study ID
+    // In the future, this will open a video overlay
+  };
+
   return (
     <TerminalContainer onClick={handleTerminalClick}>
       <Header />
       <OutputPane ref={outputRef}>
-        {history.length === 0 && welcomeMessage && (
+        {!isInitialMessageComplete ? (
           <WelcomeSection 
-            message={welcomeMessage}
-            onComplete={handleWelcomeComplete}
+            message={welcomeMessage} 
+            onComplete={handleWelcomeComplete} 
           />
+        ) : (
+          history.map(message => (
+            <OutputLine key={message.id}>
+              <MessageComponent 
+                message={message} 
+                onCaseStudyClick={handleCaseStudyClick}
+              />
+            </OutputLine>
+          ))
         )}
-        {history.map((message) => (
-          <OutputLine key={message.id}>
-            <MessageComponent message={message} />
-          </OutputLine>
-        ))}
-        <Input
-          value={input}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-          disabled={isLoading || status === 'processing'}
-          inputRef={inputRef}
-        />
       </OutputPane>
+      <Input
+        value={input}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        disabled={!isInitialMessageComplete || status === 'processing'}
+        inputRef={inputRef}
+      />
     </TerminalContainer>
   );
 } 
