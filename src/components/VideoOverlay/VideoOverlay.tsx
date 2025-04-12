@@ -49,9 +49,21 @@ const Iframe = styled.iframe`
 export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }) => {
   // Convert YouTube URL to embed URL
   const getEmbedUrl = (url: string) => {
-    const videoId = url.split('/').pop();
-    return `https://www.youtube.com/embed/${videoId}`;
+    if (!url) return '';
+    try {
+      const videoId = url.split('/').pop();
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+    } catch (error) {
+      console.error('Error parsing video URL:', error);
+      return '';
+    }
   };
+
+  const embedUrl = getEmbedUrl(caseStudy.videoUrl);
+  if (!embedUrl) {
+    console.log('No valid video URL found for case study:', caseStudy);
+    return null;
+  }
 
   return (
     <Overlay onClick={onClose}>
@@ -68,7 +80,7 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
         </TerminalButton>
         <VideoWrapper>
           <Iframe
-            src={getEmbedUrl(caseStudy.videoUrl)}
+            src={embedUrl}
             title={caseStudy.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

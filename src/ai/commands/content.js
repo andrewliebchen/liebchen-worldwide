@@ -1,21 +1,21 @@
 import { CALENDLY_LINK, LINKEDIN_LINK } from '@/src/ai/config/openai';
 
 export const CASE_STUDIES = {
-  1: {
+  'watch-duty': {
     title: 'Watch Duty: Wildfire Awareness',
     description: 'Worked closely with a founder and volunteers to design an app that provides timely wildfire updates.',
     challenge: 'Ensure clarity and usability under high-stress conditions.',
     solution: 'Intuitive map interface and clear containment icons.',
     outcome: 'Became a go-to resource for Californians navigating wildfire risks.',
   },
-  2: {
+  'meta-quest': {
     title: 'Meta Quest: Bridge to the Metaverse',
     description: 'I led the design for the Meta Quest app during Facebook\'s metamorphosis into Meta.',
     challenge: 'Create a must-have app for Oculus users while ramping up in-app revenue.',
     solution: 'A revamped landing page addressing user pain points and fostering social connections.',
     outcome: 'Boosted retention and engagement metrics significantly.',
   },
-  3: {
+  'miri': {
     title: "Miri: AI-powered wellness coach",
     description: "Led the design of an innovative AI-powered nutrition app focused on personalized wellness coaching.",
     challenge: "Create an engaging, personalized nutrition tracking experience that scales across both B2C and B2B markets.",
@@ -74,11 +74,11 @@ Type **projects** to see my work or **contact** to get in touch.`,
 Or schedule a call: ${CALENDLY_LINK}`,
 
   PORTFOLIO: `Here are my case studies:
-1 → **Watch Duty**: Wildfire Awareness
-2 → **Meta Quest**: Bridge to the Metaverse
-3 → **Miri**: AI-powered wellness coach
+→ **Watch Duty**: Wildfire Awareness
+→ **Meta Quest**: Bridge to the Metaverse
+→ **Miri**: AI-powered wellness coach
 
-Type the number of the case study you'd like to explore.`,
+Type the name of the case study you'd like to explore (e.g. "watch duty", "meta quest", or "miri").`,
 
   INVALID_SELECTION: `Invalid selection. Type **portfolio** to see the list again.`,
   

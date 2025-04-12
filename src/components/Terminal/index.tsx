@@ -239,10 +239,15 @@ export default function Terminal() {
   };
 
   const handleCaseStudyClick = (caseStudyId: string) => {
-    console.log('Client: Case study clicked:', caseStudyId);
+    console.log('Terminal: Case study click handler called');
+    console.log('Terminal: Case study ID:', caseStudyId);
     const caseStudy = getCaseStudy(caseStudyId);
+    console.log('Terminal: Found case study:', caseStudy);
     if (caseStudy && caseStudy.videoUrl) {
+      console.log('Terminal: Setting active case study');
       setActiveCaseStudy(caseStudyId);
+    } else {
+      console.log('Terminal: No case study or video URL found');
     }
   };
 

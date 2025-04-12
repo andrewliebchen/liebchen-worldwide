@@ -25,6 +25,15 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
   const isAIResponse = message.type === 'ai-response';
   const hasAnimatedRef = useRef(false);
   
+  useEffect(() => {
+    console.log('Message render conditions:', {
+      isTextComplete,
+      caseStudy: message.caseStudy,
+      hasClickHandler: !!onCaseStudyClick,
+      messageType: message.type
+    });
+  }, [isTextComplete, message.caseStudy, onCaseStudyClick, message.type]);
+  
   // Reset animation state when message ID changes
   useEffect(() => {
     if (messageIdRef.current !== message.id) {
@@ -42,6 +51,7 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
   }, [isTextComplete, message.caseStudy]);
   
   const handleTextComplete = () => {
+    console.log('Text animation complete');
     if (!hasAnimatedRef.current) {
       hasAnimatedRef.current = true;
       setIsTextComplete(true);
@@ -78,7 +88,11 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
             {isTextComplete && message.caseStudy && onCaseStudyClick && (
               <TerminalButton 
                 ref={buttonRef}
-                onClick={() => onCaseStudyClick(message.caseStudy!)}
+                onClick={() => {
+                  console.log('Case study button clicked');
+                  console.log('Case study ID:', message.caseStudy);
+                  onCaseStudyClick(message.caseStudy!);
+                }}
                 style={{
                   marginTop: spacing.sm,
                 }}

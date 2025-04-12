@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
 import { spacing, typography, layout, size, maxWidth } from '@/src/styles/theme/constants';
 
+const INPUT_HEIGHT = '60px';
 
 const PROMPT_STYLE = `
     content: '❯';
@@ -91,7 +92,7 @@ export const OutputPane = styled.div`
   overflow-y: auto;
   position: absolute;
   top: ${size[13]}; /* Match header height */
-  bottom: ${size[12]}; /* Input height */
+  bottom: ${INPUT_HEIGHT}; /* Input height */
   left: 0;
   right: 0;
   padding: ${size[4]} 0;
@@ -99,6 +100,7 @@ export const OutputPane = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing.md}; /* Reduced from lg to md */
+  padding-bottom: ${spacing.lg};
 `;
 
 export const OutputLine = styled.div`
@@ -146,12 +148,16 @@ export const InputContainer = styled.div`
   right: 0;
   padding: ${size[4]} ${size[8]};
   border-top: 1px solid ${colors.bg.secondary};
-  height: ${size[12]}; /* Explicit input height */
+  height: ${INPUT_HEIGHT}; /* Use the constant */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
   form {
     align-items: center;
     display: flex;
     max-width: ${maxWidth};
+    width: 100%;
     margin: 0 auto;
     position: relative;
 

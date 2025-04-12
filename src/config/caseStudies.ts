@@ -18,7 +18,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
   'case-3': {
     id: 'case-3',
     title: 'Miri Case Study',
-    videoUrl: '' // To be updated later
+    videoUrl: 'https://youtu.be/example' // Update with actual URL
   }
 };
 

@@ -54,10 +54,28 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
   
   // Handle case study selection
   if (context.awaitingCaseStudy) {
-    const caseNumber = parseInt(cmd);
-    if (caseNumber && CASE_STUDIES[caseNumber]) {
-      const study = CASE_STUDIES[caseNumber];
-      return {
+    const input = cmd.toLowerCase().replace(/\s+/g, '-');
+    console.log('Handler: Processing case study selection', {
+      input,
+      availableCaseStudies: Object.keys(CASE_STUDIES)
+    });
+    
+    // Map common variations to canonical IDs
+    const caseIdMap = {
+      'watchduty': 'watch-duty',
+      'watch': 'watch-duty',
+      'meta': 'meta-quest',
+      'quest': 'meta-quest',
+      'metaquest': 'meta-quest',
+    };
+
+    const caseId = caseIdMap[input] || input;
+    
+    if (CASE_STUDIES[caseId]) {
+      const study = CASE_STUDIES[caseId];
+      console.log('Handler: Found case study', study);
+
+      const response = {
         type: 'ai-response',
         content: `**${study.title}**
 
@@ -68,10 +86,13 @@ ${study.description}
 **Solution**: ${study.solution}
 
 **Outcome**: ${study.outcome}`,
-        caseStudy: `case-${caseNumber}`,
+        caseStudy: caseId,
         currentCaseStudy: study.title,
         footer: `Type **back** to return to the portfolio or **contact** to learn more about working with me.`
       };
+   
+      console.log('Handler: Sending response', response);
+      return response;
     }
     return {
       type: 'error',
