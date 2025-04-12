@@ -23,28 +23,29 @@ This document contains structured information about the site owner to help provi
 
 ### Personal Background
 - **Origin:** Born in West Palm Beach, Florida.  
-- **Residences:** Lived up and down the East Coast, including Cambridge, MA, the Berkshires, and Providence, RI. Moved to California in 2014 and currently resides in San Francisco.  
-- **Education:** Attended undergrad and graduate school, emphasizing critical thinking, problem-solving, and understanding constraints through design.
+- **Residences:** Lived in Cambridge, MA; the Berkshires in Western Massachusetts; and Providence, RI, before moving to California in 2014. Currently lives in San Francisco with a partner and their three cats.  
+- **Education:** Studied Architecture at the Rhode Island School of Design (RISD), where he earned a graduate degree. His academic background emphasized design thinking, spatial systems, and constraint-driven problem solving.
 
 ### Key Interests and Passions
-- **Creative Pursuits:** Passionate about sculpture and creating artwork. Aspires to dedicate more time to art and less to paid design work.  
-- **Animals:** Loves cats, birds, and animals in general.  
-- **Making a Difference:** Strives to create work that impacts real people and addresses real problems, moving away from business-driven projects.  
+- **Creative Pursuits:** A passionate sculptor, currently working on a 1.25x life-size piece focused on human hands. Long-term goal is to spend more time on personal art and less on commercial work.  
+- **Animals:** Deep love for animals—especially cats and birds. Regularly draws inspiration from their form, movement, and presence.  
+- **Making a Difference:** Most energized by work that solves real human problems. Increasingly focused on projects that prioritize social or individual impact over profit.
 
 ### Professional Focus Areas
-- **Design Approach:** A well-rounded generalist, working across product strategy, UX/UI design, and even coding and implementation.  
-- **Specializations:** Excels in taking products from 0 to 1 or MVP, working closely with engineers, and navigating technical constraints.  
-- **Domains:** Recently focused on AI-driven projects and rediscovered a passion for mission-driven work. Enjoys mentoring young designers, especially those transitioning from unrelated fields into tech or product design.  
+- **Design Approach:** A pragmatic full-stack designer who spans research, UX, visual design, and front-end development. Able to operate independently and ship production-ready work in small teams.  
+- **Specializations:** Expert in taking early-stage products from idea to MVP. Works closely with engineers and founders, often delivering frontend code alongside design.  
+- **Domains:** Recent focus on AI-driven tools and mission-driven platforms. Particularly interested in health, safety, and care-focused applications. Enjoys mentoring career switchers and junior designers who come from unconventional paths.
 
 ### Values and Principles
-- **Motivations:** Attracted to projects with interesting challenges, cool people, and opportunities to work on AI or mission-driven problems.  
-- **Values:** Emphasizes the human experience, aiming to create digital products that make life better instead of worse.  
-- **Design Philosophy:** Focuses on improving lives through thoughtful, empathetic design.  
+- **Motivations:** Drawn to thoughtful, curious collaborators and problems that require creative constraint navigation. Prefers fast-moving environments with open-minded teams.  
+- **Values:** Believes digital products should enhance life, not distract from it. Emphasizes honesty, clarity, and empathy in both design and collaboration.  
+- **Design Philosophy:** Design should be humane, useful, and driven by real needs. Sees every product as a service to the user—something that should reduce confusion, not add to it.
 
 ### Current Goals and Aspirations
-- **Professional Goals:** Wants to take on more meaningful work, prioritize personal projects, and continue enjoying the freelance lifestyle.  
-- **Personal Goals:** Aims to save for property and find a more sustainable, affordable place to live with a partner and their cats (and future animals).  
-- **New Pursuits:** Seeks to deepen a sculpture and art practice, which is the primary area of new exploration and learning.  
+- **Professional Goals:** Continue consulting on impactful projects while growing personal creative practice. Interested in occasional full-time roles if mission and team align.  
+- **Personal Goals:** Saving toward land and a home—ideally somewhere more spacious and affordable to support both art and a gentler lifestyle.  
+- **New Pursuits:** Deepening sculpture work through mold-making, larger-scale projects, and exploring connections between physical and digital creation.
+
 
 ---
 
@@ -69,30 +70,68 @@ This document contains structured information about the site owner to help provi
    - History of successful remote collaboration
 ]
 
-### Freelance Product Designer
-**Liebchen Worldwide**  
-*Feb 2023 – Present*  
-San Francisco, California, United States (Remote)  
-Helping early-stage startups conceive, design, and build 0-to-1 products, with a focus on generative AI, business, and medical domains. Notable achievements include:
+### Miri AI
+**Founding Product Designer (Contract)**  
+*Feb 2023 – Feb 2025*  
+San Francisco, California, United States  
+At Miri, an AI-powered nutrition coaching platform, I served as the founding product designer—shaping the product experience from zero to v1 across mobile and web. Though my role was contract-based, I embedded deeply with the team, working like a founding employee to turn ambiguous early ideas into a tangible, testable product.
 
-- 🔥 Delivered the initial core experiences for Watch Duty's community wildfire tracking app. Now supporting its 3rd wildfire season, the app has provided residents and firefighters real-time information about fires affecting their lives and homes.
-- 🤖 Designed and developed Miri AI's MVP coaching app to help wellness coaches scale their methodology and personal approach to growing client bases.
+I led design across every surface of the app, including:
+👋 Mobile onboarding and streak-based engagement systems
+📋 Coach-facing admin tools for goal setting, content workflows, and user tracking
+🤖 AI chat interfaces with custom plan generation, feedback loops, and memory
+📱 A cross-platform design system and responsive web experience
+
+My work emphasized fast iteration, lean validation, and delivering production-ready design under startup constraints. I collaborated closely with engineering, coaching leads, and the founding team to make Miri feel both personal and powerful from day one.
+
+“Andrew’s creative vision was truly transformative for Miri. His contributions have been a game-changer for our company, reflecting a profound impact on both our product and our overall success.”
+— Boris Korsunsky, Miri's CTO
+
+
+### Watch Duty ###
+**Founding Product Designer (Volunteer)**
+Jun 2021 - Jan 2022
+Watch Duty is a nonprofit wildfire tracking app that delivers critical safety updates to people in the path of wildfires. I was brought on when the product was still an early engineering prototype, and led design across the core mobile experience, helping define how fire-related data is surfaced, interpreted, and trusted in real time.
+
+Working on nights and weekends, I:
+👯‍♀️ Designed the first production version of the mobile app, focused on helping users assess risk across multiple fires
+🗺️ Developed the core map UI with text updates, images, and status indicators
+🔥 Created the Watch Duty logo and visual identity, still in use across the app and brand
+💁‍♂️ Translated a complex set of requirements—from local fire behavior to user stress and trust—into a calm, intuitive experience
+
+The app has now supported multiple fire seasons and reached hundreds of thousands of users, becoming a go-to tool for both residents and emergency responders.
+
+"Andrew developed his own understanding of user needs and delivered a design on a short timeline that hit all our objectives—while going beyond to shape the visual identity of Watch Duty. His ability to develop simple solutions to complex requirements, along with a strong aesthetic sense, would make him an asset to any team."
+— Lukas, PM at Watch Duty
 
 ### Meta
-**Senior Product Designer**  
+**Senior Product Designer (Reality Labs)**  
 *Jan 2021 – Nov 2022*  
 San Francisco Bay Area  
-Led design for the Meta Quest mobile app, collaborating with an XFN product team of 10+ engineers and designers from Reality Labs to create "a bridge to the metaverse." The app serves millions of users monthly and generates a significant portion of Quest's total revenue.
+I led product design for the Meta Quest mobile app—the companion to Meta’s VR headset and a key entry point to the broader metaverse ecosystem. With over 10 million downloads in 2022 and the #1 spot in the App Store during the 2021 holiday season, the app plays a critical role in user onboarding, engagement, and revenue for the Quest platform.
 
-**Senior Product Designer**  
+As the design lead, I:
+📱 Owned end-to-end design for the mobile app, including the Explore feed, a primary user surface
+🙌 Supported cross-functional efforts across Store, Notifications, Social, and Device Setup by running design reviews, crits, and maintaining app-wide design quality
+🎨 Championed usability, coherence, and polish across multiple teams and stakeholders
+🧪 Pioneered new features like the VR-to-mobile media gallery—later handed off to a dedicated media team for further development
+
+I worked closely with 10+ engineers and designers across Reality Labs to ensure the mobile experience functioned not just as a utility, but as a real extension of the headset—helping people discover content, connect with others, and get more out of VR.
+
+**Senior Product Designer (Oculus)**  
 *Jan 2020 – Jan 2021*  
 Menlo Park, California  
-Designed social experiences for VR, including integrating FB Messenger into Oculus Quest and inventing ways to join friends in the metaverse instantly.
+Designed social features to make VR more connected, spontaneous, and shareable. Highlights include:
 
-**Product Designer**  
+🖖 Invented the “metaverse deeplink”, a system that lets users share their live location in VR so friends can instantly “teleport” into the same experience, for which I earned a patent.
+💬 Helped bring Facebook Messenger into VR, enabling users to stay connected across platforms
+
+Collaborated closely with engineers, PMs, and platform teams to push the boundaries of social presence in virtual space.*Sep 2016 – Jan 2020*  
+
+** Product Designer (Internal data and HR tools)**  
 *Sep 2016 – Jan 2020*  
 Menlo Park, California  
-Designed and built HR and data products for tens of thousands of Facebook employees worldwide.
+Designed internal tools used daily by Facebook employees to make better decisions, support teams, and grow their careers. My work spanned both the Data and People Products orgs, where I focused on usability, clarity, and impact at scale.
 
 ### Persista
 **Founding Product Designer**  
@@ -117,35 +156,7 @@ Created user experiences for a social networking and information exchange platfo
 Greater Boston Area  
 Defined user experiences and visual designs for business information visualizations, B2C/B2B interfaces, and marketing websites, collaborating with cross-functional teams and clients.
 
-### Deelux
-**Co-owner & Creative Director**  
-*Sep 2009 – Feb 2012*  
-Providence, Rhode Island Area  
-Provided thoughtful graphic and web design for clients, including artists, non-profits, and small businesses.
 
-### Rhode Island School of Design
-**Teaching Assistant**  
-*Sep 2006 – Jun 2009*  
-Providence, Rhode Island Area  
-Supported first-year architecture students through crucial design exercises, alongside the lead studio critic.
-
-### Friedrich St. Florian, Architect
-**Architectural Intern**  
-*Jan 2009 – Feb 2009*  
-Providence, Rhode Island Area  
-Collaborated with a diverse team to produce designs and drawings for an international architectural competition entry.
-
-### Capital Repertory Theatre
-**Properties Master**  
-*Sep 2005 – Aug 2006*  
-Albany, New York Area  
-Created theatrical properties for a small, busy LORT theatre, balancing artistic and budgetary constraints. Managed a small production shop and oversaw interns.
-
-### Barrington Stage Company
-**Assistant Technical Director**  
-*May 2005 – Sep 2005*  
-Pittsfield, Massachusetts Area  
-Produced technical drawings and designs for a professional summer-stock season of musicals and plays.
 
 
 ## Education
@@ -238,7 +249,7 @@ The site combines modern web technologies with AI capabilities to create an inte
 - All Fours by Miranda July
 - War and Peace by Leo Tolstoy
 - Use of Weapons by Iain M. Banks
-- The Orphan Master’s Son by Adam Johnson
+- The Orphan Master's Son by Adam Johnson
 - Three Farmers on Their Way to a Dance by Richard Powers
 - The Player of Games by Iain M. Banks
 - Consider Phlebas by Iain M. Banks
@@ -255,7 +266,7 @@ The site combines modern web technologies with AI capabilities to create an inte
 - Fates and Furies by Lauren Groff
 - The Terror by Dan Stevens
 - The Children Act by Ian McEwan
-- A Supposedly Fun Thing I’ll Never Do Again by David Foster Wallace
+- A Supposedly Fun Thing I'll Never Do Again by David Foster Wallace
 - Consider The Lobster by David Foster Wallace
 - Freedom by Jonathan Franzen
 - Anna Karenina by Leo Tolstoy
@@ -270,7 +281,7 @@ The site combines modern web technologies with AI capabilities to create an inte
 - Your Fathers, Where Are They? And the Prophets, Do They Live Forever? by Dave Eggers
 - To Paradise by Hanya Yanagihara
 - Sweet Tooth by Ian McEwan
-- God, Human, Animal, Machine by Meghan O’Gieblyn
+- God, Human, Animal, Machine by Meghan O'Gieblyn
 - Children of Memory by Adrian Tchaikovsky
 - I, Claudius by Robert Graves
 - Children of Ruin by Adrian Tchaikovsky

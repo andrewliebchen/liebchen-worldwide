@@ -3,26 +3,27 @@ import { CALENDLY_LINK, LINKEDIN_LINK } from '@/src/ai/config/openai';
 export const CASE_STUDIES = {
   'watch-duty': {
     title: 'Watch Duty: Wildfire Awareness',
-    description: 'Worked closely with a founder and volunteers to design an app that provides timely wildfire updates.',
-    challenge: 'Ensure clarity and usability under high-stress conditions.',
-    solution: 'Intuitive map interface and clear containment icons.',
-    outcome: 'Became a go-to resource for Californians navigating wildfire risks.',
+    description: 'Transformed an engineering prototype into a trusted wildfire tracking app relied on by thousands across California.',
+    challenge: 'Create a real-time interface that could deliver critical fire updates during emergencies while staying clear, calm, and usable under stress.',
+    solution: 'Defined core UX and information architecture, created the brand identity, designed the containment marker system, and built front-end components in React.',
+    outcome: 'Watch Duty became the #1 app in the App Store during the LA wildfires. The core design scaled from a prototype into a mission-critical public resource.'
   },
   'meta-quest': {
     title: 'Meta Quest: Bridge to the Metaverse',
-    description: 'I led the design for the Meta Quest app during Facebook\'s metamorphosis into Meta.',
-    challenge: 'Create a must-have app for Oculus users while ramping up in-app revenue.',
-    solution: 'A revamped landing page addressing user pain points and fostering social connections.',
-    outcome: 'Boosted retention and engagement metrics significantly.',
+    description: 'Led product design for the Quest companion app during Meta’s transition from Facebook to Reality Labs.',
+    challenge: 'Increase user engagement and retention while avoiding revenue drops during a critical holiday launch cycle, all under manufacturing constraints.',
+    solution: 'Redesigned the app’s home screen to highlight device status, improved battery visibility based on user research, and prototyped at high fidelity for rapid testing.',
+    outcome: 'Successfully shipped redesigned app ahead of factory deadlines. Retention and engagement increased without impacting ARPU, validating a user-first approach.'
   },
   'miri': {
-    title: "Miri: AI-powered wellness coach",
-    description: "Led the design of an innovative AI-powered nutrition app focused on personalized wellness coaching.",
-    challenge: "Create an engaging, personalized nutrition tracking experience that scales across both B2C and B2B markets.",
-    solution: "Designed an intuitive app with AI-driven coaching features, seamless UX, and a modular SDK for white-label integration.",
-    outcome: "Successfully expanded market reach through accessible design and B2B customizations while improving user engagement.",
+    title: 'Miri: AI-Powered Wellness Coach',
+    description: 'Freelanced as lead designer for Miri, a fast-moving AI nutrition coaching startup.',
+    challenge: 'Build and iterate on onboarding, chat, and tracking flows across mobile and desktop while supporting coach-specific customizations and business growth.',
+    solution: 'Designed and shipped production-ready features weekly, including structured meal logging, habit streaks, and white-labeled UI. Used AI tools to accelerate design and communication workflows.',
+    outcome: 'Accelerated onboarding testing and iteration, increased user engagement, and enabled white-label deployments for B2B expansion—all while writing and shipping front-end code.'
   }
 };
+
 
 export const COMMANDS = {
   HELP: 'help',
