@@ -10,8 +10,7 @@ const buildProjectsContext = () => {
    → ${study.description}
    → Challenge: ${study.challenge}
    → Solution: ${study.solution}
-   → Outcome: ${study.outcome}
-   → **Watch/Visit**: [${study.linkText}](${study.link})`;
+   → Outcome: ${study.outcome}`;
   }).join('\n\n');
 };
 

@@ -17,16 +17,16 @@ A terminal-style portfolio website powered by Next.js and OpenAI's GPT-4. This i
 ## Project Structure
 
 ```
-├── components/          # React components
-│   ├── Terminal/       # Terminal-related components
-│   ├── theme/          # Theme constants and types
-│   └── styles/         # Styled components
-├── config/             # Configuration files
-├── context/            # React context providers
+├── src/                # Source directory
+│   ├── components/     # React components
+│   ├── config/        # Configuration files
+│   ├── context/       # React context providers
+│   ├── styles/        # Styled components and theme
+│   ├── types/         # TypeScript types
+│   └── ai/            # AI integration and commands
 ├── pages/             # Next.js pages and API routes
-│   └── api/           # Backend API endpoints
-├── public/            # Static assets
-└── commands/          # Terminal command handlers
+│   └── api/          # Backend API endpoints
+└── public/           # Static assets
 ```
 
 ## OpenAI API Integration
@@ -156,6 +156,8 @@ This project is optimized for deployment on Vercel:
 
 - **Enhanced Typewriter Effect**: Applied the typewriter animation to both welcome messages and AI responses for a consistent, engaging user experience
 - **Case Study Integration**: Added "WATCH CASE STUDY" buttons that appear after message completion, providing seamless access to detailed project information
+- **Video Overlay Component**: Implemented a responsive video overlay for case study videos with a terminal-inspired design
+- **Unified Button System**: Created a consistent button component system using styled-components for all interactive elements
 - **Animation State Management**: Implemented ref-based animation tracking to prevent duplicate animations and ensure smooth transitions
 - **Performance Optimization**: Reduced unnecessary re-renders by using refs instead of state variables for animation tracking
 
@@ -177,3 +179,25 @@ The application is optimized for modern browsers:
 ## License
 
 This project is private and not open for public use or distribution.
+
+## Component System
+
+### Terminal Button
+The application uses a unified button component system based on styled-components:
+
+```typescript
+const TerminalButton = styled.button`
+  background: transparent;
+  border: 1px solid ${colors.text.accent};
+  color: ${colors.text.accent};
+  text-transform: uppercase;
+  // ... other styles
+`;
+```
+
+This button component is used consistently throughout the application for:
+- Case study buttons
+- Video overlay controls
+- Interactive terminal elements
+
+The design follows the Tokyo Night theme and maintains a consistent terminal aesthetic across all interactive elements.

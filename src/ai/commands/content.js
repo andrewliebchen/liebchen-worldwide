@@ -7,8 +7,6 @@ export const CASE_STUDIES = {
     challenge: 'Ensure clarity and usability under high-stress conditions.',
     solution: 'Intuitive map interface and clear containment icons.',
     outcome: 'Became a go-to resource for Californians navigating wildfire risks.',
-    linkText: 'Project showcase →',
-    link: 'https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%A7%91%E2%80%8D%F0%9F%92%BB-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=698%2C639%2C0.1&t=oOOObodCSB0f5O7U-0&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=197%3A14827&show-proto-sidebar=0'
   },
   2: {
     title: 'Meta Quest: Bridge to the Metaverse',
@@ -16,8 +14,6 @@ export const CASE_STUDIES = {
     challenge: 'Create a must-have app for Oculus users while ramping up in-app revenue.',
     solution: 'A revamped landing page addressing user pain points and fostering social connections.',
     outcome: 'Boosted retention and engagement metrics significantly.',
-    linkText: 'Project showcase →',
-    link: 'https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%92%81%E2%80%8D%E2%99%82%EF%B8%8F-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=1123%2C263%2C0.17&t=NFL2SDKCCnSotTK3-0&scaling=scale-down-width&starting-point-node-id=197%3A14917&show-proto-sidebar=0'
   },
   3: {
     title: "Miri: AI-powered wellness coach",
@@ -25,8 +21,6 @@ export const CASE_STUDIES = {
     challenge: "Create an engaging, personalized nutrition tracking experience that scales across both B2C and B2B markets.",
     solution: "Designed an intuitive app with AI-driven coaching features, seamless UX, and a modular SDK for white-label integration.",
     outcome: "Successfully expanded market reach through accessible design and B2B customizations while improving user engagement.",
-    linkText: 'Project showcase →',
-    link: "https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%92%81%E2%80%8D%E2%99%82%EF%B8%8F-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=1123%2C263%2C0.17&t=NFL2SDKCCnSotTK3-0&scaling=scale-down-width&starting-point-node-id=197%3A15045&show-proto-sidebar=0"
   }
 };
 
@@ -80,9 +74,9 @@ Type **projects** to see my work or **contact** to get in touch.`,
 Or schedule a call: ${CALENDLY_LINK}`,
 
   PORTFOLIO: `Here are my case studies:
-1 → **Watch Duty**: Wildfire Awareness [${CASE_STUDIES[1].linkText}](${CASE_STUDIES[1].link})
-2 → **Meta Quest**: Bridge to the Metaverse [${CASE_STUDIES[2].linkText}](${CASE_STUDIES[2].link})
-3 → **Miri**: AI-powered wellness coach [${CASE_STUDIES[3].linkText}](${CASE_STUDIES[3].link})
+1 → **Watch Duty**: Wildfire Awareness
+2 → **Meta Quest**: Bridge to the Metaverse
+3 → **Miri**: AI-powered wellness coach
 
 Type the number of the case study you'd like to explore.`,
 

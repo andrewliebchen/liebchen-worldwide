@@ -75,7 +75,6 @@ export const TerminalContainer = styled.div`
   flex-direction: column;
   height: 100vh;
   min-height: 100vh;
-  overflow: hidden;
   position: relative;
 `;
 
@@ -83,11 +82,12 @@ export const OutputPane = styled.div`
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 1 1 0;
   gap: ${size[5]};
-  overflow-y: auto;
-  padding-top: ${size[5]};
+  overflow-y: scroll;
+  padding: ${size[5]} ${size[8]} calc(${size[8]} * 2);
   position: relative;
+  margin-bottom: 0;
 `;
 
 export const OutputLine = styled.div`
@@ -132,10 +132,10 @@ export const InputContainer = styled.div`
   bottom: 0;
   left: 0;
   padding: ${size[4]} ${size[8]};
-  position: sticky;
+  position: fixed;
   right: 0;
   z-index: 10;
-  margin-top: ${size[2]};
+  margin-top: 0;
 
   form {
     align-items: center;

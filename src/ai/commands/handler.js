@@ -58,7 +58,7 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
     if (caseNumber && CASE_STUDIES[caseNumber]) {
       const study = CASE_STUDIES[caseNumber];
       return {
-        type: 'case-study',
+        type: 'ai-response',
         content: `**${study.title}**
 
 ${study.description}
@@ -67,13 +67,10 @@ ${study.description}
 
 **Solution**: ${study.solution}
 
-**Outcome**: ${study.outcome}
-
-**Learn More**: [${study.linkText}](${study.link})
-
----
-Type **back** to return to the portfolio or **contact** to learn more about working with me.`,
-        currentCaseStudy: study.title
+**Outcome**: ${study.outcome}`,
+        caseStudy: `case-${caseNumber}`,
+        currentCaseStudy: study.title,
+        footer: `Type **back** to return to the portfolio or **contact** to learn more about working with me.`
       };
     }
     return {

@@ -84,9 +84,17 @@ export default function Terminal() {
 
   // Scroll to bottom when history changes
   useEffect(() => {
-    if (outputRef.current) {
-      outputRef.current.scrollTop = outputRef.current.scrollHeight;
-    }
+    const scrollToBottom = () => {
+      if (outputRef.current) {
+        outputRef.current.scrollTop = outputRef.current.scrollHeight;
+      }
+    };
+
+    scrollToBottom();
+    // Add a small delay to ensure content is rendered
+    const timeoutId = setTimeout(scrollToBottom, 100);
+    
+    return () => clearTimeout(timeoutId);
   }, [history]);
 
   // Simple focus management

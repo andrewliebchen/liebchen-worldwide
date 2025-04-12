@@ -5,18 +5,18 @@ export interface CaseStudy {
 }
 
 export const CASE_STUDIES: Record<string, CaseStudy> = {
-  'watch-duty': {
-    id: 'watch-duty',
+  'case-1': {
+    id: 'case-1',
     title: 'Watch Duty Case Study',
     videoUrl: 'https://youtu.be/GoAHRfv6ToY'
   },
-  'meta-quest': {
-    id: 'meta-quest',
+  'case-2': {
+    id: 'case-2',
     title: 'Meta Quest Case Study',
     videoUrl: 'https://youtu.be/W3MjL7-RHSw'
   },
-  'miri': {
-    id: 'miri',
+  'case-3': {
+    id: 'case-3',
     title: 'Miri Case Study',
     videoUrl: '' // To be updated later
   }
