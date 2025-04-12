@@ -14,9 +14,12 @@ const PROMPT_STYLE = `
 export const TerminalHeader = styled.div`
   background-color: ${colors.bg.secondary};
   padding: ${size[3]} ${size[8]};
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
+  height: ${size[13]}; /* Explicit header height */
 `;
 
 export const HeaderContainer = styled.div`
@@ -74,20 +77,28 @@ export const TerminalContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  min-height: 100vh;
-  position: relative;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
 `;
 
 export const OutputPane = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  position: absolute;
+  top: ${size[13]}; /* Match header height */
+  bottom: ${size[12]}; /* Input height */
+  left: 0;
+  right: 0;
+  padding: ${size[4]} 0;
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  flex: 1 1 0;
-  gap: ${size[5]};
-  overflow-y: scroll;
-  padding: ${size[5]} ${size[8]} calc(${size[8]} * 2);
-  position: relative;
-  margin-bottom: 0;
+  gap: ${spacing.md}; /* Reduced from lg to md */
 `;
 
 export const OutputLine = styled.div`
@@ -129,13 +140,13 @@ export const CommandLine = styled.div`
 
 export const InputContainer = styled.div`
   background-color: ${colors.bg.secondary};
+  position: fixed;
   bottom: 0;
   left: 0;
-  padding: ${size[4]} ${size[8]};
-  position: fixed;
   right: 0;
-  z-index: 10;
-  margin-top: 0;
+  padding: ${size[4]} ${size[8]};
+  border-top: 1px solid ${colors.bg.secondary};
+  height: ${size[12]}; /* Explicit input height */
 
   form {
     align-items: center;

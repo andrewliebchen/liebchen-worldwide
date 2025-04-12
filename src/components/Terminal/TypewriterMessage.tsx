@@ -24,6 +24,13 @@ export function TypewriterMessage({ content, onComplete }: TypewriterMessageProp
   const contentRef = useRef(content);
   const onCompleteRef = useRef(onComplete);
   const isMountedRef = useRef(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const scrollIntoView = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  };
   
   // Update refs when props change
   useEffect(() => {
@@ -63,10 +70,12 @@ export function TypewriterMessage({ content, onComplete }: TypewriterMessageProp
       
       if (charactersToShow < content.length) {
         setDisplayedContent(content.substring(0, charactersToShow));
+        scrollIntoView();
         animationRef.current = requestAnimationFrame(animate);
       } else {
         setDisplayedContent(content);
         setIsComplete(true);
+        scrollIntoView();
         if (isMountedRef.current && onCompleteRef.current) {
           onCompleteRef.current();
         }
@@ -87,6 +96,7 @@ export function TypewriterMessage({ content, onComplete }: TypewriterMessageProp
       if (e.key === 'Enter' && !isComplete && isMountedRef.current) {
         setDisplayedContent(content);
         setIsComplete(true);
+        scrollIntoView();
         if (onCompleteRef.current) {
           onCompleteRef.current();
         }
@@ -101,7 +111,7 @@ export function TypewriterMessage({ content, onComplete }: TypewriterMessageProp
   }, [isComplete, content]);
 
   return (
-    <TypewriterContainer>
+    <TypewriterContainer ref={containerRef}>
       <MarkdownResponse content={displayedContent} />
     </TypewriterContainer>
   );

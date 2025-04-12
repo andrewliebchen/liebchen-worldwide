@@ -10,7 +10,7 @@ import { TerminalButton } from '@/src/styles/components/buttons';
 import type { Message as MessageType } from '@/src/types/terminal';
 import MarkdownResponse from '@/src/components/Terminal/MarkdownResponse';
 import { TypewriterMessage } from './TypewriterMessage';
-import { colors } from '@/src/styles/theme/colors';
+import { spacing } from '@/src/styles/theme/constants';
 
 interface MessageProps {
   message: MessageType;
@@ -20,6 +20,7 @@ interface MessageProps {
 export function Message({ message, onCaseStudyClick }: MessageProps) {
   const [isTextComplete, setIsTextComplete] = useState(false);
   const messageIdRef = useRef(message.id);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const isWelcomeMessage = message.type === 'system' && messageIdRef.current === message.id;
   const isAIResponse = message.type === 'ai-response';
   const hasAnimatedRef = useRef(false);
@@ -32,6 +33,13 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
       hasAnimatedRef.current = false;
     }
   }, [message.id]);
+  
+  // Scroll button into view when it appears
+  useEffect(() => {
+    if (isTextComplete && message.caseStudy && buttonRef.current) {
+      buttonRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  }, [isTextComplete, message.caseStudy]);
   
   const handleTextComplete = () => {
     if (!hasAnimatedRef.current) {
@@ -69,9 +77,10 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
             )}
             {isTextComplete && message.caseStudy && onCaseStudyClick && (
               <TerminalButton 
+                ref={buttonRef}
                 onClick={() => onCaseStudyClick(message.caseStudy!)}
                 style={{
-                  marginTop: '16px',
+                  marginTop: spacing.sm,
                 }}
               >
                 WATCH CASE STUDY

@@ -2,10 +2,19 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
+import { spacing } from '@/src/styles/theme/constants';
 
 const StyledMarkdown = styled.div`
   font-family: inherit;
   color: inherit;
+  
+  p {
+    margin: 0;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
   
   a {
     color: ${colors.text.link};
