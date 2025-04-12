@@ -29,6 +29,65 @@ A terminal-style portfolio website powered by Next.js and OpenAI's GPT-4. This i
 └── commands/          # Terminal command handlers
 ```
 
+## OpenAI API Integration
+
+The application uses OpenAI's GPT-4 API to generate contextual responses based on user queries. The integration follows a structured approach:
+
+### API Response Structure
+
+The OpenAI API returns responses in a JSON format that includes:
+
+```json
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "model": "gpt-4",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "This is the AI's response text"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 12,
+    "total_tokens": 21
+  }
+}
+```
+
+### Processing and Display
+
+Our application processes these responses in several steps:
+
+1. **Extraction**: The content from the assistant's message is extracted from the JSON response
+2. **Formatting**: The content is formatted with Markdown for rich text display
+3. **Animation**: The formatted content is displayed with a typewriter effect for a terminal-like experience
+4. **Interactive Elements**: Special elements like "WATCH CASE STUDY" buttons are added based on metadata in the response
+
+### Custom Response Format
+
+We've extended the standard OpenAI response format to include portfolio-specific metadata:
+
+```json
+{
+  "type": "ai-response",
+  "content": "Here's information about my design process...",
+  "caseStudy": "project-id-123",
+  "awaitCaseStudy": true
+}
+```
+
+This custom format allows the terminal to:
+- Display the main response with the typewriter effect
+- Show case study buttons when relevant
+- Track the conversation context for follow-up questions
+
 ## Local Development Setup
 
 1. **Clone the repository**
@@ -90,6 +149,15 @@ This project is optimized for deployment on Vercel:
 - Responsive design with Tokyo Night-inspired theme
 - Real-time status indicators
 - Type animations for authentic terminal feel
+- Dynamic typewriter effect for both welcome messages and AI responses
+- Interactive case study buttons that appear after message completion
+
+## Recent Improvements
+
+- **Enhanced Typewriter Effect**: Applied the typewriter animation to both welcome messages and AI responses for a consistent, engaging user experience
+- **Case Study Integration**: Added "WATCH CASE STUDY" buttons that appear after message completion, providing seamless access to detailed project information
+- **Animation State Management**: Implemented ref-based animation tracking to prevent duplicate animations and ensure smooth transitions
+- **Performance Optimization**: Reduced unnecessary re-renders by using refs instead of state variables for animation tracking
 
 ## Browser Support
 
