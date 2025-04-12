@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useQuery } from '@/src/context/QueryContext';
+import { useConversation } from '@/src/context/ConversationContext';
 import { handleCommand } from '@/src/ai/commands/handler';
 import { TerminalContainer, OutputPane, OutputLine } from '@/src/styles/components/terminal.styles';
 import { Header } from '@/src/components/Terminal/Header';
@@ -45,8 +46,31 @@ const getRandomWelcomeMessage = () => {
   return randomMessage + proTip;
 };
 
+const generateTagline = async (content: string): Promise<string> => {
+  try {
+    const response = await fetch('/api/tagline/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to generate tagline');
+    }
+
+    const data = await response.json();
+    return data.tagline;
+  } catch (error) {
+    console.error('Error generating tagline:', error);
+    return 'Liebchen.world is initialized';
+  }
+};
+
 export default function Terminal() {
   const { queryCount, syncWithServer, resetSession, isLoading, aiEnabled } = useQuery();
+  const { setCurrentTopic } = useConversation();
   const [history, setHistory] = useState<Message[]>([]);
   const [isInitialMessageComplete, setIsInitialMessageComplete] = useState(false);
   const [input, setInput] = useState('');
@@ -176,6 +200,7 @@ export default function Terminal() {
           inCaseStudy: false,
           currentCaseStudy: null 
         });
+        setCurrentTopic('Liebchen.world is initialized');
         return;
       }
 
@@ -183,6 +208,12 @@ export default function Terminal() {
       if (isAIQuery && response.type !== 'error') {
         console.log('Client: Successful AI response, syncing query count');
         await syncWithServer();
+        
+        // Update the conversation topic based on the AI response
+        if (response.type === 'ai-response') {
+          const topic = await generateTagline(response.content);
+          setCurrentTopic(topic);
+        }
       }
 
       // Replace the thinking entry with the actual response

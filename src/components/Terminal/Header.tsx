@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
-import { TerminalHeader, HeaderTitle, HeaderAvatar, HeaderText, QueryCount, HeaderContainer, HeaderVersion } from '@/src/styles/components/terminal.styles';
+import { TerminalHeader, HeaderContainer, HeaderTagline, QueryCount } from '@/src/styles/components/terminal.styles';
 import { useQuery } from '@/src/context/QueryContext';
+import { useConversation } from '@/src/context/ConversationContext';
 
 const generateProgressBar = (used: number, total: number = 5) => {
   if (used >= total) {
@@ -15,28 +15,17 @@ const generateProgressBar = (used: number, total: number = 5) => {
 
 export const Header: React.FC = () => {
   const { queryCount, aiEnabled } = useQuery();
+  const { currentTopic } = useConversation();
 
   return (
     <TerminalHeader>
       <HeaderContainer>
-      <HeaderTitle>
-        <HeaderAvatar>
-          <Image
-            src="/headshot.webp"
-            alt="Andrew Liebchen"
-            fill
-            sizes="24px"
-            priority
-            style={{ objectFit: 'cover' }}
-          />
-        </HeaderAvatar>
-        <HeaderText>Andrew.AI <HeaderVersion>Interactive portfolio v0.1.1</HeaderVersion></HeaderText>
-      </HeaderTitle>
-      {aiEnabled && (
-        <QueryCount>
-          {generateProgressBar(queryCount ?? 0)}
-        </QueryCount>
-      )}
+        <HeaderTagline>{currentTopic}</HeaderTagline>
+        {aiEnabled && (
+          <QueryCount>
+            {generateProgressBar(queryCount ?? 0)}
+          </QueryCount>
+        )}
       </HeaderContainer>
     </TerminalHeader>
   );

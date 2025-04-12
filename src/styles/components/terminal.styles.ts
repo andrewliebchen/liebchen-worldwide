@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
 import { spacing, typography, layout, size, maxWidth } from '@/src/styles/theme/constants';
 
-const INPUT_HEIGHT = '60px';
+const OFFSET_HEIGHT = '60px';
 
 const PROMPT_STYLE = `
     content: '❯';
@@ -14,13 +14,15 @@ const PROMPT_STYLE = `
 
 export const TerminalHeader = styled.div`
   background-color: ${colors.bg.secondary};
-  padding: ${size[3]} ${size[8]};
+  padding: 0 ${size[8]};
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 10;
-  height: ${size[13]}; /* Explicit header height */
+  height: ${OFFSET_HEIGHT}; /* Explicit header height */
+  display: flex;
+  align-items: center;
 `;
 
 export const HeaderContainer = styled.div`
@@ -29,6 +31,8 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   margin: 0 auto;
   max-width: ${maxWidth};
+  width: 100%;
+  align-items: center;
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -37,31 +41,9 @@ export const HeaderContainer = styled.div`
   }
 `;
 
-export const HeaderTitle = styled.div`
-  align-items: center;
-  display: flex;
-  gap: ${size[4]};
-`;
 
-export const HeaderAvatar = styled.div`
-  background-color: ${colors.bg.primary};
-  border-radius: 50%;
-  height: ${size[9]};
-  aspect-ratio: 1;
-  overflow: hidden;
-  position: relative;
-  width: ${size[9]};
-`;
-
-export const HeaderText = styled.span`
+export const HeaderTagline = styled.div`
   color: ${colors.text.accent};
-  font-size: ${typography.fontSize[2]};
-`;
-
-export const HeaderVersion = styled.span`
-  color: ${colors.text.secondary};
-  font-size: ${typography.fontSize[1]};
-  font-weight: bold;
 `;
 
 export const QueryCount = styled.div`
@@ -91,8 +73,8 @@ export const OutputPane = styled.div`
   flex: 1;
   overflow-y: auto;
   position: absolute;
-  top: ${size[13]}; /* Match header height */
-  bottom: ${INPUT_HEIGHT}; /* Input height */
+  top: ${OFFSET_HEIGHT}; /* Match header height */
+  bottom: ${OFFSET_HEIGHT}; /* Input height */
   left: 0;
   right: 0;
   padding: ${size[4]} 0;
@@ -148,7 +130,7 @@ export const InputContainer = styled.div`
   right: 0;
   padding: ${size[4]} ${size[8]};
   border-top: 1px solid ${colors.bg.secondary};
-  height: ${INPUT_HEIGHT}; /* Use the constant */
+  height: ${OFFSET_HEIGHT}; /* Use the constant */
   display: flex;
   flex-direction: row;
   align-items: center;
