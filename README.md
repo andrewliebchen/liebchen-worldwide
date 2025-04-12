@@ -14,6 +14,15 @@ A terminal-style portfolio website powered by Next.js and OpenAI's GPT-4. This i
   - Typewriter Effect for terminal-like animations
   - React Spring for smooth animations
 
+## Content Rules
+
+The application follows specific content rules to maintain a consistent voice and user experience:
+
+1. **Third-Person Perspective**: All content refers to Andrew Liebchen in the third person (he/his/him), never in first person (I/my/me)
+2. **AI Self-Reference**: The AI assistant refers to itself as "Liebchen.world" rather than using first-person pronouns
+3. **Tagline Format**: Dynamic taglines always follow the format "liebchen.world is [descriptor]" in lowercase
+4. **Welcome Messages**: Initial welcome messages introduce Andrew as a senior freelance product designer with varying emphasis on different aspects of his expertise
+
 ## Project Structure
 
 ```
