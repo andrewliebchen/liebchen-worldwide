@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   MessageContainer,
   LoadingDots,
@@ -18,9 +18,25 @@ interface MessageProps {
 
 export function Message({ message, onCaseStudyClick }: MessageProps) {
   const [isTextComplete, setIsTextComplete] = useState(false);
-
+  const messageIdRef = useRef(message.id);
+  const isWelcomeMessage = message.type === 'system' && messageIdRef.current === message.id;
+  const isAIResponse = message.type === 'ai-response';
+  const hasAnimatedRef = useRef(false);
+  
+  // Reset animation state when message ID changes
+  useEffect(() => {
+    if (messageIdRef.current !== message.id) {
+      messageIdRef.current = message.id;
+      setIsTextComplete(false);
+      hasAnimatedRef.current = false;
+    }
+  }, [message.id]);
+  
   const handleTextComplete = () => {
-    setIsTextComplete(true);
+    if (!hasAnimatedRef.current) {
+      hasAnimatedRef.current = true;
+      setIsTextComplete(true);
+    }
   };
 
   switch (message.type) {
@@ -42,13 +58,17 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
       return (
         <MessageContainer>
           <MessageContent>
-            <TypewriterMessage 
-              content={message.content} 
-              onComplete={handleTextComplete}
-            />
+            {(isWelcomeMessage || isAIResponse) && !hasAnimatedRef.current ? (
+              <TypewriterMessage 
+                content={message.content} 
+                onComplete={handleTextComplete}
+              />
+            ) : (
+              <MarkdownResponse content={message.content} />
+            )}
             {isTextComplete && message.caseStudy && onCaseStudyClick && (
               <CaseStudyButton onClick={() => onCaseStudyClick(message.caseStudy!)}>
-                ▶️ WATCH CASE STUDY
+                WATCH CASE STUDY
               </CaseStudyButton>
             )}
           </MessageContent>

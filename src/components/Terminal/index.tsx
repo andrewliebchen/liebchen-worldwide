@@ -1,68 +1,28 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useQuery } from '@/src/context/QueryContext';
 import { handleCommand } from '@/src/ai/commands/handler';
 import { TerminalContainer, OutputPane, OutputLine } from '@/src/styles/components/terminal.styles';
 import { Header } from '@/src/components/Terminal/Header';
 import { Input } from '@/src/components/Terminal/Input';
 import { Message as MessageComponent } from '@/src/components/Terminal/Message';
+import { TypewriterMessage } from '@/src/components/Terminal/TypewriterMessage';
 import type { Message, MessageType, StatusType, TerminalContext } from '@/src/types/terminal';
 
-const TypewriterMessage: React.FC<{ content: string; onComplete?: () => void }> = React.memo(({ content, onComplete }) => {
-  const [displayedContent, setDisplayedContent] = useState('');
-  const [isComplete, setIsComplete] = useState(false);
-  const messageId = useRef(Date.now()).current;
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  
-  const complete = React.useCallback(() => {
-    if (!isComplete) {
-      setDisplayedContent(content);
-      setIsComplete(true);
-      onComplete?.();
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    }
-  }, [content, isComplete, onComplete]);
-
-  useEffect(() => {
-    let currentIndex = 0;
-    intervalRef.current = setInterval(() => {
-      if (currentIndex <= content.length) {
-        setDisplayedContent(content.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        complete();
-      }
-    }, 10);
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [content, complete]);
-
-  // Listen for Enter key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && !isComplete) {
-        complete();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isComplete, complete]);
-
-  return <MessageComponent message={{ type: 'system', content: displayedContent, id: messageId }} />;
-});
-
 const WelcomeSection = React.memo(({ message, onComplete }: { message: string; onComplete: () => void }) => {
+  const hasCompletedRef = useRef(false);
+  
+  const handleComplete = () => {
+    if (!hasCompletedRef.current) {
+      hasCompletedRef.current = true;
+      onComplete();
+    }
+  };
+  
   return (
     <OutputLine>
       <TypewriterMessage 
         content={message}
-        onComplete={onComplete}
+        onComplete={handleComplete}
       />
     </OutputLine>
   );
@@ -88,7 +48,8 @@ export default function Terminal() {
   const [history, setHistory] = useState<Message[]>([]);
   const [isInitialMessageComplete, setIsInitialMessageComplete] = useState(false);
   const [input, setInput] = useState('');
-  const [welcomeMessage] = useState(getRandomWelcomeMessage());
+  const welcomeMessageRef = useRef(getRandomWelcomeMessage());
+  const welcomeMessageIdRef = useRef(Date.now());
   const [context, setContext] = useState<TerminalContext>({
     awaitingCaseStudy: false,
     inCaseStudy: false,
@@ -98,14 +59,25 @@ export default function Terminal() {
   const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleWelcomeComplete = React.useCallback(() => {
-    setHistory([{
-      type: 'system',
-      content: welcomeMessage,
-      id: Date.now()
-    }]);
-    setIsInitialMessageComplete(true);
-  }, [welcomeMessage]);
+  // Initialize history with welcome message
+  useEffect(() => {
+    if (history.length === 0) {
+      setHistory([{
+        type: 'system',
+        content: welcomeMessageRef.current,
+        id: welcomeMessageIdRef.current
+      }]);
+    }
+  }, []);
+
+  // Mark initial message as complete after a delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitialMessageComplete(true);
+    }, 5000); // 5 seconds should be enough for the typewriter effect to complete
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   // Scroll to bottom when history changes
   useEffect(() => {
@@ -265,21 +237,14 @@ export default function Terminal() {
     <TerminalContainer onClick={handleTerminalClick}>
       <Header />
       <OutputPane ref={outputRef}>
-        {!isInitialMessageComplete ? (
-          <WelcomeSection 
-            message={welcomeMessage} 
-            onComplete={handleWelcomeComplete} 
-          />
-        ) : (
-          history.map(message => (
-            <OutputLine key={message.id}>
-              <MessageComponent 
-                message={message} 
-                onCaseStudyClick={handleCaseStudyClick}
-              />
-            </OutputLine>
-          ))
-        )}
+        {history.map(message => (
+          <OutputLine key={message.id}>
+            <MessageComponent 
+              message={message} 
+              onCaseStudyClick={handleCaseStudyClick}
+            />
+          </OutputLine>
+        ))}
       </OutputPane>
       <Input
         value={input}

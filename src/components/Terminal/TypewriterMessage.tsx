@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { size, typography } from '@/src/styles/theme/constants';
 import MarkdownResponse from '@/src/components/Terminal/MarkdownResponse';
@@ -18,38 +18,87 @@ const TypewriterContainer = styled.div`
 
 export function TypewriterMessage({ content, onComplete }: TypewriterMessageProps) {
   const [displayedContent, setDisplayedContent] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-
+  const animationRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number | null>(null);
+  const contentRef = useRef(content);
+  const onCompleteRef = useRef(onComplete);
+  const isMountedRef = useRef(true);
+  
+  // Update refs when props change
   useEffect(() => {
-    // Start the animation immediately
-    if (currentIndex < content.length) {
-      const timer = setTimeout(() => {
-        setDisplayedContent((prev) => prev + content[currentIndex]);
-        setCurrentIndex((prev) => prev + 1);
-      }, 10); // Increased speed from 30ms to 10ms
-
-      return () => clearTimeout(timer);
-    } else if (!isComplete) {
-      setIsComplete(true);
-      onComplete?.();
+    contentRef.current = content;
+    onCompleteRef.current = onComplete;
+  }, [content, onComplete]);
+  
+  // Cleanup function
+  const cleanup = () => {
+    if (animationRef.current !== null) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
     }
-  }, [currentIndex, content, isComplete, onComplete]);
+  };
+  
+  // Reset state when content changes
+  useEffect(() => {
+    isMountedRef.current = true;
+    setDisplayedContent('');
+    setIsComplete(false);
+    contentRef.current = content;
+    
+    // Clear any existing animation
+    cleanup();
+    
+    // Start animation immediately
+    startTimeRef.current = performance.now();
+    const animate = (timestamp: number) => {
+      if (!isMountedRef.current) return;
+      
+      if (!startTimeRef.current) {
+        startTimeRef.current = timestamp;
+      }
+      
+      const elapsed = timestamp - startTimeRef.current;
+      const charactersToShow = Math.floor(elapsed / 10); // 10ms per character
+      
+      if (charactersToShow < content.length) {
+        setDisplayedContent(content.substring(0, charactersToShow));
+        animationRef.current = requestAnimationFrame(animate);
+      } else {
+        setDisplayedContent(content);
+        setIsComplete(true);
+        if (isMountedRef.current && onCompleteRef.current) {
+          onCompleteRef.current();
+        }
+      }
+    };
+    
+    animationRef.current = requestAnimationFrame(animate);
+    
+    return () => {
+      isMountedRef.current = false;
+      cleanup();
+    };
+  }, [content]);
 
   // Handle keyboard shortcut to complete the animation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && !isComplete) {
+      if (e.key === 'Enter' && !isComplete && isMountedRef.current) {
         setDisplayedContent(content);
-        setCurrentIndex(content.length);
         setIsComplete(true);
-        onComplete?.();
+        if (onCompleteRef.current) {
+          onCompleteRef.current();
+        }
+        
+        // Cancel any ongoing animation
+        cleanup();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [content, isComplete, onComplete]);
+  }, [isComplete, content]);
 
   return (
     <TypewriterContainer>
