@@ -1,7 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
-import { InputContainer, Input as StyledInput, CommandButtonsContainer, CommandButton, HotkeyIndicator } from '@/src/styles/components/terminal.styles';
+import { InputContainer, Input as StyledInput, CommandButtonsContainer } from '@/src/styles/components/terminal.styles';
 import { COMMANDS } from '@/src/ai/commands/content';
 import { PromptIcon } from '@/src/components/PromptIcon';
+import { Button } from '../styles/components/buttons';
 
 interface InputProps {
   value: string;
@@ -103,50 +104,50 @@ export function Input({ value, onChange, onSubmit, processCommand, disabled, inp
         />
       </form>
       <CommandButtonsContainer>
-        <CommandButton
-          type="button"
+        <Button
+          variant="secondary"
           onClick={() => {
             console.log('Input: Portfolio button clicked');
             handleCommandClick(COMMANDS.PORTFOLIO);
           }}
           disabled={disabled}
+          hotkey="^1"
         >
           Portfolio
-          <HotkeyIndicator>^1</HotkeyIndicator>
-        </CommandButton>
-        <CommandButton
-          type="button"
+        </Button>
+        <Button
+          variant="secondary"
           onClick={() => {
             console.log('Input: Contact button clicked');
             handleCommandClick(COMMANDS.CONTACT);
           }}
           disabled={disabled}
+          hotkey="^2"
         >
           Contact
-          <HotkeyIndicator>^2</HotkeyIndicator>
-        </CommandButton>
-        <CommandButton
-          type="button"
+        </Button>
+        <Button
+          variant="secondary"
           onClick={() => {
             console.log('Input: About button clicked');
             handleCommandClick(COMMANDS.ABOUT);
           }}
           disabled={disabled}
+          hotkey="^3"
         >
           About
-          <HotkeyIndicator>^3</HotkeyIndicator>
-        </CommandButton>
-        <CommandButton
-          type="button"
+        </Button>
+        <Button
+          variant="secondary"
           onClick={() => {
             console.log('Input: Help button clicked');
             handleCommandClick(COMMANDS.HELP);
           }}
           disabled={disabled}
+          hotkey="^4"
         >
           Help
-          <HotkeyIndicator>^4</HotkeyIndicator>
-        </CommandButton>
+        </Button>
       </CommandButtonsContainer>
     </InputContainer>
   );

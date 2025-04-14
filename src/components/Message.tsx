@@ -6,7 +6,7 @@ import {
   ErrorMessage,
   MessageContent,
 } from '@/src/styles/components/terminal.styles';
-import { TerminalButton } from '@/src/styles/components/buttons';
+import { Button } from '../styles/components/buttons';
 import type { Message as MessageType } from '@/src/types/terminal';
 import MarkdownResponse from '@/src/components/MarkdownResponse';
 import { TypewriterMessage } from './TypewriterMessage';
@@ -128,19 +128,16 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
             )}
             {isTextComplete && message.caseStudy && onCaseStudyClick && (
               <ButtonContainer>
-                <TerminalButton 
-                  ref={buttonRef}
-                  onClick={() => {
-                    console.log('Case study button clicked');
-                    console.log('Case study ID:', message.caseStudy);
-                    onCaseStudyClick(message.caseStudy!);
-                  }}
-                >
+                <Button variant="primary" ref={buttonRef} onClick={() => {
+                  console.log('Case study button clicked');
+                  console.log('Case study ID:', message.caseStudy);
+                  onCaseStudyClick(message.caseStudy!);
+                }}>
                   <ButtonContent>
                     <MaterialSymbol icon="play_arrow" size={18} />
                     WATCH CASE STUDY
                   </ButtonContent>
-                </TerminalButton>
+                </Button>
                 {message.caseStudy && (
                   <FigmaLink 
                     href={getCaseStudy(message.caseStudy)?.figma} 
