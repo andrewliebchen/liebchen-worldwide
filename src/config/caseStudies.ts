@@ -7,6 +7,13 @@ export interface CaseStudy {
 }
 
 export const CASE_STUDIES: Record<string, CaseStudy> = {
+  'root': {
+    id: 'root',
+    title: 'Case study showcase',
+    videoUrl: 'https://youtu.be/Ozss6g2cwnk', 
+    timestamp: '0:00',
+    figma: "https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%A7%91%E2%80%8D%F0%9F%92%BB-Portfolio-%E2%80%94-Feb-2025?node-id=0-1&p=f&viewport=450%2C4330%2C0.15&t=94n0KezZ49PzYd4k-0&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=751%3A32082&show-proto-sidebar=1"
+  },
   'watch-duty': {
     id: 'watch-duty',
     title: 'Watch Duty Case Study',

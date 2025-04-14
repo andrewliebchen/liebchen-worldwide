@@ -1,17 +1,24 @@
 import { GetServerSideProps } from 'next';
-
-const URL = 'https://www.figma.com/proto/es7jY6yc1YrgRHqOZyovHG/%F0%9F%A7%91%E2%80%8D%F0%9F%92%BB-Portfolio-%E2%80%94-Feb-2025?node-id=197-14820&p=f&viewport=530%2C655%2C0.1&t=oOOObodCSB0f5O7U-0&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=197%3A14827&show-proto-sidebar=0'
+import { CaseStudyLanding } from '@/src/components/CaseStudyLanding';
+import { getCaseStudy } from '@/src/config/caseStudies';
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  const caseStudy = getCaseStudy('watch-duty');
+  
+  if (!caseStudy) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
-    redirect: {
-      destination: URL,
-      permanent: false,
+    props: {
+      caseStudy,
     },
   };
 };
 
-export default function Showcase() {
-  return null;
+export default function Showcase({ caseStudy }) {
+  return <CaseStudyLanding caseStudy={caseStudy} />;
 } 
 

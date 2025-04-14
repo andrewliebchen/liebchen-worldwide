@@ -19,6 +19,11 @@ export const GlobalStyle = createGlobalStyle`
     line-height: ${typography.lineHeight.normal};
   }
 
+  body {
+    background-color: ${colors.bg.primary};
+    padding: 0;
+  }
+
 
   /*
   * {
