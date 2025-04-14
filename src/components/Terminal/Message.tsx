@@ -11,11 +11,31 @@ import type { Message as MessageType } from '@/src/types/terminal';
 import MarkdownResponse from '@/src/components/Terminal/MarkdownResponse';
 import { TypewriterMessage } from './TypewriterMessage';
 import { spacing } from '@/src/styles/theme/constants';
+import { getCaseStudy } from '@/src/config/caseStudies';
+import styled from 'styled-components';
 
 interface MessageProps {
   message: MessageType;
   onCaseStudyClick?: (caseStudyId: string) => void;
 }
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-top: ${spacing.sm};
+`;
+
+const FigmaLink = styled.a`
+  color: #7aa2f7;
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 export function Message({ message, onCaseStudyClick }: MessageProps) {
   const [isTextComplete, setIsTextComplete] = useState(false);
@@ -86,19 +106,27 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
               <MarkdownResponse content={message.content} />
             )}
             {isTextComplete && message.caseStudy && onCaseStudyClick && (
-              <TerminalButton 
-                ref={buttonRef}
-                onClick={() => {
-                  console.log('Case study button clicked');
-                  console.log('Case study ID:', message.caseStudy);
-                  onCaseStudyClick(message.caseStudy!);
-                }}
-                style={{
-                  marginTop: spacing.sm,
-                }}
-              >
-                WATCH CASE STUDY
-              </TerminalButton>
+              <ButtonContainer>
+                <TerminalButton 
+                  ref={buttonRef}
+                  onClick={() => {
+                    console.log('Case study button clicked');
+                    console.log('Case study ID:', message.caseStudy);
+                    onCaseStudyClick(message.caseStudy!);
+                  }}
+                >
+                  WATCH CASE STUDY
+                </TerminalButton>
+                {message.caseStudy && (
+                  <FigmaLink 
+                    href={getCaseStudy(message.caseStudy)?.figma} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Review slides in Figma
+                  </FigmaLink>
+                )}
+              </ButtonContainer>
             )}
           </MessageContent>
         </MessageContainer>
