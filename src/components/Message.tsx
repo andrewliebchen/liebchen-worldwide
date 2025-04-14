@@ -13,6 +13,8 @@ import { TypewriterMessage } from './TypewriterMessage';
 import { spacing } from '@/src/styles/theme/constants';
 import { getCaseStudy } from '@/src/config/caseStudies';
 import styled from 'styled-components';
+import { MaterialSymbol } from 'react-material-symbols';
+import 'react-material-symbols/rounded';
 
 interface MessageProps {
   message: MessageType;
@@ -31,10 +33,25 @@ const FigmaLink = styled.a`
   text-decoration: none;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: ${spacing.xs};
   
   &:hover {
     text-decoration: underline;
   }
+`;
+
+const ButtonContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${spacing.xs};
+`;
+
+const LinkText = styled.span`
+  display: flex;
+  align-items: center;
+  gap: ${spacing.xs};
 `;
 
 export function Message({ message, onCaseStudyClick }: MessageProps) {
@@ -115,7 +132,10 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
                     onCaseStudyClick(message.caseStudy!);
                   }}
                 >
-                  WATCH CASE STUDY
+                  <ButtonContent>
+                    <MaterialSymbol icon="play_arrow" size={18} />
+                    WATCH CASE STUDY
+                  </ButtonContent>
                 </TerminalButton>
                 {message.caseStudy && (
                   <FigmaLink 
@@ -123,7 +143,10 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    Review slides in Figma
+                    <LinkText>
+                      Review slides in Figma
+                      <MaterialSymbol icon="open_in_new" size={14} />
+                    </LinkText>
                   </FigmaLink>
                 )}
               </ButtonContainer>
