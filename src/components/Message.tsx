@@ -15,6 +15,7 @@ import { getCaseStudy } from '@/src/config/caseStudies';
 import styled from 'styled-components';
 import { MaterialSymbol } from 'react-material-symbols';
 import 'react-material-symbols/rounded';
+import { PromptIcon } from '@/src/components/PromptIcon';
 
 interface MessageProps {
   message: MessageType;
@@ -99,7 +100,10 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
     case 'command':
       return (
         <MessageContainer>
-          <CommandLine>{message.content}</CommandLine>
+          <CommandLine>
+            <PromptIcon />
+            {message.content}
+          </CommandLine>
         </MessageContainer>
       );
     

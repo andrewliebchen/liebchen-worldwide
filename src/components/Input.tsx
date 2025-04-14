@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { InputContainer, Input as StyledInput, CommandButtonsContainer, CommandButton, HotkeyIndicator } from '@/src/styles/components/terminal.styles';
 import { COMMANDS } from '@/src/ai/commands/content';
+import { PromptIcon } from '@/src/components/PromptIcon';
 
 interface InputProps {
   value: string;
@@ -88,6 +89,7 @@ export function Input({ value, onChange, onSubmit, processCommand, disabled, inp
         console.log('Input: Form submit event triggered');
         onSubmit(e);
       }}>
+        <PromptIcon />
         <StyledInput
           ref={inputRef}
           type="text"

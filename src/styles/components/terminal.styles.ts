@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
 import { spacing, typography, layout, size, maxWidth } from '@/src/styles/theme/constants';
+import { MaterialSymbol } from 'react-material-symbols';
+import 'react-material-symbols/rounded';
 
-const PROMPT_STYLE = `
-    content: '❯';
-    position: absolute;
-    left: -${size[8]};
-    color: ${colors.text.accent};
-    display: block;
+export const PromptIcon = styled(MaterialSymbol)`
+  position: absolute;
+  left: -${size[8]};
+  color: ${colors.text.accent};
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 export const TerminalContainer = styled.div`
@@ -113,10 +116,6 @@ export const InputContainer = styled.div`
     width: 100%;
     margin: 0 auto;
     position: relative;
-
-    &::before {
-      ${PROMPT_STYLE}
-    }
   }
 `;
 
@@ -176,10 +175,6 @@ export const ErrorMessage = styled.div`
 export const CommandLine = styled.div`
   color: ${colors.text.secondary};
   position: relative;
-
-  &::before {
-    ${PROMPT_STYLE}
-  }
 `;
 
 export const CommandButtonsContainer = styled.div`
