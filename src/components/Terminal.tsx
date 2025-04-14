@@ -299,6 +299,12 @@ export default function Terminal() {
             />
           </OutputLine>
         ))}
+        {activeCaseStudy && (
+        <VideoOverlay
+          caseStudy={getCaseStudy(activeCaseStudy)!}
+          onClose={handleCloseVideo}
+        />
+      )}
       </OutputPane>
       <Input
         value={input}
@@ -307,12 +313,6 @@ export default function Terminal() {
         disabled={!isInitialMessageComplete || status === 'processing'}
         inputRef={inputRef}
       />
-      {activeCaseStudy && (
-        <VideoOverlay
-          caseStudy={getCaseStudy(activeCaseStudy)!}
-          onClose={handleCloseVideo}
-        />
-      )}
     </TerminalContainer>
   );
 } 

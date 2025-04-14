@@ -1,33 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CaseStudy } from '@/src/config/caseStudies';
 import { TerminalButton } from '@/src/styles/components/buttons';
+import { colors } from '@/src/styles/theme/colors';
+import { spacing } from '@/src/styles/theme/constants';
 
 interface VideoOverlayProps {
   caseStudy: CaseStudy;
   onClose: () => void;
 }
 
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(26, 27, 38, 0.85); /* Tokyo Night blue background with transparency */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const VideoContainer = styled.div`
+  background: ${colors.bg.secondary};
+  border: 1px solid ${colors.text.accent};
+  border-radius: 5px;
+  width: 480px;
+  position: absolute;
+  bottom: ${spacing.xl};
+  right: ${spacing.xl};
   z-index: 1000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 `;
 
-const VideoContainer = styled.div`
-  background: #1a1b26;
-  border: 1px solid #414868;
-  border-radius: 4px;
-  width: 90%;
-  max-width: 1000px;
-  position: relative;
+const VideoHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${spacing.sm};
+  background: ${colors.bg.primary};
+  border-bottom: 1px solid ${colors.text.accent};
+  cursor: move;
+  user-select: none;
+`;
+
+const VideoTitle = styled.div`
+  color: ${colors.text.accent};
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+`;
+
+const CloseButton = styled(TerminalButton)`
+  padding: ${spacing.xs} ${spacing.sm};
+  font-size: 0.8em;
+  min-width: auto;
 `;
 
 const VideoWrapper = styled.div`
@@ -47,6 +66,10 @@ const Iframe = styled.iframe`
 `;
 
 export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
   // Convert YouTube URL to embed URL
   const getEmbedUrl = (url: string) => {
     if (!url) return '';
@@ -65,6 +88,27 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
     }
   };
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    
+    const newX = e.clientX - dragStart.x;
+    const newY = e.clientY - dragStart.y;
+    
+    setPosition({ x: newX, y: newY });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
   const embedUrl = getEmbedUrl(caseStudy.videoUrl);
   if (!embedUrl) {
     console.log('No valid video URL found for case study:', caseStudy);
@@ -72,27 +116,27 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
   }
 
   return (
-    <Overlay onClick={onClose}>
-      <VideoContainer onClick={e => e.stopPropagation()}>
-        <TerminalButton 
-          onClick={onClose}
-          style={{ 
-            position: 'absolute',
-            top: '-50px',
-            right: '0'
-          }}
-        >
-          CLOSE
-        </TerminalButton>
-        <VideoWrapper>
-          <Iframe
-            src={embedUrl}
-            title={caseStudy.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </VideoWrapper>
-      </VideoContainer>
-    </Overlay>
+    <VideoContainer 
+      style={{ 
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        cursor: isDragging ? 'grabbing' : 'default'
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+    >
+      <VideoHeader onMouseDown={handleMouseDown}>
+        <VideoTitle>{caseStudy.title}</VideoTitle>
+        <CloseButton onClick={onClose}>×</CloseButton>
+      </VideoHeader>
+      <VideoWrapper>
+        <Iframe
+          src={embedUrl}
+          title={caseStudy.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </VideoWrapper>
+    </VideoContainer>
   );
 }; 
