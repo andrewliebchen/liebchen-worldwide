@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CaseStudy } from '../../config/caseStudies';
-import { TerminalButton } from '../../styles/components/buttons';
+import { CaseStudy } from '@/src/config/caseStudies';
+import { TerminalButton } from '@/src/styles/components/buttons';
 
 interface VideoOverlayProps {
   caseStudy: CaseStudy;
@@ -52,7 +52,13 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
     if (!url) return '';
     try {
       const videoId = url.split('/').pop();
-      return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+      if (!videoId) return '';
+
+      // Convert timestamp from MM:SS to seconds
+      const [minutes, seconds] = caseStudy.timestamp.split(':').map(Number);
+      const startTime = (minutes * 60) + seconds;
+
+      return `https://www.youtube.com/embed/${videoId}?start=${startTime}`;
     } catch (error) {
       console.error('Error parsing video URL:', error);
       return '';
