@@ -4,14 +4,17 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
+    "@material-design-icons/svg": "^0.14.15",
     "@react-spring/web": "^9.7.5",
     "@vercel/analytics": "^1.4.1",
     "iron-session": "^6.3.1",
+    "lineicons-react": "^2.0.0",
     "next": "^14.1.0",
     "openai": "^4.78.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.3",
+    "react-material-symbols": "^4.4.0",
     "styled-components": "^6.1.14",
     "typewriter-effect": "^2.21.0"
   },

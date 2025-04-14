@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CaseStudy } from '@/src/config/caseStudies';
-import { TerminalButton } from '@/src/styles/components/buttons';
 import { colors } from '@/src/styles/theme/colors';
 import { spacing } from '@/src/styles/theme/constants';
+import { MaterialSymbol } from 'react-material-symbols';
+import 'react-material-symbols/rounded';
 
 interface VideoOverlayProps {
   caseStudy: CaseStudy;
@@ -43,10 +44,21 @@ const VideoTitle = styled.div`
   max-width: 300px;
 `;
 
-const CloseButton = styled(TerminalButton)`
-  padding: ${spacing.xs} ${spacing.sm};
-  font-size: 0.8em;
-  min-width: auto;
+const CloseButton = styled.button`
+  background: transparent;
+  border: none;
+  padding: ${spacing.xs};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  color: ${colors.text.accent};
+
+  &:hover {
+    background: ${colors.bg.secondary};
+  }
 `;
 
 const VideoWrapper = styled.div`
@@ -127,7 +139,9 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
     >
       <VideoHeader onMouseDown={handleMouseDown}>
         <VideoTitle>{caseStudy.title}</VideoTitle>
-        <CloseButton onClick={onClose}>×</CloseButton>
+        <CloseButton onClick={onClose}>
+          <MaterialSymbol icon="close" size={20} color={colors.text.accent} />
+        </CloseButton>
       </VideoHeader>
       <VideoWrapper>
         <Iframe
