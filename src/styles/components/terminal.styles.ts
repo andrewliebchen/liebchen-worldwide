@@ -100,10 +100,11 @@ export const MessageContent = styled.div`
 
 export const InputContainer = styled.div`
   background-color: ${colors.bg.secondary};
-  padding: ${size[8]};
+  padding: ${size[8]} ${size[8]} ${size[6]};
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  gap: ${size[6]};
 
   form {
     align-items: center;
@@ -178,5 +179,41 @@ export const CommandLine = styled.div`
 
   &::before {
     ${PROMPT_STYLE}
+  }
+`;
+
+export const CommandButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: ${size[4]};
+  justify-content: flex-start;
+  max-width: ${maxWidth};
+  width: 100%;
+  align-items: center;
+  font-family: ${typography.fontFamily.primary};
+  font-size: ${typography.fontSize[1]};
+  color: ${colors.text.secondary};
+`;
+
+export const CommandButton = styled.button`
+  background-color: ${colors.bg.secondary};
+  border: 1px solid ${colors.border.primary};
+  color: ${colors.text.secondary};
+  padding: ${size[2]} ${size[3]};
+  cursor: pointer;
+  font-size: ${typography.fontSize[2]};
+  transition: all 0.2s ease;
+  min-width: 100px;
+  white-space: nowrap;
+  font-family: ${typography.fontFamily.primary};
+  font-size: ${typography.fontSize[1]};
+
+  &:hover {
+    border-color: ${colors.text.accent};
+    color: ${colors.text.accent};
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 `;

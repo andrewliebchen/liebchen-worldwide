@@ -44,64 +44,25 @@ const isStaticCommand = (cmd) => {
          command.startsWith('reach-out') ||
          command.startsWith('hire') ||
          command.startsWith('clear') ||
-         command.startsWith('back') ||
-         command.startsWith('ascii');
+         command.startsWith('back');
+};
+
+// Commands that should always be treated as commands, even in case study context
+const isPrimaryCommand = (cmd) => {
+  const command = cmd.toLowerCase().trim();
+  return command === COMMANDS.HELP ||
+         command === COMMANDS.PORTFOLIO ||
+         command === COMMANDS.ABOUT ||
+         command === COMMANDS.CONTACT ||
+         command === COMMANDS.CLEAR;
 };
 
 export const handleCommand = async (command, context = {}, queryCount = 0) => {
   const cmd = command.toLowerCase().trim();
   const [mainCommand, ...args] = cmd.split(' ');
   
-  // Handle case study selection
-  if (context.awaitingCaseStudy) {
-    const input = cmd.toLowerCase().replace(/\s+/g, '-');
-    console.log('Handler: Processing case study selection', {
-      input,
-      availableCaseStudies: Object.keys(CASE_STUDIES)
-    });
-    
-    // Map common variations to canonical IDs
-    const caseIdMap = {
-      'watchduty': 'watch-duty',
-      'watch': 'watch-duty',
-      'meta': 'meta-quest',
-      'quest': 'meta-quest',
-      'metaquest': 'meta-quest',
-    };
-
-    const caseId = caseIdMap[input] || input;
-    
-    if (CASE_STUDIES[caseId]) {
-      const study = CASE_STUDIES[caseId];
-      console.log('Handler: Found case study', study);
-
-      const response = {
-        type: 'ai-response',
-        content: `**${study.title}**
-
-${study.description}
-
-**Challenge**: ${study.challenge}
-
-**Solution**: ${study.solution}
-
-**Outcome**: ${study.outcome}`,
-        caseStudy: caseId,
-        currentCaseStudy: study.title,
-        footer: `Type **back** to return to the portfolio or **contact** to learn more about working with me.`
-      };
-   
-      console.log('Handler: Sending response', response);
-      return response;
-    }
-    return {
-      type: 'error',
-      content: RESPONSES.INVALID_SELECTION
-    };
-  }
-
-  // Handle static commands
-  if (isStaticCommand(cmd)) {
+  // Always handle primary commands regardless of context
+  if (isPrimaryCommand(cmd)) {
     // Track the static command usage
     trackEvent('static_command', {
       command: mainCommand
@@ -154,54 +115,61 @@ ${study.description}
           awaitCaseStudy: true
         };
         
-      case COMMANDS.BACK:
-        if (context.inCaseStudy) {
-          return {
-            type: 'response',
-            content: RESPONSES.PORTFOLIO,
-            awaitCaseStudy: true
-          };
-        }
-        return {
-          type: 'error',
-          content: RESPONSES.NOT_RECOGNIZED
-        };
-        
       case COMMANDS.CLEAR:
         return {
           type: 'clear'
         };
-        
-      case COMMANDS.ASCII:
-        if (!args.length) {
-          return {
-            type: 'response',
-            content: RESPONSES.ASCII_HELP
-          };
-        }
-        
-        try {
-          const imageUrl = args.join(' ');
-          const ascii = await imageToAscii(imageUrl);
-          return {
-            type: 'ascii-art',
-            content: ascii
-          };
-        } catch (error) {
-          return {
-            type: 'error',
-            content: RESPONSES.ASCII_ERROR
-          };
-        }
-        
-      default:
-        return {
-          type: 'error',
-          content: RESPONSES.NOT_RECOGNIZED
-        };
     }
   }
 
-  // Handle dynamic commands with OpenAI
+  // Handle case study selection
+  if (context.awaitingCaseStudy) {
+    const input = cmd.toLowerCase().replace(/\s+/g, '-');
+    console.log('Handler: Processing case study selection', {
+      input,
+      availableCaseStudies: Object.keys(CASE_STUDIES)
+    });
+    
+    // Map common variations to canonical IDs
+    const caseIdMap = {
+      'watchduty': 'watch-duty',
+      'watch': 'watch-duty',
+      'meta': 'meta-quest',
+      'quest': 'meta-quest',
+      'metaquest': 'meta-quest',
+    };
+
+    const caseId = caseIdMap[input] || input;
+    
+    if (CASE_STUDIES[caseId]) {
+      const study = CASE_STUDIES[caseId];
+      console.log('Handler: Found case study', study);
+
+      const response = {
+        type: 'ai-response',
+        content: `**${study.title}**\n\n${study.description}\n\n**Challenge**: ${study.challenge}\n\n**Solution**: ${study.solution}\n\n**Outcome**: ${study.outcome}`,
+        caseStudy: caseId,
+        currentCaseStudy: study.title,
+        footer: `Type **back** to return to the portfolio or **contact** to learn more about working with me.`
+      };
+   
+      console.log('Handler: Sending response', response);
+      return response;
+    }
+    return {
+      type: 'error',
+      content: RESPONSES.INVALID_SELECTION
+    };
+  }
+
+  // Handle other static commands
+  if (isStaticCommand(cmd)) {
+    return {
+      type: 'error',
+      content: RESPONSES.NOT_RECOGNIZED
+    };
+  }
+
+  // Handle AI queries
   return await generateResponse(command, context, queryCount);
 }; 

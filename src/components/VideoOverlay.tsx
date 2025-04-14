@@ -16,7 +16,7 @@ const VideoContainer = styled.div`
   border: 1px solid ${colors.text.accent};
   border-radius: 5px;
   width: 480px;
-  position: absolute;
+  position: fixed;
   bottom: ${spacing.xl};
   right: ${spacing.xl};
   z-index: 1000;
