@@ -5,7 +5,7 @@ import { spacing, typography, layout, size, maxWidth } from '@/src/styles/theme/
 const PROMPT_STYLE = `
     content: '❯';
     position: absolute;
-    left: -${size[6]};
+    left: -${size[8]};
     color: ${colors.text.accent};
     display: block;
 `;
@@ -170,4 +170,13 @@ export const ErrorMessage = styled.div`
   font-style: italic;
   max-width: ${maxWidth};
   margin: 0 auto;
-`; 
+`;
+
+export const CommandLine = styled.div`
+  color: ${colors.text.secondary};
+  position: relative;
+
+  &::before {
+    ${PROMPT_STYLE}
+  }
+`;
