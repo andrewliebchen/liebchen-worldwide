@@ -1,8 +1,9 @@
 import React, { useEffect, useCallback } from 'react';
-import { InputContainer, Input as StyledInput, CommandButtonsContainer } from '@/src/styles/components/terminal.styles';
+import { InputContainer, Input as StyledInput, CommandButtonsContainer, InputFormContainer, InputWrapper } from '@/src/styles/components/terminal.styles';
 import { COMMANDS } from '@/src/ai/commands/content';
 import { PromptIcon } from '@/src/components/PromptIcon';
 import { Button } from '../styles/components/buttons';
+import { MaterialSymbol } from 'react-material-symbols';
 
 interface InputProps {
   value: string;
@@ -86,23 +87,33 @@ export function Input({ value, onChange, onSubmit, processCommand, disabled, inp
 
   return (
     <InputContainer>
-      <form onSubmit={(e) => {
+      <InputFormContainer onSubmit={(e) => {
         console.log('Input: Form submit event triggered');
         onSubmit(e);
       }}>
-        <PromptIcon />
-        <StyledInput
-          ref={inputRef}
-          type="text"
-          value={value}
-          onChange={(e) => {
-            console.log('Input: Input value changing to:', e.target.value);
-            onChange(e);
-          }}
-          placeholder="Ask a question or type 'help'"
-          disabled={disabled}
-        />
-      </form>
+        <InputWrapper>
+          <PromptIcon />
+          <StyledInput
+            ref={inputRef}
+            type="text"
+            value={value}
+            onChange={(e) => {
+              console.log('Input: Input value changing to:', e.target.value);
+              onChange(e);
+            }}
+            placeholder="Ask a question or type 'help'"
+            disabled={disabled}
+          />
+        </InputWrapper>
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={disabled || !value.trim()}
+          hotkey={<MaterialSymbol icon="keyboard_return" size={16} />}
+        >
+          Send
+        </Button>
+      </InputFormContainer>
       <CommandButtonsContainer>
         <Button
           variant="secondary"

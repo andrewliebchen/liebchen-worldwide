@@ -128,11 +128,16 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
             )}
             {isTextComplete && message.caseStudy && onCaseStudyClick && (
               <ButtonContainer>
-                <Button variant="primary" ref={buttonRef} onClick={() => {
-                  console.log('Case study button clicked');
-                  console.log('Case study ID:', message.caseStudy);
-                  onCaseStudyClick(message.caseStudy!);
-                }}>
+                <Button
+                  variant="primary"
+                  size="large"
+                  ref={buttonRef}
+                  onClick={() => {
+                    console.log('Case study button clicked');
+                    console.log('Case study ID:', message.caseStudy);
+                    onCaseStudyClick(message.caseStudy!);
+                  }}
+                >
                   <ButtonContent>
                     <MaterialSymbol icon="play_arrow" size={18} />
                     WATCH CASE STUDY

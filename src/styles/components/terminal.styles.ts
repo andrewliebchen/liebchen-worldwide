@@ -119,6 +119,20 @@ export const InputContainer = styled.div`
   }
 `;
 
+export const InputFormContainer = styled.form`
+  align-items: center;
+  display: flex;
+  max-width: ${maxWidth};
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  gap: ${size[4]};
+`;
+
+export const InputWrapper = styled.div`
+  flex: 1;
+  position: relative;
+`;
 
 export const Input = styled.input`
   -webkit-appearance: none;
