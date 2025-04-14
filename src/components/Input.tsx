@@ -1,5 +1,5 @@
 import React from 'react';
-import { CommandLine, InputContainer, Input as StyledInput } from '@/src/styles/components/terminal.styles';
+import { InputContainer, Input as StyledInput } from '@/src/styles/components/terminal.styles';
 
 interface InputProps {
   value: string;

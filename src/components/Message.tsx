@@ -8,7 +8,7 @@ import {
 } from '@/src/styles/components/terminal.styles';
 import { TerminalButton } from '@/src/styles/components/buttons';
 import type { Message as MessageType } from '@/src/types/terminal';
-import MarkdownResponse from '@/src/components/Terminal/MarkdownResponse';
+import MarkdownResponse from '@/src/components/MarkdownResponse';
 import { TypewriterMessage } from './TypewriterMessage';
 import { spacing } from '@/src/styles/theme/constants';
 import { getCaseStudy } from '@/src/config/caseStudies';

@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
 import { spacing, typography, layout, size, maxWidth } from '@/src/styles/theme/constants';
 
-const OFFSET_HEIGHT = '60px';
-
 const PROMPT_STYLE = `
     content: '❯';
     position: absolute;
@@ -12,15 +10,21 @@ const PROMPT_STYLE = `
     display: block;
 `;
 
+export const TerminalContainer = styled.div`
+  background-color: ${colors.bg.primary};
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  overflow: hidden;
+`;
+
 export const TerminalHeader = styled.div`
   background-color: ${colors.bg.secondary};
-  padding: 0 ${size[8]};
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  padding: ${size[4]} ${size[8]};
+  position: relative;
   z-index: 10;
-  height: ${OFFSET_HEIGHT}; /* Explicit header height */
   display: flex;
   align-items: center;
 `;
@@ -36,7 +40,6 @@ export const HeaderContainer = styled.div`
 
   @media (max-width: 600px) {
     flex-direction: column;
-    gap: ${size[3]};
     align-items: flex-start;
   }
 `;
@@ -55,29 +58,11 @@ export const QueryCount = styled.div`
   white-space: pre;
 `;
 
-export const TerminalContainer = styled.div`
-  background-color: ${colors.bg.primary};
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-`;
-
 export const OutputPane = styled.div`
   flex: 1;
   overflow-y: auto;
-  position: absolute;
-  top: ${OFFSET_HEIGHT}; /* Match header height */
-  bottom: ${OFFSET_HEIGHT}; /* Input height */
-  left: 0;
-  right: 0;
-  padding: ${size[4]} 0;
+  position: relative;
+  padding: ${size[8]};
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
@@ -113,24 +98,9 @@ export const MessageContent = styled.div`
   align-items: flex-start;
 `;
 
-export const CommandLine = styled.div`
-  color: ${colors.text.secondary};
-  position: relative;
-
-  &::before {
-    ${PROMPT_STYLE}
-  }
-`;
-
 export const InputContainer = styled.div`
   background-color: ${colors.bg.secondary};
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: ${size[4]} ${size[8]};
-  border-top: 1px solid ${colors.bg.secondary};
-  height: ${OFFSET_HEIGHT}; /* Use the constant */
+  padding: ${size[8]};
   display: flex;
   flex-direction: row;
   align-items: center;
