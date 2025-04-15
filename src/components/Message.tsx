@@ -10,7 +10,7 @@ import { Button } from '../styles/components/buttons';
 import type { Message as MessageType } from '@/src/types/terminal';
 import MarkdownResponse from '@/src/components/MarkdownResponse';
 import { TypewriterMessage } from './TypewriterMessage';
-import { spacing } from '@/src/styles/theme/constants';
+import { spacing, size } from '@/src/styles/theme/constants';
 import { getCaseStudy } from '@/src/config/caseStudies';
 import styled from 'styled-components';
 import { MaterialSymbol } from 'react-material-symbols';

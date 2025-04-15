@@ -119,7 +119,7 @@ export default function Terminal() {
   useEffect(() => {
     const scrollToBottom = () => {
       if (outputRef.current) {
-        outputRef.current.scrollTop = outputRef.current.scrollHeight;
+        outputRef.current.scrollTop = outputRef.current.scrollHeight + 48;
       }
     };
 

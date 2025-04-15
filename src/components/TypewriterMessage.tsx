@@ -14,6 +14,8 @@ const TypewriterContainer = styled.div`
   white-space: pre-wrap;
   word-wrap: break-word;
   margin-bottom: ${size[4]};
+  padding-bottom: ${size[12]};
+  min-height: 2em;
 `;
 
 export function TypewriterMessage({ content, onComplete }: TypewriterMessageProps) {
