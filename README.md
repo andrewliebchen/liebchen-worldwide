@@ -33,6 +33,9 @@ The application follows specific content rules to maintain a consistent voice an
 │   ├── styles/        # Styled components and theme
 │   ├── types/         # TypeScript types
 │   └── ai/            # AI integration and commands
+│       ├── context/   # Centralized context module
+│       ├── commands/  # Command handlers
+│       └── config/    # AI configuration
 ├── pages/             # Next.js pages and API routes
 │   └── api/          # Backend API endpoints
 └── public/           # Static assets
@@ -160,6 +163,8 @@ This project is optimized for deployment on Vercel:
 - Type animations for authentic terminal feel
 - Dynamic typewriter effect for both welcome messages and AI responses
 - Interactive case study buttons that appear after message completion
+- Centralized context management for consistent information
+- DRY (Don't Repeat Yourself) architecture for improved maintainability
 
 ## Recent Improvements
 
@@ -169,6 +174,39 @@ This project is optimized for deployment on Vercel:
 - **Unified Button System**: Created a consistent button component system using styled-components for all interactive elements
 - **Animation State Management**: Implemented ref-based animation tracking to prevent duplicate animations and ensure smooth transitions
 - **Performance Optimization**: Reduced unnecessary re-renders by using refs instead of state variables for animation tracking
+- **Centralized Context Module**: Created a single source of truth for all biographical information, case studies, and contact details
+- **DRY Architecture**: Eliminated code duplication by centralizing context information and creating reusable helper functions
+- **Improved Maintainability**: Enhanced code organization with clear separation of concerns between context, API functionality, and UI components
+- **Standardized Case Study References**: Implemented consistent IDs and mapping for case studies to ensure reliable references throughout the application
+
+## Architecture Improvements
+
+### Centralized Context Module
+
+The application now uses a centralized context module (`src/ai/context/index.js`) that serves as the single source of truth for:
+
+- Contact information and links
+- Case study details and IDs
+- Command definitions and responses
+- Biographical information
+- Static context for AI responses
+
+This approach:
+- Eliminates duplication of information across files
+- Ensures consistency in how information is presented
+- Makes updates easier by requiring changes in only one location
+- Improves maintainability through better organization
+
+### DRY Implementation
+
+The codebase now follows the DRY (Don't Repeat Yourself) principle more closely:
+
+- **Reusable Helper Functions**: Created functions like `getContactInfoMarkdown()` and `buildProjectsContext()` that can be used throughout the application
+- **Consistent Data Structures**: Standardized the format of case studies, commands, and responses
+- **Modular Design**: Separated concerns between context management, API functionality, and UI components
+- **Single Source of Truth**: Ensured that biographical information and case study details are defined in only one place
+
+These improvements make the codebase more maintainable, easier to update, and less prone to inconsistencies.
 
 ## Browser Support
 
