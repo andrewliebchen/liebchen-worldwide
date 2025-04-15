@@ -49,6 +49,7 @@ export const HeaderContainer = styled.div`
   @media (max-width: 600px) {
     flex-direction: column;
     align-items: flex-start;
+    gap: ${size[2]};
   }
 `;
 
