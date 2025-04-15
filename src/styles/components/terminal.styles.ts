@@ -185,6 +185,36 @@ export const ErrorMessage = styled.div`
   font-style: italic;
   max-width: ${maxWidth};
   margin: 0 auto;
+  
+  /* Style for markdown content inside error messages */
+  p {
+    margin: 0;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  a {
+    color: ${colors.text.error};
+    text-decoration: underline;
+    padding: 2px;
+    margin: -2px;
+
+    &:hover {
+      background-color: ${colors.bg.secondary};
+    }
+  }
+
+  code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+
+  strong {
+    color: ${colors.text.error};
+  }
 `;
 
 export const CommandLine = styled.div`

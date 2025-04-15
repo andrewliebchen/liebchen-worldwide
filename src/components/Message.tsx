@@ -111,7 +111,11 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
       return <LoadingDots>Thinking</LoadingDots>;
     
     case 'error':
-      return <ErrorMessage>{message.content}</ErrorMessage>;
+      return (
+        <ErrorMessage>
+          <MarkdownResponse content={message.content} />
+        </ErrorMessage>
+      );
     
     case 'ai-response':
     case 'system':
