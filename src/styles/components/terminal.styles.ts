@@ -78,6 +78,10 @@ export const OutputPane = styled.div`
   padding: ${size[8]};
   position: relative;
   width: 100vw;
+
+  @media (max-width: 600px) {
+   padding: ${size[2]};
+  }
 `;
 
 export const OutputLine = styled.div`
@@ -243,7 +247,11 @@ export const CommandButtonsContainer = styled.div`
   overflow-y: hidden;
   padding-bottom: ${size[2]};
   -webkit-overflow-scrolling: touch;
-  
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+
   /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
     display: none;

@@ -55,6 +55,22 @@ const LinkText = styled.span`
   gap: ${spacing.xs};
 `;
 
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  return isMobile;
+};
+
 export function Message({ message, onCaseStudyClick }: MessageProps) {
   const [isTextComplete, setIsTextComplete] = useState(false);
   const messageIdRef = useRef(message.id);
@@ -62,6 +78,7 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
   const isWelcomeMessage = message.type === 'system' && messageIdRef.current === message.id;
   const isAIResponse = message.type === 'ai-response';
   const hasAnimatedRef = useRef(false);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     console.log('Message render conditions:', {
@@ -93,6 +110,15 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
     if (!hasAnimatedRef.current) {
       hasAnimatedRef.current = true;
       setIsTextComplete(true);
+    }
+  };
+
+  const handleCaseStudyClick = (caseStudyId: string) => {
+    const caseStudy = getCaseStudy(caseStudyId);
+    if (isMobile && caseStudy?.videoUrl) {
+      window.open(caseStudy.videoUrl, '_blank');
+    } else if (onCaseStudyClick) {
+      onCaseStudyClick(caseStudyId);
     }
   };
 
@@ -130,7 +156,7 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
             ) : (
               <MarkdownResponse content={message.content} />
             )}
-            {isTextComplete && message.caseStudy && onCaseStudyClick && (
+            {isTextComplete && message.caseStudy && (
               <ButtonContainer>
                 <Button
                   variant="primary"
@@ -139,7 +165,7 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
                   onClick={() => {
                     console.log('Case study button clicked');
                     console.log('Case study ID:', message.caseStudy);
-                    onCaseStudyClick(message.caseStudy!);
+                    handleCaseStudyClick(message.caseStudy!);
                   }}
                 >
                   <ButtonContent>
@@ -147,7 +173,7 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
                     WATCH CASE STUDY
                   </ButtonContent>
                 </Button>
-                {message.caseStudy && (
+                {message.caseStudy && !isMobile && (
                   <FigmaLink 
                     href={getCaseStudy(message.caseStudy)?.figma} 
                     target="_blank" 
