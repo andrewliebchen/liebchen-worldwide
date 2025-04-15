@@ -166,9 +166,25 @@ export default function Terminal() {
     
     // Check if this will be an AI query (any non-static command)
     const isStaticCommand = command.toLowerCase().startsWith('help') ||
+                          command.toLowerCase().startsWith('commands') ||
+                          command.toLowerCase().startsWith('menu') ||
+                          command.toLowerCase().startsWith('?') ||
                           command.toLowerCase().startsWith('portfolio') ||
+                          command.toLowerCase().startsWith('projects') ||
+                          command.toLowerCase().startsWith('work') ||
+                          command.toLowerCase().startsWith('cases') ||
+                          command.toLowerCase().startsWith('case-studies') ||
+                          command.toLowerCase().startsWith('experience') ||
+                          command.toLowerCase().startsWith('examples') ||
+                          command.toLowerCase().startsWith('showcase') ||
+                          command.toLowerCase().startsWith('resume') ||
                           command.toLowerCase().startsWith('contact') ||
                           command.toLowerCase().startsWith('about') ||
+                          command.toLowerCase().startsWith('info') ||
+                          command.toLowerCase().startsWith('information') ||
+                          command.toLowerCase().startsWith('bio') ||
+                          command.toLowerCase().startsWith('background') ||
+                          command.toLowerCase().startsWith('who') ||
                           command.toLowerCase().startsWith('clear') ||
                           command.toLowerCase().startsWith('back') ||
                           command.toLowerCase().startsWith('ascii');
@@ -206,8 +222,30 @@ export default function Terminal() {
           console.error('Terminal: Server sync failed:', error);
           throw new Error('Failed to sync with server');
         }
-      } else if (command === 'portfolio') {
+      } else if (command === 'portfolio' || 
+                 command === 'projects' || 
+                 command === 'work' || 
+                 command === 'cases' || 
+                 command === 'case-studies' || 
+                 command === 'experience' || 
+                 command === 'examples' || 
+                 command === 'showcase' || 
+                 command === 'resume') {
         console.log('Terminal: Setting portfolio loading state');
+        setStatus('loading');
+      } else if (command === 'about' || 
+                 command === 'info' || 
+                 command === 'information' || 
+                 command === 'bio' || 
+                 command === 'background' || 
+                 command === 'who') {
+        console.log('Terminal: Setting about loading state');
+        setStatus('loading');
+      } else if (command === 'help' || 
+                 command === 'commands' || 
+                 command === 'menu' || 
+                 command === '?') {
+        console.log('Terminal: Setting help loading state');
         setStatus('loading');
       }
 

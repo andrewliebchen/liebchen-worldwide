@@ -64,7 +64,7 @@ const COMMAND_REGISTRY = {
 const isStaticCommand = (cmd) => {
   const command = cmd.toLowerCase().trim();
   return Object.keys(COMMAND_REGISTRY).some(key => 
-    command.startsWith(COMMAND_REGISTRY[key].command || key)
+    command === key.toLowerCase()
   );
 };
 
@@ -72,8 +72,24 @@ const isStaticCommand = (cmd) => {
 const isPrimaryCommand = (cmd) => {
   const command = cmd.toLowerCase().trim();
   return command === COMMANDS.HELP ||
+         command === COMMANDS.COMMANDS ||
+         command === COMMANDS.MENU ||
+         command === COMMANDS.QUESTION_MARK ||
          command === COMMANDS.PORTFOLIO ||
+         command === COMMANDS.PROJECTS ||
+         command === COMMANDS.WORK ||
+         command === COMMANDS.CASES ||
+         command === COMMANDS.CASE_STUDIES ||
+         command === COMMANDS.EXPERIENCE ||
+         command === COMMANDS.EXAMPLES ||
+         command === COMMANDS.SHOWCASE ||
+         command === COMMANDS.RESUME ||
          command === COMMANDS.ABOUT ||
+         command === COMMANDS.INFO ||
+         command === COMMANDS.INFORMATION ||
+         command === COMMANDS.BIO ||
+         command === COMMANDS.BACKGROUND ||
+         command === COMMANDS.WHO ||
          command === COMMANDS.CONTACT ||
          command === COMMANDS.CLEAR;
 };
@@ -91,7 +107,7 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
 
     // Check if the command is in our registry
     for (const [key, handler] of Object.entries(COMMAND_REGISTRY)) {
-      if (cmd.startsWith(key)) {
+      if (cmd === key.toLowerCase()) {
         return {
           type: handler.type || 'response',
           content: handler.response,
