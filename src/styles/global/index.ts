@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
   
   html, body {
     height: 100%;
+    min-height: -webkit-fill-available;
     overflow: hidden;
     background-color: ${colors.bg.primary};
     color: ${colors.text.primary};
@@ -22,6 +23,10 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${colors.bg.primary};
     padding: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
 

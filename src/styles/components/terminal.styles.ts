@@ -17,10 +17,14 @@ export const TerminalContainer = styled.div`
   background-color: ${colors.bg.secondary};
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   position: fixed;
   overflow: hidden;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
 `;
 
 export const TerminalHeader = styled.div`
@@ -119,6 +123,17 @@ export const InputContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: ${size[6]};
+  position: relative;
+  z-index: 10;
+
+  @media (max-width: 600px) {
+    padding: ${size[4]} ${size[4]} ${size[4]};
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
 
   form {
     align-items: center;
