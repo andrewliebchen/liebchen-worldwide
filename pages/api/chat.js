@@ -115,11 +115,15 @@ async function chatRoute(req, res) {
       throw new Error('Invalid response from OpenAI');
     }
 
+    // Log the raw response for debugging
+    console.log('API: Raw OpenAI response:', completion.choices[0].message.content);
+
     let response;
     try {
       response = JSON.parse(completion.choices[0].message.content);
     } catch (error) {
       console.error('API: Failed to parse JSON response:', error);
+      console.error('API: Raw response that failed to parse:', completion.choices[0].message.content);
       throw new Error('Invalid JSON response from OpenAI');
     }
 

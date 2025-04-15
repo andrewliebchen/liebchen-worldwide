@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useQuery } from '@/src/context/QueryContext';
 import { useConversation } from '@/src/context/ConversationContext';
 import { handleCommand } from '@/src/ai/commands/handler';
+import { COMMANDS } from '@/src/ai/commands/content';
 import { TerminalContainer, OutputPane, OutputLine } from '@/src/styles/components/terminal.styles';
 import { Header } from '@/src/components/Header';
 import { Input } from '@/src/components/Input';
@@ -10,6 +11,12 @@ import { TypewriterMessage } from '@/src/components/TypewriterMessage';
 import { VideoOverlay } from '@/src/components/VideoOverlay';
 import { getCaseStudy } from '@/src/config/caseStudies';
 import type { Message, MessageType, StatusType, TerminalContext } from '@/src/types/terminal';
+
+interface DynamicCommand {
+  label: string;
+  command: string;
+  hotkey?: string;
+}
 
 const WelcomeSection = React.memo(({ message, onComplete }: { message: string; onComplete: () => void }) => {
   const hasCompletedRef = useRef(false);
@@ -86,6 +93,7 @@ export default function Terminal() {
   const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [activeCaseStudy, setActiveCaseStudy] = useState<string | null>(null);
+  const [dynamicCommands, setDynamicCommands] = useState<DynamicCommand[]>([]);
 
   // Initialize history with welcome message
   useEffect(() => {
@@ -295,6 +303,13 @@ export default function Terminal() {
       };
       console.log('Terminal: Created response message:', responseMessage);
 
+      // Update dynamic commands from response
+      if (response.dynamicCommands) {
+        setDynamicCommands(response.dynamicCommands);
+      } else {
+        setDynamicCommands([]); // Clear dynamic commands if none provided
+      }
+
       // Update history and context atomically
       console.log('Terminal: Updating history with response');
       setHistory(prev => {
@@ -387,6 +402,7 @@ export default function Terminal() {
         processCommand={processCommand}
         disabled={status === 'processing'}
         inputRef={inputRef}
+        dynamicCommands={dynamicCommands}
       />
       {activeCaseStudy && (
         <VideoOverlay

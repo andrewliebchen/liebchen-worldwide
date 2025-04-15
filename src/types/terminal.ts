@@ -29,6 +29,11 @@ export interface CommandResponse {
   awaitCaseStudy?: boolean;
   currentCaseStudy?: string;
   caseStudy?: string;
+  dynamicCommands?: {
+    label: string;
+    command: string;
+    hotkey?: string;
+  }[];
 }
 
 export interface TypewriterTextProps {

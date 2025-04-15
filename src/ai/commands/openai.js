@@ -55,14 +55,16 @@ export const generateResponse = async (query, currentContext = {}, queryCount = 
                 '---\n\n' +
                 'I\'d love to continue our conversation! You can:\n' +
                 getContactInfoMarkdown(),
-        caseStudy: aiResponse.caseStudy
+        caseStudy: aiResponse.caseStudy,
+        dynamicCommands: aiResponse.dynamicCommands
       };
     }
 
     return {
       type: 'ai-response',
       content: aiResponse.text,
-      caseStudy: aiResponse.caseStudy
+      caseStudy: aiResponse.caseStudy,
+      dynamicCommands: aiResponse.dynamicCommands
     };
   } catch (error) {
     console.error('API Error:', error);

@@ -1,8 +1,8 @@
 // OpenAI API configuration
 export const OPENAI_CONFIG = {
-  model: 'gpt-4o-mini-2024-07-18',
+  model: 'gpt-4o-mini',  // CRITICAL: DON'T CHANGE THIS, or you'll be fired
   temperature: 0.4,      // Lower temperature for more focused, consistent responses
-  max_tokens: 300,       // Reduced to enforce shorter responses
+  max_tokens: 1000,      // Increased to allow for complete responses with dynamic commands
   presence_penalty: 0.1, // Slight penalty to avoid repetition
   frequency_penalty: 0.1 // Slight penalty to encourage varied language
 };

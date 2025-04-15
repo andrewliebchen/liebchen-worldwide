@@ -5,6 +5,12 @@ import { PromptIcon } from '@/src/components/PromptIcon';
 import { Button } from '../styles/components/buttons';
 import { MaterialSymbol } from 'react-material-symbols';
 
+interface DynamicCommand {
+  label: string;
+  command: string;
+  hotkey?: string;
+}
+
 interface InputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -12,9 +18,10 @@ interface InputProps {
   processCommand: (command: string) => void;
   disabled?: boolean;
   inputRef: React.RefObject<HTMLInputElement>;
+  dynamicCommands?: DynamicCommand[];
 }
 
-export function Input({ value, onChange, onSubmit, processCommand, disabled, inputRef }: InputProps) {
+export function Input({ value, onChange, onSubmit, processCommand, disabled, inputRef, dynamicCommands }: InputProps) {
   console.log('Input: Rendering with props:', { value, disabled });
 
   const handleCommandClick = useCallback((command: string) => {
@@ -115,50 +122,71 @@ export function Input({ value, onChange, onSubmit, processCommand, disabled, inp
         </Button>
       </InputFormContainer>
       <CommandButtonsContainer>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            console.log('Input: Portfolio button clicked');
-            handleCommandClick(COMMANDS.PORTFOLIO);
-          }}
-          disabled={disabled}
-          hotkey="^1"
-        >
-          Portfolio
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            console.log('Input: Contact button clicked');
-            handleCommandClick(COMMANDS.CONTACT);
-          }}
-          disabled={disabled}
-          hotkey="^2"
-        >
-          Contact
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            console.log('Input: About button clicked');
-            handleCommandClick(COMMANDS.ABOUT);
-          }}
-          disabled={disabled}
-          hotkey="^3"
-        >
-          About
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            console.log('Input: Help button clicked');
-            handleCommandClick(COMMANDS.HELP);
-          }}
-          disabled={disabled}
-          hotkey="^4"
-        >
-          Help
-        </Button>
+        {dynamicCommands && dynamicCommands.length > 0 ? (
+          // Render only dynamic commands if they exist
+          dynamicCommands.map((cmd, index) => (
+            <Button
+              key={`dynamic-${index}`}
+              variant="secondary"
+              onClick={() => {
+                console.log('Input: Dynamic command button clicked:', cmd.command);
+                handleCommandClick(cmd.command);
+              }}
+              disabled={disabled}
+              hotkey={cmd.hotkey}
+            >
+              {cmd.label}
+            </Button>
+          ))
+        ) : (
+          // Render static commands if no dynamic commands exist
+          <>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                console.log('Input: Portfolio button clicked');
+                handleCommandClick(COMMANDS.PORTFOLIO);
+              }}
+              disabled={disabled}
+              hotkey="^1"
+            >
+              Portfolio
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                console.log('Input: Contact button clicked');
+                handleCommandClick(COMMANDS.CONTACT);
+              }}
+              disabled={disabled}
+              hotkey="^2"
+            >
+              Contact
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                console.log('Input: About button clicked');
+                handleCommandClick(COMMANDS.ABOUT);
+              }}
+              disabled={disabled}
+              hotkey="^3"
+            >
+              About
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                console.log('Input: Help button clicked');
+                handleCommandClick(COMMANDS.HELP);
+              }}
+              disabled={disabled}
+              hotkey="^4"
+            >
+              Help
+            </Button>
+          </>
+        )}
       </CommandButtonsContainer>
     </InputContainer>
   );

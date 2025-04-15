@@ -233,4 +233,17 @@ export const CommandButtonsContainer = styled.div`
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.fontSize[1]};
   color: ${colors.text.secondary};
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: ${size[2]};
+  -webkit-overflow-scrolling: touch;
+  
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 `;
