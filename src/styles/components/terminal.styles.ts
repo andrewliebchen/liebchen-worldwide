@@ -40,6 +40,7 @@ export const HeaderContainer = styled.div`
   max-width: ${maxWidth};
   width: 100%;
   align-items: center;
+  gap: ${size[8]};
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -50,6 +51,11 @@ export const HeaderContainer = styled.div`
 
 export const HeaderTagline = styled.div`
   color: ${colors.text.accent};
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
 `;
 
 export const QueryCount = styled.div`
