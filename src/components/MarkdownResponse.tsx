@@ -7,6 +7,14 @@ const StyledMarkdown = styled.div`
   font-family: inherit;
   color: inherit;
   
+  p {
+    margin: 0;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
   a {
     color: ${colors.text.link};
     text-decoration: underline;

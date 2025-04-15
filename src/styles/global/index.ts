@@ -11,12 +11,22 @@ export const GlobalStyle = createGlobalStyle`
   
   html, body {
     height: 100%;
+    min-height: -webkit-fill-available;
     overflow: hidden;
     background-color: ${colors.bg.primary};
     color: ${colors.text.primary};
     font-family: ${typography.fontFamily.primary};
     font-size: ${typography.fontSize[2]};
     line-height: ${typography.lineHeight.normal};
+  }
+
+  body {
+    background-color: ${colors.bg.primary};
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
 

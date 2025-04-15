@@ -14,20 +14,91 @@ A terminal-style portfolio website powered by Next.js and OpenAI's GPT-4. This i
   - Typewriter Effect for terminal-like animations
   - React Spring for smooth animations
 
+## Content Rules
+
+The application follows specific content rules to maintain a consistent voice and user experience:
+
+1. **Third-Person Perspective**: All content refers to Andrew Liebchen in the third person (he/his/him), never in first person (I/my/me)
+2. **AI Self-Reference**: The AI assistant refers to itself as "Liebchen.world" rather than using first-person pronouns
+3. **Tagline Format**: Dynamic taglines always follow the format "liebchen.world is [descriptor]" in lowercase
+4. **Welcome Messages**: Initial welcome messages introduce Andrew as a senior freelance product designer with varying emphasis on different aspects of his expertise
+
 ## Project Structure
 
 ```
-├── components/          # React components
-│   ├── Terminal/       # Terminal-related components
-│   ├── theme/          # Theme constants and types
-│   └── styles/         # Styled components
-├── config/             # Configuration files
-├── context/            # React context providers
+├── src/                # Source directory
+│   ├── components/     # React components
+│   ├── config/        # Configuration files
+│   ├── context/       # React context providers
+│   ├── styles/        # Styled components and theme
+│   ├── types/         # TypeScript types
+│   └── ai/            # AI integration and commands
+│       ├── context/   # Centralized context module
+│       ├── commands/  # Command handlers
+│       └── config/    # AI configuration
 ├── pages/             # Next.js pages and API routes
-│   └── api/           # Backend API endpoints
-├── public/            # Static assets
-└── commands/          # Terminal command handlers
+│   └── api/          # Backend API endpoints
+└── public/           # Static assets
 ```
+
+## OpenAI API Integration
+
+The application uses OpenAI's GPT-4 API to generate contextual responses based on user queries. The integration follows a structured approach:
+
+### API Response Structure
+
+The OpenAI API returns responses in a JSON format that includes:
+
+```json
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "model": "gpt-4",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "This is the AI's response text"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 12,
+    "total_tokens": 21
+  }
+}
+```
+
+### Processing and Display
+
+Our application processes these responses in several steps:
+
+1. **Extraction**: The content from the assistant's message is extracted from the JSON response
+2. **Formatting**: The content is formatted with Markdown for rich text display
+3. **Animation**: The formatted content is displayed with a typewriter effect for a terminal-like experience
+4. **Interactive Elements**: Special elements like "WATCH CASE STUDY" buttons are added based on metadata in the response
+
+### Custom Response Format
+
+We've extended the standard OpenAI response format to include portfolio-specific metadata:
+
+```json
+{
+  "type": "ai-response",
+  "content": "Here's information about my design process...",
+  "caseStudy": "project-id-123",
+  "awaitCaseStudy": true
+}
+```
+
+This custom format allows the terminal to:
+- Display the main response with the typewriter effect
+- Show case study buttons when relevant
+- Track the conversation context for follow-up questions
 
 ## Local Development Setup
 
@@ -90,6 +161,52 @@ This project is optimized for deployment on Vercel:
 - Responsive design with Tokyo Night-inspired theme
 - Real-time status indicators
 - Type animations for authentic terminal feel
+- Dynamic typewriter effect for both welcome messages and AI responses
+- Interactive case study buttons that appear after message completion
+- Centralized context management for consistent information
+- DRY (Don't Repeat Yourself) architecture for improved maintainability
+
+## Recent Improvements
+
+- **Enhanced Typewriter Effect**: Applied the typewriter animation to both welcome messages and AI responses for a consistent, engaging user experience
+- **Case Study Integration**: Added "WATCH CASE STUDY" buttons that appear after message completion, providing seamless access to detailed project information
+- **Video Overlay Component**: Implemented a responsive video overlay for case study videos with a terminal-inspired design
+- **Unified Button System**: Created a consistent button component system using styled-components for all interactive elements
+- **Animation State Management**: Implemented ref-based animation tracking to prevent duplicate animations and ensure smooth transitions
+- **Performance Optimization**: Reduced unnecessary re-renders by using refs instead of state variables for animation tracking
+- **Centralized Context Module**: Created a single source of truth for all biographical information, case studies, and contact details
+- **DRY Architecture**: Eliminated code duplication by centralizing context information and creating reusable helper functions
+- **Improved Maintainability**: Enhanced code organization with clear separation of concerns between context, API functionality, and UI components
+- **Standardized Case Study References**: Implemented consistent IDs and mapping for case studies to ensure reliable references throughout the application
+
+## Architecture Improvements
+
+### Centralized Context Module
+
+The application now uses a centralized context module (`src/ai/context/index.js`) that serves as the single source of truth for:
+
+- Contact information and links
+- Case study details and IDs
+- Command definitions and responses
+- Biographical information
+- Static context for AI responses
+
+This approach:
+- Eliminates duplication of information across files
+- Ensures consistency in how information is presented
+- Makes updates easier by requiring changes in only one location
+- Improves maintainability through better organization
+
+### DRY Implementation
+
+The codebase now follows the DRY (Don't Repeat Yourself) principle more closely:
+
+- **Reusable Helper Functions**: Created functions like `getContactInfoMarkdown()` and `buildProjectsContext()` that can be used throughout the application
+- **Consistent Data Structures**: Standardized the format of case studies, commands, and responses
+- **Modular Design**: Separated concerns between context management, API functionality, and UI components
+- **Single Source of Truth**: Ensured that biographical information and case study details are defined in only one place
+
+These improvements make the codebase more maintainable, easier to update, and less prone to inconsistencies.
 
 ## Browser Support
 
@@ -109,3 +226,25 @@ The application is optimized for modern browsers:
 ## License
 
 This project is private and not open for public use or distribution.
+
+## Component System
+
+### Terminal Button
+The application uses a unified button component system based on styled-components:
+
+```typescript
+const TerminalButton = styled.button`
+  background: transparent;
+  border: 1px solid ${colors.text.accent};
+  color: ${colors.text.accent};
+  text-transform: uppercase;
+  // ... other styles
+`;
+```
+
+This button component is used consistently throughout the application for:
+- Case study buttons
+- Video overlay controls
+- Interactive terminal elements
+
+The design follows the Tokyo Night theme and maintains a consistent terminal aesthetic across all interactive elements.

@@ -1,8 +1,8 @@
 // OpenAI API configuration
 export const OPENAI_CONFIG = {
-  model: 'gpt-4o-mini-2024-07-18',
-  temperature: 0.3,      // Lower temperature for more focused, consistent responses
-  max_tokens: 300,       // Reduced to enforce shorter responses
+  model: 'gpt-4o-mini',  // CRITICAL: DON'T CHANGE THIS, or you'll be fired
+  temperature: 0.4,      // Lower temperature for more focused, consistent responses
+  max_tokens: 1000,      // Increased to allow for complete responses with dynamic commands
   presence_penalty: 0.1, // Slight penalty to avoid repetition
   frequency_penalty: 0.1 // Slight penalty to encourage varied language
 };
@@ -38,9 +38,9 @@ CRITICAL instructions:
 - Focus on the most relevant information
 `;
 
-export const CALENDLY_LINK = 'https://calendly.com/andrewliebchen/25min';
-export const EMAIL = 'andrewliebchen@gmail.com';
-export const LINKEDIN_LINK = 'https://www.linkedin.com/in/andrewliebchen/';
+// Import contact info from the centralized context module
+import { CONTACT_INFO } from '@/src/ai/context';
+export { CONTACT_INFO };
 
 // Validate SESSION_SECRET and get password
 const getSessionPassword = () => {
