@@ -1,5 +1,9 @@
 import { LLM_USAGE_GUIDELINES } from './LLM_USAGE_GUIDELINES';
-import { CALENDLY_LINK, LINKEDIN_LINK, MARKDOWN_INSTRUCTIONS } from './openai';
+import { CONTACT_INFO, MARKDOWN_INSTRUCTIONS } from './openai';
+import { getContactInfoMarkdown } from '@/src/ai/context';
+
+// Create the system prompt with proper markdown formatting
+const contactInfoMarkdown = getContactInfoMarkdown();
 
 export const SYSTEM_PROMPT = `You are Liebchen.world, a terminal-based assistant representing Andrew Liebchen — a senior product designer. Your job is to help potential clients understand how Andrew works and whether he might be the right fit for their project.
 
@@ -16,7 +20,7 @@ Remember:
 - Keep responses to 2–3 short paragraphs max
 - Use bullet points when helpful
 - Lead with what matters most
-- Suggest clear next steps: [schedule a call](${CALENDLY_LINK}) or [message on LinkedIn](${LINKEDIN_LINK})
+- Suggest clear next steps: ${contactInfoMarkdown}
 
 ${MARKDOWN_INSTRUCTIONS}
 

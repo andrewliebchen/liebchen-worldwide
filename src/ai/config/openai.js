@@ -38,9 +38,9 @@ CRITICAL instructions:
 - Focus on the most relevant information
 `;
 
-export const CALENDLY_LINK = 'https://calendly.com/andrewliebchen/25min';
-export const EMAIL = 'andrewliebchen@gmail.com';
-export const LINKEDIN_LINK = 'https://www.linkedin.com/in/andrewliebchen/';
+// Import contact info from the centralized context module
+import { CONTACT_INFO } from '@/src/ai/context';
+export { CONTACT_INFO };
 
 // Validate SESSION_SECRET and get password
 const getSessionPassword = () => {

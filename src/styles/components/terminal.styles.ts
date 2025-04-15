@@ -14,7 +14,7 @@ export const PromptIcon = styled(MaterialSymbol)`
 `;
 
 export const TerminalContainer = styled.div`
-  background-color: ${colors.bg.primary};
+  background-color: ${colors.bg.secondary};
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -62,15 +62,16 @@ export const QueryCount = styled.div`
 `;
 
 export const OutputPane = styled.div`
-  flex: 1;
-  overflow-y: auto;
-  position: relative;
-  padding: ${size[8]};
   -webkit-overflow-scrolling: touch;
+  flex: 1;
+  background-color: ${colors.bg.primary};
   display: flex;
   flex-direction: column;
-  gap: ${spacing.md}; /* Reduced from lg to md */
-  padding-bottom: ${spacing.lg};
+  gap: ${spacing.md}; 
+  overflow-y: auto;
+  padding: ${size[8]};
+  position: relative;
+  width: 100vw;
 `;
 
 export const OutputLine = styled.div`
