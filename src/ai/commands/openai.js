@@ -3,10 +3,12 @@ import { CONTACT_INFO, shouldEnforceQueryLimits } from '@/src/ai/config/openai';
 import { CASE_STUDIES, getContactInfoMarkdown, STATIC_CONTEXT } from '@/src/ai/context';
 import { SYSTEM_PROMPT } from '@/src/ai/config/SYSTEM_PROMPT';
 
-const API_URL = '';  // Empty string for relative URLs in all environments
+// Use relative URL for all environments
+const API_URL = '';
 
 export const generateResponse = async (query, currentContext = {}, queryCount = 0) => {
   try {
+    console.log('Making API request to:', `${API_URL}/api/chat`);
     const response = await fetch(`${API_URL}/api/chat`, {
       method: 'POST',
       credentials: 'include',
