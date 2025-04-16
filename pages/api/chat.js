@@ -144,6 +144,7 @@ async function chatRoute(req, res) {
       query_length: query.length,
       response_length: response.text.length,
       query_text: query,
+      response_text: response.text,
       has_case_study: !!response.caseStudy
     });
     

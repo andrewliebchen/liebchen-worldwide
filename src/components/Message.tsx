@@ -17,6 +17,7 @@ import { MaterialSymbol } from 'react-material-symbols';
 import 'react-material-symbols/rounded';
 import { PromptIcon } from '@/src/components/PromptIcon';
 import { colors } from '../styles/theme/colors';
+import { track } from '@vercel/analytics';
 
 interface MessageProps {
   message: MessageType;
@@ -123,6 +124,13 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
 
   const handleCaseStudyClick = (caseStudyId: string) => {
     const caseStudy = getCaseStudy(caseStudyId);
+    if (caseStudy) {
+      // Track the case study button click
+      track('case_study_button_click', {
+        case_study_id: caseStudyId,
+        case_study_title: caseStudy.title
+      });
+    }
     if (isMobile && caseStudy?.videoUrl) {
       window.open(caseStudy.videoUrl, '_blank');
     } else if (onCaseStudyClick) {
@@ -188,6 +196,16 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
                     href={getCaseStudy(message.caseStudy)?.figma} 
                     target="_blank" 
                     rel="noopener noreferrer"
+                    onClick={() => {
+                      const caseStudy = getCaseStudy(message.caseStudy!);
+                      if (caseStudy) {
+                        track('figma_link_click', {
+                          case_study_id: message.caseStudy,
+                          case_study_title: caseStudy.title,
+                          figma_url: caseStudy.figma
+                        });
+                      }
+                    }}
                   >
                     <LinkText>
                       Review slides in Figma

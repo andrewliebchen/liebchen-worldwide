@@ -12,6 +12,7 @@ import { VideoOverlay } from '@/src/components/VideoOverlay';
 import { getCaseStudy } from '@/src/config/caseStudies';
 import { WelcomeSection, getRandomWelcomeMessage } from '@/src/components/WelcomeMessage';
 import type { Message, MessageType, StatusType, TerminalContext } from '@/src/types/terminal';
+import { track } from '@vercel/analytics';
 
 interface DynamicCommand {
   label: string;
@@ -346,6 +347,11 @@ export default function Terminal() {
     console.log('Terminal: Found case study:', caseStudy);
     if (caseStudy && caseStudy.videoUrl) {
       console.log('Terminal: Setting active case study');
+      // Track when a case study is opened
+      track('case_study_opened', {
+        case_study_id: caseStudyId,
+        case_study_title: caseStudy.title
+      });
       setActiveCaseStudy(caseStudyId);
     } else {
       console.log('Terminal: No case study or video URL found');
