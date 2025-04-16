@@ -16,6 +16,7 @@ import styled from 'styled-components';
 import { MaterialSymbol } from 'react-material-symbols';
 import 'react-material-symbols/rounded';
 import { PromptIcon } from '@/src/components/PromptIcon';
+import { colors } from '../styles/theme/colors';
 
 interface MessageProps {
   message: MessageType;
@@ -24,9 +25,14 @@ interface MessageProps {
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 2rem;
+  justify-content: space-between;
   align-items: center;
-  margin-top: ${spacing.sm};
+  margin: ${spacing.sm} 0;
+  padding: ${spacing.lg};
+  padding-right: ${spacing.xl};
+  border: 1px solid ${colors.border.primary};
+  border-radius: 15px;
+  width: 100%;
 `;
 
 const FigmaLink = styled.a`
@@ -128,7 +134,16 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
         <MessageContainer>
           <CommandLine>
             <PromptIcon />
-            {message.content}
+            {!hasAnimatedRef.current ? (
+              <TypewriterMessage 
+                content={message.content} 
+                onComplete={handleTextComplete}
+                useMarkdown={false}
+                commandLine={true}
+              />
+            ) : (
+              message.content
+            )}
           </CommandLine>
         </MessageContainer>
       );

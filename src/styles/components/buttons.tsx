@@ -4,6 +4,7 @@ import { colors } from '../theme/colors';
 import { spacing, typography, size } from '../theme/constants';
 
 const baseButtonStyles = css<{ $size?: 'default' | 'large' }>`
+  border-radius: 5px;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.fontSize[1]};
   cursor: pointer;

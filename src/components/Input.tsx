@@ -108,7 +108,7 @@ export function Input({ value, onChange, onSubmit, processCommand, disabled, inp
               console.log('Input: Input value changing to:', e.target.value);
               onChange(e);
             }}
-            placeholder="Ask a question or type 'help'"
+            placeholder="Ask a question or type 'help' and press ↵ Enter"
             disabled={disabled}
           />
         </InputWrapper>
@@ -116,9 +116,9 @@ export function Input({ value, onChange, onSubmit, processCommand, disabled, inp
           type="submit"
           variant="primary"
           disabled={disabled || !value.trim()}
-          hotkey={<MaterialSymbol icon="keyboard_return" size={16} />}
+          className="mobile-only"
         >
-          Send
+          <MaterialSymbol icon="arrow_upward" />
         </Button>
       </InputFormContainer>
       <CommandButtonsContainer>

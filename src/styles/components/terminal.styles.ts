@@ -74,13 +74,12 @@ export const QueryCount = styled.div`
 
 export const OutputPane = styled.div`
   -webkit-overflow-scrolling: touch;
-  flex: 1;
   background-color: ${colors.bg.primary};
   display: flex;
   flex-direction: column;
   gap: ${spacing.md}; 
   overflow-y: auto;
-  padding: ${size[8]};
+  padding: ${size[12]} ${size[8]};
   position: relative;
   width: 100vw;
 
@@ -119,16 +118,14 @@ export const MessageContent = styled.div`
 
 export const InputContainer = styled.div`
   background-color: ${colors.bg.secondary};
-  padding: ${size[8]} ${size[8]} ${size[6]};
+  padding: 0 ${size[8]} ${size[6]};
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${size[6]};
   position: relative;
   z-index: 10;
 
   @media (max-width: 600px) {
-    padding: ${size[4]} ${size[4]} ${size[4]};
     position: sticky;
     bottom: 0;
     left: 0;
@@ -154,6 +151,21 @@ export const InputFormContainer = styled.form`
   margin: 0 auto;
   position: relative;
   gap: ${size[4]};
+  padding: ${size[6]} 0;
+
+  .desktop-only {
+    display: inline-block;
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  .mobile-only {
+    display: none;
+    @media (max-width: 600px) {
+      display: inline-block;
+    }
+  }
 `;
 
 export const InputWrapper = styled.div`
@@ -259,10 +271,7 @@ export const CommandButtonsContainer = styled.div`
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.fontSize[1]};
   color: ${colors.text.secondary};
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: ${size[2]};
-  -webkit-overflow-scrolling: touch;
+  flex-wrap: wrap;
 
   @media (max-width: 600px) {
     display: none;

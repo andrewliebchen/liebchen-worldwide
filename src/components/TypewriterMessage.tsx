@@ -6,19 +6,22 @@ import MarkdownResponse from '@/src/components/MarkdownResponse';
 interface TypewriterMessageProps {
   content: string;
   onComplete?: () => void;
+  useMarkdown?: boolean;
+  commandLine?: boolean;
 }
 
-const TypewriterContainer = styled.div`
+const TypewriterContainer = styled.div<{ commandLine?: boolean }>`
   font-family: ${typography.fontFamily.primary};
   line-height: ${typography.lineHeight.normal};
   white-space: pre-wrap;
   word-wrap: break-word;
-  margin-bottom: ${size[4]};
-  padding-bottom: ${size[12]};
   min-height: 2em;
+  ${props => props.commandLine && `
+    display: inline;
+  `}
 `;
 
-export function TypewriterMessage({ content, onComplete }: TypewriterMessageProps) {
+export function TypewriterMessage({ content, onComplete, useMarkdown = true, commandLine = false }: TypewriterMessageProps) {
   const [displayedContent, setDisplayedContent] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const animationRef = useRef<number | null>(null);
@@ -68,7 +71,9 @@ export function TypewriterMessage({ content, onComplete }: TypewriterMessageProp
       }
       
       const elapsed = timestamp - startTimeRef.current;
-      const charactersToShow = Math.floor(elapsed / 10); // 10ms per character
+      // Faster animation for command messages
+      const msPerChar = commandLine ? 5 : 10;
+      const charactersToShow = Math.floor(elapsed / msPerChar);
       
       if (charactersToShow < content.length) {
         setDisplayedContent(content.substring(0, charactersToShow));
@@ -90,7 +95,7 @@ export function TypewriterMessage({ content, onComplete }: TypewriterMessageProp
       isMountedRef.current = false;
       cleanup();
     };
-  }, [content]);
+  }, [content, commandLine]);
 
   // Handle keyboard shortcut to complete the animation
   useEffect(() => {
@@ -113,8 +118,12 @@ export function TypewriterMessage({ content, onComplete }: TypewriterMessageProp
   }, [isComplete, content]);
 
   return (
-    <TypewriterContainer ref={containerRef}>
-      <MarkdownResponse content={displayedContent} />
+    <TypewriterContainer ref={containerRef} commandLine={commandLine}>
+      {useMarkdown ? (
+        <MarkdownResponse content={displayedContent} />
+      ) : (
+        displayedContent
+      )}
     </TypewriterContainer>
   );
 } 

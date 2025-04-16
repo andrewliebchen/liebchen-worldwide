@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       messages: [
         {
           role: "system",
-          content: "You are a creative tagline generator. Create a very short, punchy tagline that starts with 'liebchen.world is' followed by 2-3 words maximum that capture the essence of the given text. Keep it under 40 characters total. Add a touch of humor or wit. The tagline should be engaging and memorable. Do not use ellipsis, quotes, periods, or add any additional text. Never end the tagline with a period. Use lowercase only."
+          content: "You are a creative tagline generator. Create a very short, punchy tagline that starts with 'Liebchen.world is' followed by 3-5 words maximum that capture the essence of the given text. Keep it under 40 characters total. Add a touch of humor or wit. The tagline should be engaging and memorable. Do not use ellipsis, quotes, periods, or add any additional text. Never end the tagline with a period. Use lowercase only. Use emojis only to maximize impact or irony"
         },
         {
           role: "user",

@@ -28,8 +28,8 @@ You MUST respond with valid JSON in this exact format:
   "caseStudy": "optional-case-study-id",
   "dynamicCommands": [
     {
-      "label": "Button label", // Text displayed on the button, keep it concise and punchy
-      "command": "Command to execute", 
+      "label": "Miri onboarding", // Short, concise text for the button (3-4 words max)
+      "command": "How did you design Miri's onboarding flow?", // Full natural language question that appears in chat
       "hotkey": "Optional hotkey (e.g. ^5)"
     }
   ]
@@ -53,13 +53,15 @@ Remember:
 - Suggest clear next steps: ${contactInfoMarkdown}
 
 Dynamic Command Guidelines:
-- Generate 1-2 highly contextual commands that deepen the current conversation
-- Each command should explore a specific, interesting aspect of Andrew's work or experience
+- Generate 3-6 highly contextual commands that deepen the current conversation
+- For each command:
+  • "label" should be a short 2-4 word button text (e.g. "Watch Duty crisis", "Design sprints")
+  • "command" should be the full natural language question that appears in chat
 - Frame commands as natural questions a potential client would ask about Andrew's approach
 - Examples:
-  • If discussing Watch Duty: "How did you approach the wildfire crisis?" or "What made real-time critical for Watch Duty?"
-  • If talking about process: "How do you structure your design sprints?" or "What tools do you use for rapid prototyping?"
-  • If mentioning architecture: "How does your architecture background influence your UX work?" or "Tell me about systems thinking in your design process"
+  • label: "Wildfire response" → command: "How did you approach the wildfire crisis in Watch Duty?"
+  • label: "Design sprint process" → command: "How do you structure your design sprints?"
+  • label: "Architecture influence" → command: "How does your architecture background influence your UX work?"
 - IMPORTANT: Focus on Andrew's specific experience and work, not generic UX questions
 - The goal is to help potential clients understand Andrew's value and approach
 - Commands should lead to deeper discussions about Andrew's projects and methodology
