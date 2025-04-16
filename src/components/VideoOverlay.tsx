@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { CaseStudy } from '@/src/config/caseStudies';
 import { colors } from '@/src/styles/theme/colors';
@@ -11,17 +11,31 @@ interface VideoOverlayProps {
   onClose: () => void;
 }
 
-const VideoContainer = styled.div`
+interface VideoContainerProps {
+  isMinimized: boolean;
+  isMaximized: boolean;
+  position?: { x: number; y: number };
+}
+
+const VideoContainer = styled.div<VideoContainerProps>`
   background: ${colors.bg.secondary};
   border: 1px solid ${colors.text.accent};
   border-radius: 5px;
-  width: 480px;
+  width: ${props => {
+    if (props.isMaximized) return '80vw';
+    if (props.isMinimized) return '300px';
+    return '480px';
+  }};
   position: fixed;
-  bottom: ${spacing.xl};
-  right: ${spacing.xl};
-  z-index: 1000;
+  bottom: ${props => props.isMaximized ? '50%' : spacing.xl};
+  right: ${props => props.isMaximized ? '50%' : spacing.xl};
+  transform: ${props => props.isMaximized 
+    ? 'translate(50%, 50%)' 
+    : `translate(${props.position?.x || 0}px, ${props.position?.y || 0}px)`};
+  z-index: ${props => props.isMaximized ? 1001 : 1000};
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  transition: all 0.3s ease;
 `;
 
 const VideoHeader = styled.div`
@@ -30,7 +44,6 @@ const VideoHeader = styled.div`
   align-items: center;
   padding: ${spacing.sm};
   background: ${colors.bg.primary};
-  border-bottom: 1px solid ${colors.text.accent};
   cursor: move;
   user-select: none;
 `;
@@ -66,6 +79,7 @@ const VideoWrapper = styled.div`
   padding-bottom: 56.25%; /* 16:9 aspect ratio */
   height: 0;
   overflow: hidden;
+  border-top: 1px solid ${colors.text.accent};
 `;
 
 const Iframe = styled.iframe`
@@ -77,10 +91,18 @@ const Iframe = styled.iframe`
   border: none;
 `;
 
+const HeaderControls = styled.div`
+  display: flex;
+  gap: ${spacing.xs};
+  align-items: center;
+`;
+
 export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
 
   // Convert YouTube URL to embed URL
   const getEmbedUrl = (url: string) => {
@@ -100,26 +122,39 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
     }
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (isMaximized) return; // Prevent dragging when maximized
     setIsDragging(true);
     setDragStart({
       x: e.clientX - position.x,
       y: e.clientY - position.y
     });
-  };
+  }, [position, isMaximized]);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging) return;
     
     const newX = e.clientX - dragStart.x;
     const newY = e.clientY - dragStart.y;
     
     setPosition({ x: newX, y: newY });
-  };
+  }, [isDragging, dragStart]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   const embedUrl = getEmbedUrl(caseStudy.videoUrl);
   if (!embedUrl) {
@@ -127,30 +162,54 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
     return null;
   }
 
+  const handleMaximize = () => {
+    setIsMaximized(!isMaximized);
+    if (!isMaximized) {
+      setIsMinimized(false); // Ensure we're not minimized when maximizing
+    }
+  };
+
   return (
     <VideoContainer 
       style={{ 
-        transform: `translate(${position.x}px, ${position.y}px)`,
         cursor: isDragging ? 'grabbing' : 'default'
       }}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
+      isMinimized={isMinimized}
+      isMaximized={isMaximized}
+      position={position}
     >
       <VideoHeader onMouseDown={handleMouseDown}>
         <VideoTitle>{caseStudy.title}</VideoTitle>
-        <CloseButton onClick={onClose}>
-          <MaterialSymbol icon="close" size={20} color={colors.text.accent} />
-        </CloseButton>
+        <HeaderControls>
+          <CloseButton onClick={() => setIsMinimized(!isMinimized)}>
+            <MaterialSymbol 
+              icon="minimize" 
+              size={20} 
+              color={colors.text.accent} 
+            />
+          </CloseButton>
+          <CloseButton onClick={handleMaximize}>
+            <MaterialSymbol 
+              icon={isMaximized ? "close_fullscreen" : "open_in_full"} 
+              size={20} 
+              color={colors.text.accent} 
+            />
+          </CloseButton>
+          <CloseButton onClick={onClose}>
+            <MaterialSymbol icon="close" size={20} color={colors.text.accent} />
+          </CloseButton>
+        </HeaderControls>
       </VideoHeader>
-      <VideoWrapper>
-        <Iframe
-          src={embedUrl}
-          title={caseStudy.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </VideoWrapper>
+      {!isMinimized && (
+        <VideoWrapper>
+          <Iframe
+            src={embedUrl}
+            title={caseStudy.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </VideoWrapper>
+      )}
     </VideoContainer>
   );
 }; 
