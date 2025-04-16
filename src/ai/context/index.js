@@ -110,10 +110,11 @@ export const RESPONSES = {
 → **portfolio**, **projects**, **work**, or **cases**: View my case studies
 → **contact** or **connect**: Get in touch`,
 
-ABOUT: `Andrew Liebchen is a senior product designer with a background in architecture, a fondness for frontend, and a knack for clarity under pressure. 
-He’s helped startups ship fast, guided teams through complexity, and designed tools people actually depend on—from Meta’s VR platform to wildfire response apps.
+ABOUT: `Andrew Liebchen is a senior product designer with a background in architecture, a fondness for frontend, and a knack for bringing clarity to complex problems. 
+He helps startups move fast, guides teams through ambiguity, and designs tools people actually depend on—from Meta’s VR platform to wildfire response apps.
 
 Want the backstory? Type **projects** to explore his work.`,
+
   CONTACT: getContactInfoMarkdown(),
 
   PORTFOLIO: `Andrew’s case studies span crisis response, cutting-edge tech, and conversational AI. Highlights include:
