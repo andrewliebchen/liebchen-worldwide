@@ -31,11 +31,10 @@ export default async function handler(req, res) {
     // Remove any quotes, periods, convert to lowercase, and ensure it starts with "liebchen.world is"
     let tagline = completion.choices[0].message.content.trim()
       .replace(/["']/g, '')
-      .replace(/\.$/, '')
-      .toLowerCase();
+      .replace(/\.$/, '');
     
-    if (!tagline.startsWith('liebchen.world is')) {
-      tagline = 'liebchen.world is ' + tagline;
+    if (!tagline.startsWith('Liebchen.world is')) {
+      tagline = 'Liebchen.world is ' + tagline;
     }
 
     // Enforce max length of 50 characters
