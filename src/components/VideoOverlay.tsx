@@ -115,7 +115,8 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
       const [minutes, seconds] = caseStudy.timestamp.split(':').map(Number);
       const startTime = (minutes * 60) + seconds;
 
-      return `https://www.youtube.com/embed/${videoId}?start=${startTime}`;
+      // Request HD quality (hd1080) and enable high quality thumbnail
+      return `https://www.youtube.com/embed/${videoId}?start=${startTime}&vq=hd1080&modestbranding=1&rel=0`;
     } catch (error) {
       console.error('Error parsing video URL:', error);
       return '';
