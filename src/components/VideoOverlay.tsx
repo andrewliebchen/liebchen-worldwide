@@ -166,6 +166,17 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
     setIsMaximized(!isMaximized);
     if (!isMaximized) {
       setIsMinimized(false); // Ensure we're not minimized when maximizing
+    } else {
+      // Reset position when exiting maximized state
+      setPosition({ x: 0, y: 0 });
+    }
+  };
+
+  const handleMinimize = () => {
+    setIsMinimized(!isMinimized);
+    if (!isMinimized) {
+      setIsMaximized(false); // Ensure we're not maximized when minimizing
+      setPosition({ x: 0, y: 0 }); // Reset position when minimizing
     }
   };
 
@@ -181,7 +192,7 @@ export const VideoOverlay: React.FC<VideoOverlayProps> = ({ caseStudy, onClose }
       <VideoHeader onMouseDown={handleMouseDown}>
         <VideoTitle>{caseStudy.title}</VideoTitle>
         <HeaderControls>
-          <CloseButton onClick={() => setIsMinimized(!isMinimized)}>
+          <CloseButton onClick={handleMinimize}>
             <MaterialSymbol 
               icon="minimize" 
               size={20} 

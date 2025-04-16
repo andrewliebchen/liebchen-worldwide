@@ -133,7 +133,7 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
 
     const response = {
       type: 'ai-response',
-      content: `**${study.title}**\n\n${study.description}\n\n**Challenge**: ${study.challenge}\n\n**Solution**: ${study.solution}\n\n**Outcome**: ${study.outcome}`,
+      content: `${study.description}\n\n→ **Challenge**: ${study.challenge}\n\n→ **Solution**: ${study.solution}\n\n→ **Outcome**: ${study.outcome}`,
       caseStudy: caseId,
       currentCaseStudy: study.title,
       footer: `Type **back** to return to the portfolio or **contact** to learn more about working with me.`
@@ -156,7 +156,7 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
 
       const response = {
         type: 'ai-response',
-        content: `**${study.title}**\n\n${study.description}\n\n**Challenge**: ${study.challenge}\n\n**Solution**: ${study.solution}\n\n**Outcome**: ${study.outcome}`,
+        content: `${study.description}\n**Challenge**: ${study.challenge}\n\n**Solution**: ${study.solution}\n\n**Outcome**: ${study.outcome}`,
         caseStudy: caseId,
         currentCaseStudy: study.title,
         footer: `Type **back** to return to the portfolio or **contact** to learn more about working with me.`

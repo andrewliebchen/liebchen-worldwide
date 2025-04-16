@@ -46,36 +46,36 @@ export const CASE_STUDY_MAPPING = {
 export const CASE_STUDIES = {
   [CASE_STUDY_IDS.WATCH_DUTY]: {
     title: 'Watch Duty: Wildfire Awareness',
-    description: 'Transformed an engineering prototype into a trusted wildfire tracking app relied on by thousands across California.',
+    description: 'Designed and helped launch a wildfire tracking app used by thousands during real emergencies—turning a scrappy prototype into a mission-critical tool trusted across California.',
     challenge: 'Create a real-time interface that could deliver critical fire updates during emergencies while staying clear, calm, and usable under stress.',
     solution: 'Defined core UX and information architecture, created the brand identity, designed the containment marker system, and built front-end components in React.',
     outcome: 'Watch Duty became the #1 app in the App Store during the LA wildfires. The core design scaled from a prototype into a mission-critical public resource.'
   },
   [CASE_STUDY_IDS.META_QUEST]: {
     title: 'Meta Quest: Bridge to the Metaverse',
-    description: 'Led product design for the Quest companion app during Meta\'s transition from Facebook to Reality Labs.',
+    description: 'Led design for the Meta Quest companion app—balancing user needs, business goals, and hardware constraints in the run-up to a major headset launch.',
     challenge: 'Increase user engagement and retention while avoiding revenue drops during a critical holiday launch cycle, all under manufacturing constraints.',
     solution: 'Redesigned the app\'s home screen to highlight device status, improved battery visibility based on user research, and prototyped at high fidelity for rapid testing.',
     outcome: 'Successfully shipped redesigned app ahead of factory deadlines. Retention and engagement increased without impacting ARPU, validating a user-first approach.'
   },
   [CASE_STUDY_IDS.MIRI]: {
     title: 'Miri: AI-Powered Wellness Coach',
-    description: 'Freelanced as lead designer for Miri, a fast-moving AI nutrition coaching startup.',
+    description: 'Helped build and ship Miri, a fast-moving AI coaching app that combined chat-based guidance with structured nutrition tracking—designed, tested, and deployed in weekly sprints.',
     challenge: 'Build and iterate on onboarding, chat, and tracking flows across mobile and desktop while supporting coach-specific customizations and business growth.',
     solution: 'Designed and shipped production-ready features weekly, including structured meal logging, habit streaks, and white-labeled UI. Used AI tools to accelerate design and communication workflows.',
     outcome: 'Accelerated onboarding testing and iteration, increased user engagement, and enabled white-label deployments for B2B expansion—all while writing and shipping front-end code.'
   }
 };
 
+
 // Helper function to build projects context
 export const buildProjectsContext = () => {
   return Object.entries(CASE_STUDIES).map(([id, study]) => {
-    return `${id}. ${study.title}
-   → ${study.description}
+    return `${study.description}
    → Challenge: ${study.challenge}
    → Solution: ${study.solution}
    → Outcome: ${study.outcome}`;
-  }).join('\n\n');
+  }).join('\n');
 };
 
 // Command definitions
