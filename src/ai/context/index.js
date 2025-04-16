@@ -26,9 +26,20 @@ export const CASE_STUDY_IDS = {
 export const CASE_STUDY_MAPPING = {
   'watchduty': CASE_STUDY_IDS.WATCH_DUTY,
   'watch': CASE_STUDY_IDS.WATCH_DUTY,
+  'watch-duty': CASE_STUDY_IDS.WATCH_DUTY,
+  'watch duty': CASE_STUDY_IDS.WATCH_DUTY,
+  'watch duty app': CASE_STUDY_IDS.WATCH_DUTY,
   'meta': CASE_STUDY_IDS.META_QUEST,
   'quest': CASE_STUDY_IDS.META_QUEST,
   'metaquest': CASE_STUDY_IDS.META_QUEST,
+  'meta-quest': CASE_STUDY_IDS.META_QUEST,
+  'meta quest': CASE_STUDY_IDS.META_QUEST,
+  'meta quest app': CASE_STUDY_IDS.META_QUEST,
+  'miri': CASE_STUDY_IDS.MIRI,
+  'miri-ai': CASE_STUDY_IDS.MIRI,
+  'miri ai': CASE_STUDY_IDS.MIRI,
+  'miri-app': CASE_STUDY_IDS.MIRI,
+  'miri app': CASE_STUDY_IDS.MIRI
 };
 
 // Case studies with detailed information
@@ -111,18 +122,18 @@ export const RESPONSES = {
 → **contact** or **connect**: Get in touch`,
 
 ABOUT: `Andrew Liebchen is a senior product designer with a background in architecture, a fondness for frontend, and a knack for bringing clarity to complex problems. 
-He helps startups move fast, guides teams through ambiguity, and designs tools people actually depend on—from Meta’s VR platform to wildfire response apps.
+He helps startups move fast, guides teams through ambiguity, and designs tools people actually depend on—from Meta's VR platform to wildfire response apps.
 
 Want the backstory? Type **projects** to explore his work.`,
 
   CONTACT: getContactInfoMarkdown(),
 
-  PORTFOLIO: `Andrew’s case studies span crisis response, cutting-edge tech, and conversational AI. Highlights include:
+  PORTFOLIO: `Andrew's case studies span crisis response, cutting-edge tech, and conversational AI. Highlights include:
 → **Watch Duty** — Designing a wildfire app people trust with their lives
 → **Meta Quest** — Improving the VR companion app for millions of users
 → **Miri** — Shipping fast on an AI-powered wellness platform
 
-Type the name of a case (e.g. “watch duty”, “meta quest”, or “miri”) to learn more.`,
+Type the name of a case (e.g. "watch duty", "meta quest", or "miri") to learn more.`,
 
   INVALID_SELECTION: `Invalid selection. Type **portfolio** to see the list again.`,
   

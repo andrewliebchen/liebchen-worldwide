@@ -160,7 +160,16 @@ export default function Terminal() {
                           command.toLowerCase().startsWith('who') ||
                           command.toLowerCase().startsWith('clear') ||
                           command.toLowerCase().startsWith('back') ||
-                          command.toLowerCase().startsWith('ascii');
+                        
+                          // Add case study commands
+                          command.toLowerCase() === 'miri' ||
+                          command.toLowerCase() === 'miri ai' ||
+                          command.toLowerCase() === 'miri app' ||
+                          command.toLowerCase() === 'watch duty' ||
+                          command.toLowerCase() === 'watch duty app' ||
+                          command.toLowerCase() === 'meta' ||
+                          command.toLowerCase() === 'meta quest' ||
+                          command.toLowerCase() === 'meta quest app';
     
     const isAIQuery = !isStaticCommand;
     console.log('Terminal: Command type:', { isStaticCommand, isAIQuery, command });

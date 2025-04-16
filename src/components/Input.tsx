@@ -45,15 +45,15 @@ export function Input({ value, onChange, onSubmit, processCommand, disabled, inp
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Check for ^1-4 shortcuts (Control key)
+      // Check for ^1-7 shortcuts (Control key)
       if (e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
         // Convert key to number, handling both numpad and regular number keys
-        const keyNum = e.key.match(/^(?:Numpad)?([1-4])$/)?.[1];
+        const keyNum = e.key.match(/^(?:Numpad)?([1-7])$/)?.[1];
         const num = keyNum ? parseInt(keyNum) : null;
         
         console.log('Input: Hotkey detected:', { key: e.key, keyNum, num, disabled });
         
-        if (num && num >= 1 && num <= 4) {
+        if (num && num >= 1 && num <= 7) {
           // Prevent both the keydown and keypress events
           e.preventDefault();
           e.stopPropagation();
@@ -76,6 +76,15 @@ export function Input({ value, onChange, onSubmit, processCommand, disabled, inp
               break;
             case 4:
               command = COMMANDS.HELP;
+              break;
+            case 5:
+              command = 'miri ai';
+              break;
+            case 6:
+              command = 'meta quest app';
+              break;
+            case 7:
+              command = 'watch duty';
               break;
             default:
               return;
@@ -184,6 +193,39 @@ export function Input({ value, onChange, onSubmit, processCommand, disabled, inp
               hotkey="^4"
             >
               Help
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                console.log('Input: Miri AI button clicked');
+                handleCommandClick('miri ai');
+              }}
+              disabled={disabled}
+              hotkey="^5"
+            >
+              Miri AI
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                console.log('Input: Meta Quest button clicked');
+                handleCommandClick('meta quest app');
+              }}
+              disabled={disabled}
+              hotkey="^6"
+            >
+              Meta Quest
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                console.log('Input: Watch Duty button clicked');
+                handleCommandClick('watch duty');
+              }}
+              disabled={disabled}
+              hotkey="^7"
+            >
+              Watch Duty
             </Button>
           </>
         )}

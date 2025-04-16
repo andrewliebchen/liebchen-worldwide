@@ -117,16 +117,38 @@ export const handleCommand = async (command, context = {}, queryCount = 0) => {
     }
   }
 
-  // Handle case study selection
+  // Handle case study commands directly
+  const input = cmd.toLowerCase().replace(/\s+/g, '-');
+  const caseId = CASE_STUDY_MAPPING[input] || input;
+  
+  if (CASE_STUDIES[caseId]) {
+    const study = CASE_STUDIES[caseId];
+    console.log('Handler: Found case study', study);
+
+    // Track the case study command usage
+    trackEvent('case_study_command', {
+      command: cmd,
+      caseStudy: caseId
+    });
+
+    const response = {
+      type: 'ai-response',
+      content: `**${study.title}**\n\n${study.description}\n\n**Challenge**: ${study.challenge}\n\n**Solution**: ${study.solution}\n\n**Outcome**: ${study.outcome}`,
+      caseStudy: caseId,
+      currentCaseStudy: study.title,
+      footer: `Type **back** to return to the portfolio or **contact** to learn more about working with me.`
+    };
+ 
+    console.log('Handler: Sending response', response);
+    return response;
+  }
+
+  // Handle case study selection in portfolio context
   if (context.awaitingCaseStudy) {
-    const input = cmd.toLowerCase().replace(/\s+/g, '-');
     console.log('Handler: Processing case study selection', {
       input,
       availableCaseStudies: Object.keys(CASE_STUDIES)
     });
-    
-    // Use the mapping to get the canonical ID
-    const caseId = CASE_STUDY_MAPPING[input] || input;
     
     if (CASE_STUDIES[caseId]) {
       const study = CASE_STUDIES[caseId];
