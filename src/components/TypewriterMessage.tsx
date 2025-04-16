@@ -16,7 +16,7 @@ const TypewriterContainer = styled.div<{ commandLine?: boolean }>`
   white-space: pre-wrap;
   word-wrap: break-word;
   min-height: 2em;
-  padding-bottom: 36px;
+  
   ${props => props.commandLine && `
     display: inline;
     color: inherit;

@@ -3,6 +3,8 @@ import { typography } from '../theme/constants';
 import { colors } from '../theme/colors';
 
 export const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
   * {
     margin: 0;
     padding: 0;
@@ -15,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
     overflow: hidden;
     background-color: ${colors.bg.primary};
     color: ${colors.text.primary};
-    font-family: ${typography.fontFamily.primary};
+    font-family: 'Space Mono', monospace;
     font-size: ${typography.fontSize[2]};
     line-height: ${typography.lineHeight.normal};
   }
