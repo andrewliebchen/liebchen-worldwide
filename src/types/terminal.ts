@@ -1,4 +1,4 @@
-export type MessageType = 'system' | 'command' | 'thinking' | 'error' | 'ai-response' | 'case-study';
+export type MessageType = 'system' | 'command' | 'thinking' | 'error' | 'ai-response' | 'case-study' | 'response';
 
 export type StatusType = 
   | 'error'

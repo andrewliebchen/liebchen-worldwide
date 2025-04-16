@@ -18,6 +18,7 @@ const TypewriterContainer = styled.div<{ commandLine?: boolean }>`
   min-height: 2em;
   ${props => props.commandLine && `
     display: inline;
+    color: inherit;
   `}
 `;
 

@@ -258,6 +258,9 @@ export const ErrorMessage = styled.div`
 export const CommandLine = styled.div`
   color: ${colors.text.secondary};
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: ${spacing.xs};
 `;
 
 export const CommandButtonsContainer = styled.div`

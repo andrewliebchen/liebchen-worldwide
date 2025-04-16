@@ -83,6 +83,7 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const isWelcomeMessage = message.type === 'system' && messageIdRef.current === message.id;
   const isAIResponse = message.type === 'ai-response';
+  const isCommand = message.type === 'command';
   const hasAnimatedRef = useRef(false);
   const isMobile = useIsMobile();
   
@@ -91,7 +92,8 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
       isTextComplete,
       caseStudy: message.caseStudy,
       hasClickHandler: !!onCaseStudyClick,
-      messageType: message.type
+      messageType: message.type,
+      hasAnimated: hasAnimatedRef.current
     });
   }, [isTextComplete, message.caseStudy, onCaseStudyClick, message.type]);
   
@@ -112,7 +114,7 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
   }, [isTextComplete, message.caseStudy]);
   
   const handleTextComplete = () => {
-    console.log('Text animation complete');
+    console.log('Text animation complete for message type:', message.type);
     if (!hasAnimatedRef.current) {
       hasAnimatedRef.current = true;
       setIsTextComplete(true);
@@ -134,16 +136,7 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
         <MessageContainer>
           <CommandLine>
             <PromptIcon />
-            {!hasAnimatedRef.current ? (
-              <TypewriterMessage 
-                content={message.content} 
-                onComplete={handleTextComplete}
-                useMarkdown={false}
-                commandLine={true}
-              />
-            ) : (
-              message.content
-            )}
+            {message.content}
           </CommandLine>
         </MessageContainer>
       );
@@ -160,10 +153,12 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
     
     case 'ai-response':
     case 'system':
+    case 'case-study':
+    case 'response':
       return (
         <MessageContainer>
           <MessageContent>
-            {(isWelcomeMessage || isAIResponse) && !hasAnimatedRef.current ? (
+            {(isWelcomeMessage || isAIResponse || message.type === 'case-study' || message.type === 'response') && !hasAnimatedRef.current ? (
               <TypewriterMessage 
                 content={message.content} 
                 onComplete={handleTextComplete}
