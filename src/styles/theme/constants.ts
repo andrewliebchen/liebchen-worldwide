@@ -29,7 +29,7 @@ export const size = [
 
 export const typography = {
   fontFamily: {
-    primary: "'Space Mono', monospace",
+    primary: "'JetBrains Mono', monospace",
   },
   fontSize: [
     '12px',
