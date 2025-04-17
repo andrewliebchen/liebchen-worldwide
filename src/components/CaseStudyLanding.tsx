@@ -178,7 +178,6 @@ const CaseStudyLink = styled(Link)`
 
   &:hover {
     background-color: ${colors.bg.secondary};
-    
   }
 `;
 
