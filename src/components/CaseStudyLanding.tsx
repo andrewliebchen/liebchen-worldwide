@@ -173,12 +173,12 @@ const CaseStudyLink = styled(Link)`
   text-decoration: none;
   padding: ${spacing.md};
   border-radius: 8px;
-  background-color: ${colors.bg.secondary};
+  border: 1px solid ${colors.border.primary};
   transition: background-color 0.2s ease;
 
   &:hover {
     background-color: ${colors.bg.secondary};
-    opacity: 0.8;
+    
   }
 `;
 
