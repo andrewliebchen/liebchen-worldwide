@@ -219,12 +219,10 @@ interface CaseStudyLandingProps {
     timestamp: string;
     id?: string; // ID to match with context
   };
-  calendlyUrl?: string;
 }
 
 export const CaseStudyLanding: React.FC<CaseStudyLandingProps> = ({ 
-  caseStudy,
-  calendlyUrl = 'https://calendly.com/andrewliebchen/25min'
+  caseStudy
 }) => {
   // Convert YouTube URL to embed URL with timestamp
   const getEmbedUrl = (url: string, timestamp: string) => {

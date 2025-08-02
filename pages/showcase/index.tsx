@@ -14,11 +14,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       caseStudy,
-      calendlyUrl: 'https://calendly.com/andrew-liebchen/portfolio-review',
     },
   };
 };
 
-export default function Showcase({ caseStudy, calendlyUrl }) {
-  return <CaseStudyLanding caseStudy={caseStudy} calendlyUrl={calendlyUrl} />;
+export default function Showcase({ caseStudy }) {
+  return <CaseStudyLanding caseStudy={caseStudy} />;
 } 

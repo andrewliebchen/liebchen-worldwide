@@ -4,15 +4,13 @@
 
 // Contact information
 export const CONTACT_INFO = {
-  CALENDLY_LINK: 'https://calendly.com/andrewliebchen/25min',
   EMAIL: 'andrewliebchen@gmail.com',
   LINKEDIN_LINK: 'https://www.linkedin.com/in/andrewliebchen/'
 };
 
 // Helper function to generate contact information as markdown
 export const getContactInfoMarkdown = () => {
-  return `Message me on [LinkedIn](${CONTACT_INFO.LINKEDIN_LINK})
-Or [schedule a call](${CONTACT_INFO.CALENDLY_LINK})`;
+  return `Connect with me on [LinkedIn](${CONTACT_INFO.LINKEDIN_LINK})`;
 };
 
 // Case studies with consistent IDs
@@ -74,7 +72,7 @@ export const buildProjectsContext = () => {
     return `${study.description}
    → Challenge: ${study.challenge}
    → Solution: ${study.solution}
-   → Outcome: ${study.outcome}`;
+   → Outcome: ${study.outcome}`
   }).join('\n');
 };
 
@@ -84,7 +82,7 @@ export const COMMANDS = {
   COMMANDS: 'commands',
   MENU: 'menu',
   QUESTION_MARK: '?',
-  
+
   PORTFOLIO: 'portfolio',
   PROJECTS: 'projects',
   WORK: 'work',
@@ -94,21 +92,21 @@ export const COMMANDS = {
   EXAMPLES: 'examples',
   SHOWCASE: 'showcase',
   RESUME: 'resume',
-  
+
   ABOUT: 'about',
   INFO: 'info',
   INFORMATION: 'information',
   BIO: 'bio',
   BACKGROUND: 'background',
   WHO: 'who',
-  
+
   CONTACT: 'contact',
   CONNECT: 'connect',
   CHAT: 'chat',
   REACH: 'reach',
   REACH_OUT: 'reach-out',
   HIRE: 'hire',
-  
+
   BACK: 'back',
   CLEAR: 'clear'
 };
@@ -116,26 +114,16 @@ export const COMMANDS = {
 // Command responses
 export const RESPONSES = {
   HELP: `Available commands:\n
-→ **help** or **?**: Show this help message
-→ **about** or **bio**: Learn about me
-→ **portfolio**, **projects**, **work**, or **cases**: View my case studies
-→ **contact** or **connect**: Get in touch`,
+→ **help** or **?**: Show this help message\n→ **about** or **bio**: Learn about me\n→ **portfolio**, **projects**, **work**, or **cases**: View my case studies\n→ **contact** or **connect**: Get in touch`,
 
-ABOUT: `Andrew Liebchen is the **Principal Product Designer at Watch Duty**, where he leads product design and strategy for a real-time wildfire safety platform. Previously he designed for Meta, Miri, and other early teams, bringing clarity to complex problems through systems thinking and polished UX.
-
-Want the backstory? Type **projects** to explore his work.`,
+  ABOUT: `Andrew Liebchen is the **Principal Product Designer at Watch Duty**, where he leads product design and strategy for a real-time wildfire safety platform. Previously he designed for Meta, Miri, and other early teams, bringing clarity to complex problems through systems thinking and polished UX.\n\nWant the backstory? Type **projects** to explore his work.`,
 
   CONTACT: getContactInfoMarkdown(),
 
-  PORTFOLIO: `Andrew's case studies span crisis response, cutting-edge tech, and conversational AI. Highlights include:
-→ **Watch Duty** — Designing a wildfire app people trust with their lives
-→ **Meta Quest** — Improving the VR companion app for millions of users
-→ **Miri** — Shipping fast on an AI-powered wellness platform
-
-Type the name of a case (e.g. "watch duty", "meta quest", or "miri") to learn more.`,
+  PORTFOLIO: `Andrew's case studies span crisis response, cutting-edge tech, and conversational AI. Highlights include:\n→ **Watch Duty** — Designing a wildfire app people trust with their lives\n→ **Meta Quest** — Improving the VR companion app for millions of users\n→ **Miri** — Shipping fast on an AI-powered wellness platform\n\nType the name of a case (e.g. "watch duty", "meta quest", or "miri") to learn more.`,
 
   INVALID_SELECTION: `Invalid selection. Type **portfolio** to see the list again.`,
-  
+
   NOT_RECOGNIZED: `Command not recognized. Type **help** for available commands.`
 };
 
@@ -161,4 +149,4 @@ He specializes in:
 
 Key Projects:
 ${buildProjectsContext()}
-`; 
+`;
