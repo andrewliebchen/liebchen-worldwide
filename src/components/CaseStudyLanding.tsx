@@ -284,16 +284,6 @@ It's a look at how I work: fast, thoughtful, collaborative, and always grounded 
           <BackLink href="/">
             ← Back to Liebchen.world
           </BackLink>
-          <Button
-            variant="primary"
-            size="default"
-            onClick={() => window.open(calendlyUrl, '_blank')}
-          >
-            <ButtonContent>
-              <MaterialSymbol icon="today" size={16} />
-              Schedule a Chat
-            </ButtonContent>
-          </Button>
         </Header>
         
         <VideoContainer>

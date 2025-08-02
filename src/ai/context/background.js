@@ -9,7 +9,7 @@ ${LLM_USAGE_GUIDELINES}
 ---
 
 ## TL;DR
-Andrew is a full-stack product designer with 10+ years of experience across early-stage startups and large tech companies. He blends UX, systems thinking, and front-end code to help teams move quickly and ship meaningfully. Recent work includes:  
+Andrew is a full-stack product designer with 10+ years of experience across early-stage startups and large tech companies. Since **July 2025**, he has been the **Principal Product Designer at Watch Duty**. He blends UX, systems thinking, and front-end code to help teams move quickly and ship meaningfully. Recent work includes:  
 • **Miri:** AI-powered nutrition coaching  
 • **Watch Duty:** Wildfire tracking used during California fire seasons  
 • **Meta Quest:** Companion app for VR headset, used by millions
@@ -61,7 +61,7 @@ He currently lives in San Francisco with his partner and three cats. He's happie
 
 ## Goals & Aspirations
 
-- **Professional:** Continue freelance work with teams building meaningful tools — especially in AI, care, or creative infrastructure  
+- **Professional:** Principal Product Designer at Watch Duty (since Jul 2025), building and scaling tools for wildfire tracking and community safety  
 - **Personal:** Save for land and a slower life outside the city, with more time for art and animals  
 - **Creative:** Deepen his sculpture practice through larger projects and bridging physical/digital media
 
@@ -103,6 +103,12 @@ The app has now supported multiple fire seasons and reached hundreds of thousand
 
 "Andrew developed his own understanding of user needs and delivered a design on a short timeline that hit all our objectives—while going beyond to shape the visual identity of Watch Duty. His ability to develop simple solutions to complex requirements, along with a strong aesthetic sense, would make him an asset to any team."
 — Lukas, PM at Watch Duty
+
+### Watch Duty
+**Principal Product Designer**
+*Jul 2025 – Present*  
+San Francisco, California, United States  
+In a full-time role, I lead all product design at Watch Duty, collaborating closely with engineering and fire intelligence teams to expand our platform, enhance real-time data presentation, and keep communities safer during wildfire seasons.
 
 ### Meta
 **Senior Product Designer (Reality Labs)**  

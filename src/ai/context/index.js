@@ -121,8 +121,7 @@ export const RESPONSES = {
 → **portfolio**, **projects**, **work**, or **cases**: View my case studies
 → **contact** or **connect**: Get in touch`,
 
-ABOUT: `Andrew Liebchen is a senior product designer with a background in architecture, a fondness for frontend, and a knack for bringing clarity to complex problems. 
-He helps startups move fast, guides teams through ambiguity, and designs tools people actually depend on—from Meta's VR platform to wildfire response apps.
+ABOUT: `Andrew Liebchen is the **Principal Product Designer at Watch Duty**, where he leads product design and strategy for a real-time wildfire safety platform. Previously he designed for Meta, Miri, and other early teams, bringing clarity to complex problems through systems thinking and polished UX.
 
 Want the backstory? Type **projects** to explore his work.`,
 
@@ -149,7 +148,7 @@ export const STATIC_CONTEXT = `
 ${BACKGROUND_CONTEXT}
 
 Static Context:
-Andrew Liebchen is a senior product designer with over a decade of experience helping early teams turn ideas into thoughtful, usable, real-world products. His work spans UX design, product strategy, branding, and front-end development — always grounded in empathy and driven by clarity.
+Andrew Liebchen is the **Principal Product Designer at Watch Duty**, leading design for a mission-critical wildfire information platform. With over a decade of experience across startups and tech giants like Meta, he blends UX, product strategy, branding, and front-end development — always grounded in empathy and driven by clarity.
 
 Originally trained as an architect, Andrew brings a systems mindset to digital design: he can zoom out to the big picture, or zoom in to make sure the corner radius feels just right. He's collaborated with everyone from pre-seed founders to global teams at Meta, and he's most at home working closely with engineers, PMs, and users to move fast and build meaningfully.
 
