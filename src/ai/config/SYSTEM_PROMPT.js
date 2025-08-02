@@ -1,5 +1,5 @@
 import { LLM_USAGE_GUIDELINES } from './LLM_USAGE_GUIDELINES';
-import { CONTACT_INFO, MARKDOWN_INSTRUCTIONS } from './openai';
+import { MARKDOWN_INSTRUCTIONS } from './openai';
 import { getContactInfoMarkdown } from '@/src/ai/context';
 
 // Create the system prompt with proper markdown formatting

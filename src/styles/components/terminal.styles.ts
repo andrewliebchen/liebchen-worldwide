@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
-import { spacing, typography, layout, size, maxWidth } from '@/src/styles/theme/constants';
+import { typography, size, maxWidth, spacing } from '@/src/styles/theme/constants';
 import { MaterialSymbol } from 'react-material-symbols';
 import 'react-material-symbols/rounded';
 

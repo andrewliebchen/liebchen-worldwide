@@ -1,16 +1,14 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useQuery } from '@/src/context/QueryContext';
 import { useConversation } from '@/src/context/ConversationContext';
 import { handleCommand } from '@/src/ai/commands/handler';
-import { COMMANDS } from '@/src/ai/commands/content';
 import { TerminalContainer, OutputPane, OutputLine } from '@/src/styles/components/terminal.styles';
 import { Header } from '@/src/components/Header';
 import { Input } from '@/src/components/Input';
 import { Message as MessageComponent } from '@/src/components/Message';
-import { TypewriterMessage } from '@/src/components/TypewriterMessage';
 import { VideoOverlay } from '@/src/components/VideoOverlay';
 import { getCaseStudy } from '@/src/config/caseStudies';
-import { WelcomeSection, getRandomWelcomeMessage } from '@/src/components/WelcomeMessage';
+import { getRandomWelcomeMessage } from '@/src/components/WelcomeMessage';
 import type { Message, MessageType, StatusType, TerminalContext } from '@/src/types/terminal';
 import { track } from '@vercel/analytics';
 
@@ -43,10 +41,9 @@ const generateTagline = async (content: string): Promise<string> => {
 };
 
 export default function Terminal() {
-  const { queryCount, syncWithServer, resetSession, isLoading, aiEnabled } = useQuery();
+  const { queryCount, syncWithServer, resetSession, isLoading } = useQuery();
   const { setCurrentTopic } = useConversation();
   const [history, setHistory] = useState<Message[]>([]);
-  const [isInitialMessageComplete, setIsInitialMessageComplete] = useState(false);
   const [input, setInput] = useState('');
   const welcomeMessageRef = useRef(getRandomWelcomeMessage());
   const welcomeMessageIdRef = useRef(Date.now());
@@ -70,12 +67,12 @@ export default function Terminal() {
         id: welcomeMessageIdRef.current
       }]);
     }
-  }, []);
+  }, [history.length]);
 
   // Mark initial message as complete after a delay
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsInitialMessageComplete(true);
+      // setIsInitialMessageComplete(true); // This line is removed
     }, 5000); // 5 seconds should be enough for the typewriter effect to complete
     
     return () => clearTimeout(timer);

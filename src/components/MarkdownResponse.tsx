@@ -43,7 +43,7 @@ interface MarkdownResponseProps {
 
 const MarkdownResponse: React.FC<MarkdownResponseProps> = ({ content }) => {
   const components = {
-    a: ({ node, ...props }) => (
+    a: ({ ...props }) => (
       <a target="_blank" rel="noopener noreferrer" {...props} />
     ),
   };

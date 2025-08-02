@@ -1,6 +1,5 @@
-import { BACKGROUND_CONTEXT } from '@/src/ai/context/background';
-import { CONTACT_INFO, shouldEnforceQueryLimits } from '@/src/ai/config/openai';
-import { CASE_STUDIES, getContactInfoMarkdown, STATIC_CONTEXT } from '@/src/ai/context';
+import { shouldEnforceQueryLimits } from '@/src/ai/config/openai';
+import { getContactInfoMarkdown, STATIC_CONTEXT } from '@/src/ai/context';
 import { SYSTEM_PROMPT } from '@/src/ai/config/SYSTEM_PROMPT';
 
 // Use relative URL for all environments

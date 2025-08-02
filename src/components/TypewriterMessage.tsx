@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { size, typography } from '@/src/styles/theme/constants';
+import { typography } from '@/src/styles/theme/constants';
 import MarkdownResponse from '@/src/components/MarkdownResponse';
 
 interface TypewriterMessageProps {

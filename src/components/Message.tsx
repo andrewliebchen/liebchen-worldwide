@@ -84,7 +84,6 @@ export function Message({ message, onCaseStudyClick }: MessageProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const isWelcomeMessage = message.type === 'system' && messageIdRef.current === message.id;
   const isAIResponse = message.type === 'ai-response';
-  const isCommand = message.type === 'command';
   const hasAnimatedRef = useRef(false);
   const isMobile = useIsMobile();
   

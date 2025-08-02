@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const QueryContext = createContext();
 
@@ -22,7 +22,7 @@ export function QueryProvider({ children }) {
     }
   };
 
-  const syncWithServer = async () => {
+  const syncWithServer = useCallback(async () => {
     try {
       const response = await fetch('/api/queries/count');
       const data = await response.json();
@@ -33,17 +33,17 @@ export function QueryProvider({ children }) {
       console.error('Failed to sync with server:', error);
       return queryCount;
     }
-  };
+  }, [queryCount]);
 
   // Initialize query count and reset session on mount
   useEffect(() => {
     const initialize = async () => {
       setIsLoading(true);
-      await syncWithServer(); // Changed from resetSession to syncWithServer
+      await syncWithServer();
       setIsLoading(false);
     };
     initialize();
-  }, []);
+  }, [syncWithServer]);
 
   return (
     <QueryContext.Provider value={{ 

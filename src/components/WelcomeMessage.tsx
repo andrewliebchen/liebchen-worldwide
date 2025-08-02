@@ -45,4 +45,6 @@ export const WelcomeSection = React.memo(({ message, onComplete }: WelcomeSectio
       />
     </OutputLine>
   );
-}); 
+});
+
+WelcomeSection.displayName = 'WelcomeSection'; 

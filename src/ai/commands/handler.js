@@ -96,7 +96,7 @@ const isPrimaryCommand = (cmd) => {
 
 export const handleCommand = async (command, context = {}, queryCount = 0) => {
   const cmd = command.toLowerCase().trim();
-  const [mainCommand, ...args] = cmd.split(' ');
+  const mainCommand = cmd.split(' ')[0];
   
   // Always handle primary commands regardless of context
   if (isPrimaryCommand(cmd)) {

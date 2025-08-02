@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '@/src/styles/theme/colors';
 import { typography, size, maxWidth, spacing } from '@/src/styles/theme/constants';
-import { Button } from '../styles/components/buttons';
+import { SecondaryButton } from '@/src/components/SecondaryButton';
 import Link from 'next/link';
 import { MaterialSymbol } from 'react-material-symbols';
 import 'react-material-symbols/rounded';
@@ -123,13 +123,6 @@ const LinkText = styled.span`
   display: flex;
   align-items: center;
   gap: ${spacing.xs};
-`;
-
-// Button content with icon
-const ButtonContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${spacing.sm};
 `;
 
 // Case study section (challenge, solution, outcome)

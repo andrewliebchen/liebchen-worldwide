@@ -2,8 +2,7 @@
 import { 
   CASE_STUDIES, 
   COMMANDS, 
-  RESPONSES, 
-  CONTACT_INFO 
+  RESPONSES
 } from '@/src/ai/context';
 
 // Re-export the constants for backward compatibility

@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import styled, { css } from 'styled-components';
 import { colors } from '../theme/colors';
-import { spacing, typography, size } from '../theme/constants';
+import { typography, size } from '../theme/constants';
 
 const baseButtonStyles = css<{ $size?: 'default' | 'large' }>`
   border-radius: 5px;
@@ -100,4 +100,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       </ButtonComponent>
     );
   }
-); 
+);
+
+Button.displayName = 'Button'; 
