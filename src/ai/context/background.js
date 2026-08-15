@@ -206,7 +206,7 @@ This site/application was built using:
   - Vercel Analytics for usage tracking
 
 - **AI Components:**
-  - OpenAI GPT-4 API for natural language interactions
+  - Claude Haiku API for natural language interactions
   - Cursor IDE with Claude integration for development
   - Custom terminal-style interface for AI interactions
   - Context-aware conversation system with session management

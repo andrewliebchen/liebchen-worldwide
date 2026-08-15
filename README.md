@@ -1,12 +1,12 @@
 # Andrew.AI Terminal Portfolio
 
-A terminal-style portfolio website powered by Next.js and OpenAI's GPT-4. This interactive terminal interface allows visitors to explore my work and experience through natural language conversations.
+A terminal-style portfolio website powered by Next.js and Claude Haiku. This interactive terminal interface allows visitors to explore my work and experience through natural language conversations.
 
 ## Tech Stack
 
 - **Frontend**: Next.js 14, React 18, TypeScript
 - **Styling**: Styled Components
-- **AI Integration**: OpenAI GPT-4 API
+- **AI Integration**: Anthropic Claude Haiku API
 - **Analytics**: Vercel Analytics
 - **Session Management**: Iron Session
 - **UI Components**: 
@@ -41,34 +41,30 @@ The application follows specific content rules to maintain a consistent voice an
 └── public/           # Static assets
 ```
 
-## OpenAI API Integration
+## Claude API Integration
 
-The application uses OpenAI's GPT-4 API to generate contextual responses based on user queries. The integration follows a structured approach:
+The application uses Anthropic's Claude Haiku API to generate contextual responses based on user queries. The integration follows a structured approach:
 
 ### API Response Structure
 
-The OpenAI API returns responses in a JSON format that includes:
+Claude returns a Messages API response. The assistant text is extracted from the first `text` content block and parsed as JSON:
 
 ```json
 {
-  "id": "chatcmpl-123",
-  "object": "chat.completion",
-  "created": 1677652288,
-  "model": "gpt-4",
-  "choices": [
+  "id": "msg_123",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-haiku-4-5-20251001",
+  "content": [
     {
-      "index": 0,
-      "message": {
-        "role": "assistant",
-        "content": "This is the AI's response text"
-      },
-      "finish_reason": "stop"
+      "type": "text",
+      "text": "{\"text\":\"This is the AI's response text\"}"
     }
   ],
+  "stop_reason": "end_turn",
   "usage": {
-    "prompt_tokens": 9,
-    "completion_tokens": 12,
-    "total_tokens": 21
+    "input_tokens": 9,
+    "output_tokens": 12
   }
 }
 ```
@@ -77,14 +73,14 @@ The OpenAI API returns responses in a JSON format that includes:
 
 Our application processes these responses in several steps:
 
-1. **Extraction**: The content from the assistant's message is extracted from the JSON response
+1. **Extraction**: The content from the assistant's text block is extracted and parsed as JSON
 2. **Formatting**: The content is formatted with Markdown for rich text display
 3. **Animation**: The formatted content is displayed with a typewriter effect for a terminal-like experience
 4. **Interactive Elements**: Special elements like "WATCH CASE STUDY" buttons are added based on metadata in the response
 
 ### Custom Response Format
 
-We've extended the standard OpenAI response format to include portfolio-specific metadata:
+We've extended the model output with portfolio-specific metadata:
 
 ```json
 {
@@ -119,8 +115,9 @@ This custom format allows the terminal to:
    cp .env.example .env.local
    ```
    - Add your environment variables:
-     - `OPENAI_API_KEY`: Your OpenAI API key
+     - `ANTHROPIC_API_KEY`: Your Anthropic API key
      - `SESSION_SECRET`: A secure string for Iron Session (min 32 chars)
+     - `ENABLE_AI`: Set to `true` to enable Claude-powered responses
 
 4. **Start the development server**
    ```bash
@@ -139,7 +136,8 @@ This project is optimized for deployment on Vercel:
 
 2. **Environment Variables**
    - Add the required environment variables in Vercel's project settings
-   - Ensure all environment variables from `.env.example` are set
+   - Ensure all environment variables from `.env.example` are set (`ANTHROPIC_API_KEY`, `SESSION_SECRET`, `ENABLE_AI`)
+   - Remove `OPENAI_API_KEY` once the Claude switch is verified
 
 3. **Deploy**
    - Vercel will automatically deploy your site
@@ -155,7 +153,7 @@ This project is optimized for deployment on Vercel:
 ## Key Features
 
 - Terminal-style interface with command history
-- Natural language processing with GPT-4
+- Natural language processing with Claude Haiku
 - Markdown rendering for rich text responses
 - Session-based query tracking
 - Responsive design with Tokyo Night-inspired theme

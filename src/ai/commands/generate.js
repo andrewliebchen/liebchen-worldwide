@@ -1,4 +1,4 @@
-import { shouldEnforceQueryLimits } from '@/src/ai/config/openai';
+import { shouldEnforceQueryLimits } from '@/src/ai/config/claude';
 import { getContactInfoMarkdown, STATIC_CONTEXT } from '@/src/ai/context';
 import { SYSTEM_PROMPT } from '@/src/ai/config/SYSTEM_PROMPT';
 
@@ -74,4 +74,4 @@ export const generateResponse = async (query, currentContext = {}, queryCount = 
       content: 'Sorry, I couldn\'t process that. Type `help` for available commands.'
     };
   }
-}; 
+};

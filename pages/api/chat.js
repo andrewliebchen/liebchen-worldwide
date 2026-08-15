@@ -1,6 +1,6 @@
-import OpenAI from 'openai';
+import Anthropic, { RateLimitError } from '@anthropic-ai/sdk';
 import { withIronSessionApiRoute } from 'iron-session/next';
-import { OPENAI_CONFIG, SESSION_CONFIG, isAIEnabled, shouldEnforceQueryLimits, CONTACT_INFO } from '../../src/ai/config/openai';
+import { CLAUDE_CONFIG, CHAT_RESPONSE_SCHEMA, SESSION_CONFIG, isAIEnabled, shouldEnforceQueryLimits, CONTACT_INFO } from '../../src/ai/config/claude';
 import { track } from '@vercel/analytics/server';
 
 // Wrap track in a safe function that won't throw
@@ -17,8 +17,8 @@ const safeTrack = async (eventName, properties) => {
   }
 };
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 const MAINTENANCE_MODE_RESPONSES = [
@@ -36,6 +36,11 @@ const getMaintenanceResponse = () => {
               `→ Learn about my experience with **about**\n` +
               `→ Connect on LinkedIn: [${CONTACT_INFO.LINKEDIN_LINK}](${CONTACT_INFO.LINKEDIN_LINK})`
   };
+};
+
+const getTextBlock = (completion) => {
+  const textBlock = completion.content?.find((block) => block.type === 'text');
+  return textBlock?.text;
 };
 
 async function chatRoute(req, res) {
@@ -85,56 +90,53 @@ async function chatRoute(req, res) {
         message: 'You\'ve reached the query limit. Your session will reset in 6 hours.'
       });
     }
-    
-    // Prepare messages array
-    const messages = [
-      { role: 'system', content: systemPrompt },
-      { role: 'system', content: staticContext }
-    ];
+
+    const systemParts = [systemPrompt, staticContext];
 
     if (context?.inCaseStudy && context?.currentCaseStudy) {
-      messages.push({
-        role: 'system',
-        content: `Current context: User is viewing the ${context.currentCaseStudy} case study.`
-      });
+      systemParts.push(`Current context: User is viewing the ${context.currentCaseStudy} case study.`);
     }
 
-    messages.push({ role: 'user', content: query });
-
-    console.log('API: Making OpenAI request');
-    // Make OpenAI API call
-    const completion = await openai.chat.completions.create({
-      messages,
-      ...OPENAI_CONFIG,
-      response_format: { type: "json_object" }
+    console.log('API: Making Claude request');
+    const completion = await anthropic.messages.create({
+      ...CLAUDE_CONFIG,
+      system: systemParts.join('\n\n'),
+      messages: [{ role: 'user', content: query }],
+      output_config: {
+        format: {
+          type: 'json_schema',
+          schema: CHAT_RESPONSE_SCHEMA
+        }
+      }
     });
 
-    if (!completion.choices?.[0]?.message?.content) {
-      console.log('API: Invalid OpenAI response');
-      throw new Error('Invalid response from OpenAI');
+    const rawContent = getTextBlock(completion);
+    if (!rawContent) {
+      console.log('API: Invalid Claude response');
+      throw new Error('Invalid response from Claude');
     }
 
     // Log the raw response for debugging
-    console.log('API: Raw OpenAI response:', completion.choices[0].message.content);
+    console.log('API: Raw Claude response:', rawContent);
 
     let response;
     try {
-      response = JSON.parse(completion.choices[0].message.content);
+      response = JSON.parse(rawContent);
     } catch (error) {
       console.error('API: Failed to parse JSON response:', error);
-      console.error('API: Raw response that failed to parse:', completion.choices[0].message.content);
-      throw new Error('Invalid JSON response from OpenAI');
+      console.error('API: Raw response that failed to parse:', rawContent);
+      throw new Error('Invalid JSON response from Claude');
     }
 
     // Validate response structure
     if (!response.text || typeof response.text !== 'string') {
       console.error('API: Invalid response structure - missing or invalid text field');
-      throw new Error('Invalid response structure from OpenAI');
+      throw new Error('Invalid response structure from Claude');
     }
 
     if (response.caseStudy && typeof response.caseStudy !== 'string') {
       console.error('API: Invalid response structure - caseStudy must be a string');
-      throw new Error('Invalid response structure from OpenAI');
+      throw new Error('Invalid response structure from Claude');
     }
     
     // Track the AI interaction with safe tracking
@@ -166,10 +168,10 @@ async function chatRoute(req, res) {
       sessionId: req.session.id
     });
     
-    if (error.response?.status === 429) {
+    if (error.status === 429 || error instanceof RateLimitError) {
       return res.status(429).json({
         error: 'Rate Limit',
-        message: 'OpenAI rate limit reached. Please try again later.'
+        message: 'Claude rate limit reached. Please try again later.'
       });
     }
 
@@ -183,4 +185,4 @@ async function chatRoute(req, res) {
 }
 
 // Export the route with iron-session wrapper
-export default withIronSessionApiRoute(chatRoute, SESSION_CONFIG); 
+export default withIronSessionApiRoute(chatRoute, SESSION_CONFIG);

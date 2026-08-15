@@ -4,7 +4,7 @@ import {
   CASE_STUDIES, 
   CASE_STUDY_MAPPING 
 } from '@/src/ai/context';
-import { generateResponse } from './openai';
+import { generateResponse } from './generate';
 import { track } from '@vercel/analytics';
 
 // Safe analytics tracking that works in both client and server

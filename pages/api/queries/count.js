@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from 'iron-session/next';
-import { SESSION_CONFIG, isAIEnabled } from '../../../src/ai/config/openai';
+import { SESSION_CONFIG, isAIEnabled } from '../../../src/ai/config/claude';
 
 async function countRoute(req, res) {
   console.log('API Count: Starting count route');

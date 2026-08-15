@@ -1,10 +1,31 @@
-// OpenAI API configuration
-export const OPENAI_CONFIG = {
-  model: 'gpt-4o-mini',  // CRITICAL: DON'T CHANGE THIS, or you'll be fired
+// Claude API configuration
+export const CLAUDE_CONFIG = {
+  model: 'claude-haiku-4-5-20251001',  // CRITICAL: DON'T CHANGE THIS, or you'll be fired
   temperature: 0.4,      // Lower temperature for more focused, consistent responses
   max_tokens: 1000,      // Increased to allow for complete responses with dynamic commands
-  presence_penalty: 0.1, // Slight penalty to avoid repetition
-  frequency_penalty: 0.1 // Slight penalty to encourage varied language
+};
+
+export const CHAT_RESPONSE_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  required: ["text"],
+  properties: {
+    text: { type: "string" },
+    caseStudy: { type: "string" },
+    dynamicCommands: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["label", "command"],
+        properties: {
+          label: { type: "string" },
+          command: { type: "string" },
+          hotkey: { type: "string" }
+        }
+      }
+    }
+  }
 };
 
 // Check if we're in development mode
@@ -14,7 +35,7 @@ export const isDevelopment = () => {
 
 // Check if AI functionality is enabled
 export const isAIEnabled = () => {
-  return process.env.ENABLE_AI === 'true' && !!process.env.OPENAI_API_KEY;
+  return process.env.ENABLE_AI === 'true' && !!process.env.ANTHROPIC_API_KEY;
 };
 
 // Check if query limits should be enforced
@@ -70,4 +91,4 @@ export const SESSION_CONFIG = {
     maxAge: 6 * 60 * 60,
     path: "/"
   }
-}; 
+};

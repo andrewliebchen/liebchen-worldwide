@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.117.1",
     "@emotion/react": "^11.11.1",
     "@material-design-icons/svg": "^0.14.15",
     "@react-spring/web": "^9.7.5",
@@ -10,7 +11,6 @@
     "iron-session": "^6.3.1",
     "lineicons-react": "^2.0.0",
     "next": "14.2.35",
-    "openai": "^4.78.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.3",

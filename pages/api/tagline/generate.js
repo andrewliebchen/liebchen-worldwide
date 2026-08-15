@@ -1,8 +1,11 @@
-import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
+import { CLAUDE_CONFIG } from '../../../src/ai/config/claude';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
 });
+
+const TAGLINE_SYSTEM_PROMPT = "You are a creative tagline generator. Create a very short, punchy tagline that starts with 'Liebchen.world is' followed by 3-5 words maximum that capture the essence of the given text. Keep it under 40 characters total. Add a touch of humor or wit. The tagline should be engaging and memorable. Do not use ellipsis, quotes, periods, or add any additional text. Never end the tagline with a period. Use lowercase only. Use emojis only to maximize impact or irony";
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -12,24 +15,23 @@ export default async function handler(req, res) {
   try {
     const { content } = req.body;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+    const completion = await anthropic.messages.create({
+      model: CLAUDE_CONFIG.model,
+      max_tokens: 20,
+      temperature: 0.7,
+      system: TAGLINE_SYSTEM_PROMPT,
       messages: [
-        {
-          role: "system",
-          content: "You are a creative tagline generator. Create a very short, punchy tagline that starts with 'Liebchen.world is' followed by 3-5 words maximum that capture the essence of the given text. Keep it under 40 characters total. Add a touch of humor or wit. The tagline should be engaging and memorable. Do not use ellipsis, quotes, periods, or add any additional text. Never end the tagline with a period. Use lowercase only. Use emojis only to maximize impact or irony"
-        },
         {
           role: "user",
           content: content
         }
-      ],
-      temperature: 0.7,
-      max_tokens: 20,
+      ]
     });
 
+    const rawText = completion.content.find((block) => block.type === 'text')?.text || '';
+
     // Remove any quotes, periods, convert to lowercase, and ensure it starts with "liebchen.world is"
-    let tagline = completion.choices[0].message.content.trim()
+    let tagline = rawText.trim()
       .replace(/["']/g, '')
       .replace(/\.$/, '');
     
@@ -47,4 +49,4 @@ export default async function handler(req, res) {
     console.error('Error generating tagline:', error);
     res.status(500).json({ error: 'Failed to generate tagline' });
   }
-} 
+}
